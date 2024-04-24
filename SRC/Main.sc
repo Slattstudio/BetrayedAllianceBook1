@@ -62,7 +62,7 @@
 	gLuk =  15
 	gDef =  15
 	gInt =  15
-	gHlth =  30 ; 30 is start
+	gHlth =  666 ; 30 is start
 	gMaxHlth =  30
 	gExp =  60
 ; Collectables
