@@ -58,11 +58,11 @@
 ; + Player Character Stats +
 	[gName 15] ; Once the name is determined by the player it can be used in texts using %s
 	gAg =  15
-	gStr =  150
+	gStr =  15
 	gLuk =  15
 	gDef =  15
 	gInt =  15
-	gHlth =  666 ; 30 is start
+	gHlth =  30 ; 30 is start
 	gMaxHlth =  30
 	gExp =  60
 ; Collectables
