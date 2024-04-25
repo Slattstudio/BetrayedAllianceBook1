@@ -1,2 +1,4 @@
 *.bak
 BASG.*
+stdout.txt
+stdin.txt
