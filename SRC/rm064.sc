@@ -174,7 +174,7 @@
 				)
 			)
 		)
-		(if (Said 'read/letter,note,paper')
+		(if (Said 'read/letter,note,paper,notice')
 			(if (<= (gEgo distanceTo: note) 80)
 				(getKiteScript changeState: 1)
 			else
