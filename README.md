@@ -14,4 +14,7 @@ Book 1 is the first installment of a planned trilogy of games, each expanding on
 
 **We hope this small labor of love can bring a little nostalgic joy to you.**
 * Please visit our main website at https://rjslattery.com/betrayed-alliance/ for latest news and updates!
-* We also have a [Discord Server](https://discord.gg/Rh62gD2uUG "Discord Server") available for discussion and to report bugs!
+* We also have a [Discord Server](https://discord.gg/Rh62gD2uUG "Discord Server") available for discussion and to report bugs.
+
+## Thanks for playing:
+* This game is brought to you by [Slattstudio](https://rjslattery.com Slattstudio") - Devoted to bringing you Freeware so good you'd pay to buy it!
