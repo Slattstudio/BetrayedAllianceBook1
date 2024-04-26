@@ -12,11 +12,12 @@ Book 1 is the first installment of a planned trilogy of games, each expanding on
 **Betrayed Alliance: Book 1 is free to download and play on Windows and GNU/Linux.**
 * Visit our [Releases page](https://github.com/Slattstudio/BetrayedAllianceBook1/releases "Releases page") for the latest download.
 
+## Links:
 **We hope this small labor of love can bring a little nostalgic joy to you.**
 * Please visit our main website at https://rjslattery.com/betrayed-alliance/ for latest news and updates!
 * We have a [Discord Server](https://discord.gg/Rh62gD2uUG "Discord Server") available for discussion and to report bugs.
 
-## Support Us:
+## Help Support Us:
 **Although the game is available completely free of charge, there are other ways you can help support us if you love the game!**
 
 * You can shop for Betrayed Alliance merchandise at https://slattstudio-shop.fourthwall.com/ for awesome shirts, hoodies, hats, and stickers.
