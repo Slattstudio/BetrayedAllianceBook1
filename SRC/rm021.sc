@@ -87,7 +87,11 @@
 			(if (Said '/skull, well') (PrintOther 21 22))
 			(if (Said '[/!*]')
 				; this will handle just "look" by itself
-				(PrintOther 21 20)
+				(if g63PuzSol ; door open
+					(PrintOther 21 26)	
+				else
+					(PrintOther 21 20)
+				)
 				(PrintOther 21 25)
 			)
 		)

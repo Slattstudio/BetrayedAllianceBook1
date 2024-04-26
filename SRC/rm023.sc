@@ -783,7 +783,7 @@
 		textRes
 		textResIndex
 		#title
-		{She Says:}
+		{She says:}
 		#width
 		280
 		#at
