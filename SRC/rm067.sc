@@ -520,6 +520,17 @@
 				(if (Said '/floor,ground') (PrintOther 67 9))
 				(if (Said '/wall,gears') (PrintOther 67 22))
 				(if (Said '/plate,trap') (PrintOther 67 18))
+				(if (Said '/pit,hole,chasm') (PrintOther 67 31))
+				(if (Said '/path') 
+					(PrintOther 67 34)
+				)
+				(if (Said '/ladder') 
+					(if g67TableMoved
+						(PrintOther 67 33)
+					else
+						(PrintOther 67 32)	
+					)
+				)
 				(if (Said '[/!*]') (PrintOther 67 10))
 				; this will handle just "look" by itself
 			else

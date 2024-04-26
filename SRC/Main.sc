@@ -696,6 +696,7 @@
 		)
 		
 		(if (Said 'look/*') (Print 0 74))
+		(if (Said 'search/*') (Print 0 114))
 		(return FALSE)
 	)
 	
