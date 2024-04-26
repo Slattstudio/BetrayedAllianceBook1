@@ -9,7 +9,7 @@ This Sierra-style SCI0 adventure game is developed by Ryan Slattery (a.k.a. Slat
 Book 1 is the first installment of a planned trilogy of games, each expanding on the world, characters, and story.
 
 ## Downloads:
-**Betrayed Alliance: Book 1 is free to download and play on Windows and GUI/Linux!**
+**Betrayed Alliance: Book 1 is free to download and play on Windows and GNU/Linux!**
 * Visit our [Releases page](http://https://github.com/Slattstudio/BetrayedAllianceBook1/releases "Releases page") for the latest download!
 
 **We hope this small labor of love can bring a little nostalgic joy to you!**
