@@ -66,9 +66,7 @@
 		)
 		(self setScript: RoomScript setRegions: 204)
 		(switch gPreviousRoomNumber
-			(else 
-				(gEgo posn: 262 135 loop: 1)
-			)
+			
 			(25
 				(gEgo posn: 262 135 loop: 1)
 				(gTheMusic number: 58 loop: -1 play:)
@@ -106,6 +104,9 @@
 					(gEgo ignoreControl: ctlBROWN posn: 150 145)
 					(gTheMusic number: 58 loop: -1 play:)
 				)
+			)
+			(else 
+				(gEgo posn: 262 135 loop: 1)
 			)
 		)
 		(alterEgo init: hide: ignoreActors: setScript: noLeaving)
@@ -687,6 +688,7 @@
 				(ProgramControl)
 				(SetCursor 997 1)
 				(= gCurrentCursor 997)
+				(self cycles: 0)
 				(gEgo
 					setMotion: MoveTo 153 115 self
 					ignoreControl: ctlWHITE
