@@ -494,7 +494,7 @@
 		textRes
 		textResIndex
 		#title
-		{Man:}
+		{Man says:}
 		#width
 		280
 		#at

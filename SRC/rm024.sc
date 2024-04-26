@@ -536,7 +536,7 @@
 		textRes
 		textResIndex
 		#title
-		{Bobby Says:}
+		{He says:}
 		#width
 		280
 		#at

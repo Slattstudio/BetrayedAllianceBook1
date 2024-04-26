@@ -838,7 +838,7 @@
 		-1
 		20
 		#title
-		{Rose:}
+		{She says:}
 	)
 	(= gWndColor 0) ; clBLACK
 	(= gWndBack 15)
