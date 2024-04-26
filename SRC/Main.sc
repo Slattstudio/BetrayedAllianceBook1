@@ -522,20 +522,16 @@
 		)
 		(DisposeScript DISPOSELOAD_SCRIPT)
 		(if gDebugOnExit (= gDebugOnExit FALSE) (SetDebug))
-		
 		(gTheSoundFX stop: number: 1)
 		(super startRoom: roomNum)
 		(if (== gTheSoundFX 11) (gEgo baseSetter: NormalBase))
-		(super startRoom: roomNum)
+		
 	)
 	
 	(method (changeScore addScore)
 		(= gScore (+ gScore addScore))
 	)
 	
-; (if(> addScore 0)
-; 			(scoreSound:playMaybe())
-; 		)
 	(method (handleEvent pEvent &tmp i)
 		; troflip debugging addition, For use in combination with the ALT key
 		(if (== evKEYBOARD (pEvent type?))
