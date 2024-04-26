@@ -469,7 +469,7 @@
 	(method (replay)
 		(TheMenuBar draw:)
 		(SL enable:)
-; (if(DoSound(sndSET_SOUND))
+		; (if(DoSound(sndSET_SOUND))
 ; 		    SetMenu(MENU_TOGGLESOUND #text "Turn Off")
 ; 		)(else
 ; 		    SetMenu(MENU_TOGGLESOUND #text "Turn On")
