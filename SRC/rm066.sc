@@ -94,6 +94,11 @@
 				(gEgo setMotion: MoveTo 156 129 self ignoreControl: ctlWHITE)	
 			)
 			(4 
+				(if gDisguised
+					(PrintOther 0 84)
+					(= gDisguised 0)
+					(RunningCheck)
+				)
 				(gEgo loop: 3 hide:)
 				(alterEgo show: posn: (gEgo x?)(gEgo y?) view: 236 loop: 0 cel: 0 setCycle: End self cycleSpeed: 2)
 			)
