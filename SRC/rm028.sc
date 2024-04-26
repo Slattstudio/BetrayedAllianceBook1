@@ -566,6 +566,11 @@
 		(if (Said 'give,use/ring')
 			(if (gEgo has: 18) (Print 28 94) else (PrintDHI))
 		)
+		(if (not [gArmor 2]) ; you don't have the armor
+			(if (Said 'look/armor')
+				(PrintOther 28 161)
+			)
+		)			
 		(if (Said 'look,search>')
 			(if (Said '/flower')
 				(if [gFlowerGiven 2]
@@ -593,7 +598,7 @@
 				)
 			)
 			(if (Said '/tavern,building,house') (PrintOther 28 86)) ; #width 270 #at -1 14) // This cozy hut looks like it's been here for a long time. And so does its owner.
-			(if (Said '/barrel') (PrintOther 28 27)) ; #width 270 #at -1 14)
+			(if (Said '/barrel') (PrintOther 28 27))
 			(if (Said '[/!*]') (PrintOther 28 85))
 			; this will handle just "look" by itself ; #width 280 #at -1 8)
 		)
