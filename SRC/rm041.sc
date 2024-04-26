@@ -207,16 +207,12 @@
 				)
 			)
 		)                                 ; There is something written on that stone, but you can't make it out from there.
-		; (if((Said('use,pry,force/(grave[<open]),shovel,slab,sarcophagus'))or(Said('remove/lid/shovel'))or(Said('open/(coffin,grave)/shovel')))
-		; (if(Said('use,pry,force/(grave[<open]),shovel,slab,sarcophagus'))
-		; (if(Said('(pry<open),(force<open),use/sword'))
 		(if
 			(or
-				(Said
-					'[pry,force<open]/grave,coffin,slab,gravestone/shovel'
-				)
+				(Said '[pry,force<open]/grave,coffin,slab,gravestone,lid/shovel')
 				(Said 'use/shovel/grave,coffin,slab,gravestone')
 				(Said 'open/(coffin,grave,slab,gravestone)/shovel')
+				(Said 'pry<off/lid,slab/shovel')
 			)
 			(if (& (gEgo onControl:) ctlMAROON)
 				; (if(atTop)
