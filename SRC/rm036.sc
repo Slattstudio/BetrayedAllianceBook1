@@ -40,6 +40,9 @@
 		)
 		(SetUpEgo)
 		(gEgo init:)
+		(= gEgoRunning 0)
+		(RunningCheck)
+		
 		(rocks init: setPri: -1 setScript: rockfallScript)
 		(mobileRocks
 			init:
@@ -119,6 +122,7 @@
 				)
 			)
 		)
+		(if (Said 'run') (Print 0 88))
 		(if (Said 'smell[/!*]')
 			(if (gEgo has: INV_MEAT)
 				(PrintOther 31 40)		

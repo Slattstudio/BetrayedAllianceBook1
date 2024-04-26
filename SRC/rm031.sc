@@ -31,6 +31,7 @@
 	trollDead =  0
 	guess =  0
 	guessAgain
+	coinShining = 0
 )              ; used as a variable if the player clicks thru the dialog without an answer
 ; snd
 
@@ -417,7 +418,11 @@
 					; picking up the coin
 					(PrintOK)
 					(coinShine cycles: 0)
-					(coinShine changeState: 3)
+					(if coinShining
+						(coinShine changeState: 9)	
+					else
+						(coinShine changeState: 3)
+					)
 				else
 					(PrintNCE)
 				)
@@ -681,8 +686,11 @@
 		(switch state
 			(0
 				(coin setCycle: End self cycleSpeed: 2)
+				(= coinShining 1)
 			)
-			(1 (= cycles (Random 40 100)))
+			(1 (= cycles (Random 40 100))
+				(= coinShining 0)	
+			)
 			(2 (self changeState: 0))
 			(3      ; move to coin
 				(ProgramControl)
@@ -729,6 +737,16 @@
 				(PlayerControl)
 				(SetCursor 999 1)
 				(= gCurrentCursor 999)
+			)
+			(9	(= cycles 70); waiting for coin to finish shining
+				(ProgramControl)
+				(SetCursor 997 1)
+				(= gCurrentCursor 997)
+				(= coinShining 0)		
+			)
+			(10
+				(self cycles: 0)
+				(self changeState: 3)	
 			)
 		)
 	)
