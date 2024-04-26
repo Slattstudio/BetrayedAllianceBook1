@@ -289,7 +289,7 @@
 				(else (PrintOther 57 17))
 			)
 		)
-		(if (or (Said 'use,fly/glider') (Said 'fly'))
+		(if (or (Said 'use,fly/glider') (Said 'fly[/!*]'))
 			(if (gEgo has: 25)
 				(PrintOK)
 				(hangGlideScript changeState: 1)
@@ -300,18 +300,6 @@
 	)
 )
 
-; (if(Said('fly'))
-;            (if(send gEgo:has(INV_KITE)) // 4
-;                (if(send gEgo:has(INV_METAL_BAR)) // 3
-;                    Print("With the help of the twine in your STUPID kit, you secure your metal bar to the kite and get into position for take off.")
-;                    (hangGlideScript:changeState(1))
-;                )(else
-;                    Print("You're kite is strong enough to carry you, but you need a handle of some kind to hold on to.")
-;                )
-;            )(else
-;                Print("How do you intend to do that?")
-;            )
-;        )
 (instance hangGlideScript of Script
 	(properties)
 	
