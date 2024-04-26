@@ -21,7 +21,7 @@ Book 1 is the first installment of a planned trilogy of games, each expanding on
 **Although the game is available completely free of charge, there are other ways you can help support us if you love the game!**
 
 * You can shop for Betrayed Alliance merchandise at https://slattstudio-shop.fourthwall.com/ for awesome shirts, hoodies, hats, and stickers.
-* We have a paperback Manual that features colored pages, complete with a hint guide for those who want a gentle push in the right direction, but also a walkthrough if you happen to get stuck. Availible on [Amazon.com](https://www.amazon.com/Betrayed-Alliance-Book-1-Manual/dp/B0CWT6QVJQ "Amazon.com")
+* We have a paperback Manual that features colored pages, complete with a hint guide for those who want a gentle push in the right direction, but also a walkthrough if you happen to get stuck. Available on [Amazon.com](https://www.amazon.com/Betrayed-Alliance-Book-1-Manual/dp/B0CWT6QVJQ "Amazon.com")
 
 ## Thanks for playing!
 * This game is brought to you by [Slattstudio](https://rjslattery.com/ "Slattstudio") - Devoted to bringing you Freeware so good you'd pay to buy it!
