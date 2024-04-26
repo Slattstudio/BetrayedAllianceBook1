@@ -522,11 +522,10 @@
 		)
 		(DisposeScript DISPOSELOAD_SCRIPT)
 		(if gDebugOnExit (= gDebugOnExit FALSE) (SetDebug))
-; (send gTheSoundFX:stop()number(1))
-; 		(super:startRoom(roomNum))                // THIS MIGHT BE IMPORTANT NOT TO REMOVE //
-; 		(if(== gTheSoundFX 11)
-; 		 	(send gEgo:baseSetter(NormalBase))
-; 		)
+		
+		(gTheSoundFX stop: number: 1)
+		(super startRoom: roomNum)
+		(if (== gTheSoundFX 11) (gEgo baseSetter: NormalBase))
 		(super startRoom: roomNum)
 	)
 	
