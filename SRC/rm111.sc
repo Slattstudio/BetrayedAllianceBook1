@@ -1237,10 +1237,10 @@
 		(= offsetX 9)
 		(= offsetY 11)
 		(if
-			(and
+			;(and
 				(== (pEvent type?) evMOUSEBUTTON)
-				(== (pEvent modifiers?) 512)
-			)                                                                          ; left-click, mouse down
+			;	(== (pEvent modifiers?) 512)
+			;)                                                                          ; left-click, mouse down
 			(= mouseDownX (+ offsetX (pEvent x?)))
 			(= mouseDownY (+ offsetY (pEvent y?)))
 			(= mouseDownTime (GetTime))
@@ -1262,10 +1262,10 @@
 			(return TRUE)
 		)
 		(if
-			(and
+			;(and
 				(== (pEvent type?) evMOUSERELEASE)
-				(== (pEvent modifiers?) 512)
-			)                                                                           ; left-click, mouse up
+			;	(== (pEvent modifiers?) 512)
+			;)                                                                           ; left-click, mouse up
 			(= mouseUpX (+ offsetX (pEvent x?)))
 			(= mouseUpY (+ offsetY (pEvent y?)))
 			(= mouseUpTime (GetTime))
