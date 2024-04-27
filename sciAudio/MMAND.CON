@@ -1,0 +1,7 @@
+(sciAudio
+   command stop
+   fileName "music\
+osurvivors.mp3"
+   fadeOutMillisecs 4000
+   loopCount 0
+)
