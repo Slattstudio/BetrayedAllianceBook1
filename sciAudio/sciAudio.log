@@ -1,9 +1,0 @@
-sciAudio by Jeremiah Nellis
-  v.1.0 - Created Aug 17th 2012.
-  v.1.1 - Updated Mar 11th 2015.
-  v.1.2 - Updated Jul 1st 2020.
-  v.1.2.1 - Updated Jul 11th 2020.
-Monitoring all *.con files in C:\Users\denni\OneDrive\Desktop\git\BetrayedAllianceBook1\sciAudio\
-Reading INI file: C:\Users\denni\OneDrive\Desktop\git\BetrayedAllianceBook1\sciAudio\sciAudio.ini
-Monitoring application: DOSBox. sciAudio application will run until DOSBox exits.
-Monitored application not found running, or the 'exit' command was issued.  Exiting application.
