@@ -1049,6 +1049,7 @@
 	(method (init)
 		(super init:)
 		(self setScript: dartScript)
+		(= gArcStl 1)
 	)
 )
 
