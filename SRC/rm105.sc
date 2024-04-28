@@ -51,6 +51,7 @@
 	(method (init)
 		(super init:)
 		(self setScript: RoomScript)
+		(= gArcStl 1)	; Adding this to remove text input if we're playing chess
 		(switch gPreviousRoomNumber
 			(else 
 				(gEgo posn: 150 130 loop: 1)
