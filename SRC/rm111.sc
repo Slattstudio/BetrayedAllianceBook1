@@ -1049,7 +1049,7 @@
 	(method (init)
 		(super init:)
 		(self setScript: dartScript)
-		(= gArcStl 1)
+		(= gArcStl 1)	; Adding this to remove text input if we're playing darts
 	)
 )
 
