@@ -14,7 +14,7 @@
 (use dpath)
 
 (public
-	rm001 0
+	rm111 0
 )
 
 (local
@@ -24,7 +24,6 @@
 
 
 
-	; (use "sciAudio")
 	wager =  0
 	snd
 	;[xCoord 20] = [180 207 153 226 126 245 101 66 81 238 58 97 237 61 224 77 178 203 123 151]
@@ -107,8 +106,8 @@
 	roundThrowCount ; 1 through 6 (overall round count, used for resetting the board & removing all the darts)
 	computerSkill   ; 0 = Pro, 1 = Avg, 2 = Bad
 	missPixels      ; number of pixels to add/subtract from the target based on skill level
-	dartSound =  0      ; corresponding number of the sound resource for the dart sound (unused if using sciAudio)
-	; useSciAudio = TRUE  // sciAudio = TRUE to use sciAudio sounds, otherwise use sci driver (MTBLAST or SNDBLAST for dart sound effect)
+	dartSound =  0      ; corresponding number of the sound resource for the dart sound
+	
 	[playerScoreboard 50]
 	[computerFgscoreboard 50]
 	[playerPointsDisp 10]
@@ -124,7 +123,7 @@
 	scoreDisplayed =  0
 )
 
-(instance rm001 of Rm
+(instance rm111 of Rm
 	(properties
 		picture scriptNumber
 		; Set up the rooms to go to/come from here
@@ -138,6 +137,7 @@
 		; same in every script, starts things up
 		(super init:)
 		(self setScript: RoomScript)
+		(= gArcStl 1)
 		
 		(Scoreboard addToPic:)
 		
@@ -206,7 +206,7 @@
 				)
 				(= wager (GetNumber @buffer)) ; 111 7 //"How much gold would you like to bet (between 1-20)?"
 				; #title "The Wager"
-				(if (== wager 0) (Print 111 8) (gRoom newRoom: 44))
+				(if (== wager 0) (Print 111 8) (= gArcStl 0) (gRoom newRoom: 44))
 				(cond 
 					((> wager gGold) (Print 111 9) (RoomScript changeState: 0))
 					((> wager 20) (Print 111 10) (RoomScript changeState: 0))
@@ -454,16 +454,18 @@
 				(switch mbResult
 					(1
 						(if (not (> gDartsWon 2))
-							(rm001 init:)
+							(rm111 init:)
 							(= scoreDisplayed 0)
 							(return TRUE)
 						else
 							(Print 111 14 #title {Sailor says:})
+							(= gArcStl 0)
 							(gRoom newRoom: 44)
 							(return TRUE)
 						)
 					)
 					(2
+						(= gArcStl 0)
 						(gRoom newRoom: 44)
 						(return TRUE)
 					)
@@ -883,22 +885,7 @@
 					)
 				)
 			)
-; (if (useSciAudio)
-; 			  (send snd:
-; 	               command("play")
-; 	               fileName("effects\\dart.sciAudio")
-; 	               volume("100")
-; 	               loopCount("0")
-; 	               init()
-; 	          )
-; 		    )(else
-; 	 		  (send gTheSoundFX:
-; 					prevSignal(0)
-; 					stop()
-; 					number(dartSound)
-; 					play()
-; 			  )
-; 		    )
+
 			(ThrowDart Compute:)
 			(ThrowDart updateDisplay:)
 		)  ; end computer throwing
@@ -930,6 +917,8 @@
 				(< (pEvent x?) (Exit nsRight?))
 				(> (pEvent y?) (Exit nsTop?))
 				(< (pEvent y?) (Exit nsBottom?))
+				(== (pEvent type?) evMOUSEBUTTON)
+				
 			)
 			(= button
 				(Print
@@ -948,6 +937,7 @@
 			)
 			(switch button
 				(0
+					(= gArcStl 0)
 					(gRoom newRoom: gPreviousRoomNumber)
 				)
 				(2
@@ -982,10 +972,6 @@
 		y 78
 		priority 15
 	)
-)
-
-(instance ThrownDart of Prop
-	(properties)
 )
 
 (instance Exit of Prop
@@ -1049,7 +1035,6 @@
 	(method (init)
 		(super init:)
 		(self setScript: dartScript)
-		(= gArcStl 1)	; Adding this to remove text input if we're playing darts
 	)
 )
 
@@ -1064,13 +1049,6 @@
 	)
 )
 
-; sciAudio
-; (instance aud of sciAudio
-;   (properties)
-;   (method (init)
-;      (super:init())
-;   )
-; )
 (class ThrowDart
 	(properties
 		mouseDownX -1
@@ -1238,10 +1216,11 @@
 		(= offsetX 9)
 		(= offsetY 11)
 		(if
-			;(and
+			(and
 				(== (pEvent type?) evMOUSEBUTTON)
-			;	(== (pEvent modifiers?) 512)
-			;)                                                                          ; left-click, mouse down
+				(== currentThrower 0)
+				;(== (pEvent modifiers?) 512)
+			)                                                                          ; left-click, mouse down
 			(= mouseDownX (+ offsetX (pEvent x?)))
 			(= mouseDownY (+ offsetY (pEvent y?)))
 			(= mouseDownTime (GetTime))
@@ -1263,10 +1242,11 @@
 			(return TRUE)
 		)
 		(if
-			;(and
+			(and
 				(== (pEvent type?) evMOUSERELEASE)
-			;	(== (pEvent modifiers?) 512)
-			;)                                                                           ; left-click, mouse up
+				(== currentThrower 0)
+				;(== (pEvent modifiers?) 512)
+			)                                                                           ; left-click, mouse up
 			(= mouseUpX (+ offsetX (pEvent x?)))
 			(= mouseUpY (+ offsetY (pEvent y?)))
 			(= mouseUpTime (GetTime))
@@ -1277,6 +1257,7 @@
 					(- mouseUpTime mouseDownTime)
 				)
 			)
+			
 			; switch to the dartless hand
 			(DartHand view: 584)
 			; quitely do nothing if the throw is too wimpy
@@ -1292,22 +1273,6 @@
 				(pEvent claimed: TRUE)
 				(return FALSE)
 			)
-; (if (useSciAudio)
-; 			  (send snd:
-; 	               command("play")
-; 	               fileName("effects\\dart.sciAudio")
-; 	               volume("100")
-; 	               loopCount("0")
-; 	               init()
-; 	          )
-; 		  )(else
-; 	 		  (send gTheSoundFX:
-; 					prevSignal(0)
-; 					stop()
-; 					number(dartSound)
-; 					play()
-; 			  )
-; 		  )
 			(if (< 10 velocity) (= velocity 10))
 			(= hitX (+ (* accuracy -2) mouseUpX))
 			; this works for both throwing 'up' & 'down' the screen

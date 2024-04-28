@@ -100,7 +100,10 @@
 				(Print 105 23)
 			)
 ; Checkmate!
-			(6 (gRoom newRoom: 44))
+			(6
+				(= gArcStl 0)
+				(gRoom newRoom: 44)
+			)
 		)
 	)
 	
@@ -114,7 +117,7 @@
 					(> (pEvent y?) (Exit nsTop?))
 					(< (pEvent y?) (Exit nsBottom?))
 				)
-				(if (not winning) (gRoom newRoom: 44))
+				(if (not winning) (= gArcStl 0) (gRoom newRoom: 44))
 			)
 			(cond 
 				(choose
@@ -534,6 +537,7 @@
 				(= g105Solved 1)
 				(= gInt (+ gInt 2))
 				(gGame changeScore: 2)
+				(= gArcStl 0)
 				(gRoom newRoom: 44)
 			)
 		)
@@ -639,6 +643,7 @@
 	else
 		(= g105Solved -2)
 		(Print 105 4 #title "Old man says" #at -1 140)
+		(= gArcStl 0)
 		(gRoom newRoom: 44)
 	)	
 )

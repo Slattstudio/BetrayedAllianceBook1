@@ -38,7 +38,6 @@
 	(method (init)
 		(super init:)
 		(self setScript: RoomScript setRegions: 204)
-		(= gArcStl 0) 	; Adding this so we get input control back if we're playing darts
 		(SetUpEgo)
 		(= gEgoRunning 0)
 		(RunningCheck)
