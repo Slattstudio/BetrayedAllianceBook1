@@ -1218,8 +1218,8 @@
 		(if
 			(and
 				(== (pEvent type?) evMOUSEBUTTON)
-				(== currentThrower 0)
-				;(== (pEvent modifiers?) 512)
+				;(== currentThrower 0)
+				(not (& (pEvent modifiers?) emRIGHT_BUTTON))
 			)                                                                          ; left-click, mouse down
 			(= mouseDownX (+ offsetX (pEvent x?)))
 			(= mouseDownY (+ offsetY (pEvent y?)))
@@ -1244,8 +1244,8 @@
 		(if
 			(and
 				(== (pEvent type?) evMOUSERELEASE)
-				(== currentThrower 0)
-				;(== (pEvent modifiers?) 512)
+				;(== currentThrower 0)
+				(not (& (pEvent modifiers?) emRIGHT_BUTTON))
 			)                                                                           ; left-click, mouse up
 			(= mouseUpX (+ offsetX (pEvent x?)))
 			(= mouseUpY (+ offsetY (pEvent y?)))
