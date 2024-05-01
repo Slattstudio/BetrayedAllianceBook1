@@ -40,4 +40,4 @@ While care was taken not to change important features or puzzles in the game to 
 * You can shop for Betrayed Alliance merchandise at https://slattstudio-shop.fourthwall.com/ for awesome shirts, hoodies, hats, and stickers.
 * We have a paperback Manual that features colored pages, complete with a hint guide for those who want a gentle push in the right direction, but also a walkthrough if you happen to get stuck. Available on [Amazon.com](https://www.amazon.com/Betrayed-Alliance-Book-1-Manual/dp/B0CWT6QVJQ "Amazon.com").
 
-** Thanks for playing! Brought to you by Slattstudio. **
+**Thanks for playing! Brought to you by Slattstudio.**
