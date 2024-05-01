@@ -1,8 +1,8 @@
-# Release Notes:
+# v1.3.1 Release Notes:
 The time has come! Thanks to the Kickstarter backers and Patreon legends Book 1 of Betrayed Alliance has received a massive overhaul!
 
 ## Music and Sound:
-Before this new version (1.3.1), all the music and sound was done using a windows-based program that ran alongside the game and made use of mp3s.
+Before version 1.3.1 all the music and sound was done using a windows-based program that ran alongside the game and made use of mp3s.
 
 This caused many problems, not least of which was that any players emulating the game on Linux, Mac, or using era hardware had no sound! There were also many audio bugs and glitches that often made the experience less-than-optimal.
 
