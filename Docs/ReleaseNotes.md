@@ -13,7 +13,7 @@ Brandon Blume was at the helm for the music and sound overhaul and all the origi
 The 1.3.1 version currently supports the following sound drivers: Adlib, Soundblaster, and MT-32. Future updates will unlock further drivers and the goal is to ultimately support all sound drivers Sierra supported for their releases. To run the game with MT-32 sound you will need an MT-32 or a working emulator.
 
 ## Artwork:
-Fifth of the fifty-six backgrounds were updated and, in most cases, completely redone from the ground up!
+Fifty of the fifty-six backgrounds were updated and, in most cases, completely redone from the ground up!
 
 Most of these updates were completed by Karl Dupéré-Richer with a handful done by Ryan Slattery.
 
