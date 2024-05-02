@@ -1,0 +1,5 @@
+*.bak
+BASG.*
+stderr.txt
+stdout.txt
+error.log
