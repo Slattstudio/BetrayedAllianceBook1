@@ -1,4 +1,4 @@
-*.sc linguist-language=SierraCompanionInterpreter
+*.sc linguist-language=SierraScript
 *.sco linguist-detectable=false
 *.bat linguist-detectable=false
 *.sh linguist-detectable=false
