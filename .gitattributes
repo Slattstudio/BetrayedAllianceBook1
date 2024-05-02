@@ -1,2 +1,5 @@
-*.sc linguist-detectable=false
+*.sc linguist-language=SierraCompanionInterpreter
 *.sco linguist-detectable=false
+*.bat linguist-detectable=false
+*.sh linguist-detectable=false
+*.pb linguist-detectable=false
