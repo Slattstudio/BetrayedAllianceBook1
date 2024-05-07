@@ -156,8 +156,8 @@
 	; gMatt = 0     /* If TRUE, Matt character will give hints in different areas */
 	gFollowed =  0
 ; If TRUE, an emeny is following gEgo from across rooms
-	gDartsWon =  0
-; If greater than 3, sailor will not play darts with you anymore
+	gDartsWon =  0 
+; If greater than 4, sailor will not play darts with you anymore
 	gWB =  900
 ; Specifies the View used for Window Buttons in the Control Script
 	gWF =  901

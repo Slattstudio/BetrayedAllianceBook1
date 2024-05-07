@@ -638,7 +638,7 @@
 				)
 				((<= (gEgo distanceTo: dartMan) 35)
 					(if (> gGold 0)
-						(if (> gDartsWon 2)
+						(if (> gDartsWon 3)
 							(Print 44 8)
 						else            ; #title "Sailor says:")
 							(PrintMan 44 33) ; #at -1 10 #title "Sailor says:")

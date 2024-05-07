@@ -145,6 +145,11 @@
 		(= gameInitPoints 301)
 		; = gameInitPoints 50
 		(= computerSkill 1)
+		(if (== gDartsWon 0) 
+			(gGame changeScore: 1)
+			(++ gDartsWon)
+		)
+		
 		(if (== computerSkill 0) (= missPixels 5))
 		(if (== computerSkill 1) (= missPixels 10))
 		(if (== computerSkill 2) (= missPixels 15))
@@ -414,12 +419,12 @@
 					(++ gDartsWon)
 					(= intro 1)
 					(cond 
-						((== gDartsWon 3)
+						((== gDartsWon 4)
 							(= gLuk (+ gLuk 5))
 							(= gAg (+ gAg 3))
 							(= gInt (+ gInt 1))
 						)
-						((== gDartsWon 1) (gGame changeScore: 1))
+						
 					)
 					(= mbResult
 						(Print
@@ -453,7 +458,7 @@
 				)
 				(switch mbResult
 					(1
-						(if (not (> gDartsWon 2))
+						(if (not (> gDartsWon 3))
 							(rm111 init:)
 							(= scoreDisplayed 0)
 							(return TRUE)
