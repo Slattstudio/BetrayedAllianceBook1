@@ -139,7 +139,7 @@
 		(self setScript: RoomScript)
 		(= gArcStl 1)
 		
-		(Scoreboard addToPic:)
+		(Scoreboard init: setPri: 0)
 		
 		; game setup
 		(= gameInitPoints 301)
@@ -256,6 +256,7 @@
 	
 	(method (doit &tmp mbResult wildX wildY savePix)
 		(super doit:)
+		
 		(if (not scoreDisplayed)
 			
 			(Format @playerPointsDisp {%d} playerPoints)
@@ -268,7 +269,7 @@
 					dsCOLOUR
 					clRED
 					dsBACKGROUND
-					clTRANSPARENT
+					clSILVER
 					dsALIGN
 					alCENTER
 					dsWIDTH
@@ -276,6 +277,7 @@
 					dsFONT
 					3
 					dsSAVEPIXELS
+				
 				)
 			)
 			(Format @computerPointsDisp {%d} computerPoints)
@@ -288,7 +290,7 @@
 					dsCOLOUR
 					clNAVY
 					dsBACKGROUND
-					clTRANSPARENT
+					clSILVER
 					dsALIGN
 					alCENTER
 					dsWIDTH
