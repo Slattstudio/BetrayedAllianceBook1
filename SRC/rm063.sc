@@ -86,6 +86,7 @@
 
 		(SetUpEgo)
 		(gEgo init: setScript: mimicScript2)
+		(= gEgoRunning 0)
 		(RunningCheck)
 		(alterEgo init: hide: ignoreActors:)
 		
@@ -245,6 +246,9 @@
 			)
 		)
 		
+		(if (Said 'run')
+			(PrintOther 18 66)	
+		)
 		(if (Said 'look,read>')
 			(if (Said '/squirrel,animal,creature')
 				(Print 63 0 #width 280 #at -1 20)

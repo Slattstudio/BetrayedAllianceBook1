@@ -271,7 +271,11 @@
 			)
 			(if (Said '[/!*]')
 				; this will handle just "look" by itself
-				(PrintOther 74 4)
+				(if g74Poster	; post is ripped
+					(PrintOther 74 9)
+				else
+					(PrintOther 74 4)	
+				)
 				(if gFollowed 
 					(PrintOther 68 5) 
 				else

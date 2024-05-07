@@ -203,7 +203,7 @@
 	g70Safe =  0
 	[g70Notes 3] = [0 0 0]	; three notes found in crypt 
 	g73Wash =  0
-	g74Poster = 0
+	g74Poster = 0	; 0 if poster not ripped
 	g102Solved =  0
 	g105Solved =  0
 	[g107Solved 4] = [0 0 0 0] ; First 0 is for highest score, second is for second high score, third is for message after game, fourth is for ladder being shown in rm 26
