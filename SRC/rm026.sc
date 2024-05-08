@@ -288,6 +288,12 @@
 				(= falling 1)
 			)
 		)
+		; below priority coding is to allow the map to be drawn over the tree and ego behind it
+		(if (> (gEgo y?) 145)
+			(gEgo setPri: 12)	
+		else
+			(gEgo setPri: -1)
+		)
 	)
 )
 
