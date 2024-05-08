@@ -60,7 +60,7 @@
 			(2
 				(= cycles 20)
 				(Print
-					{You frantically claw with your fingers into the muddy earth mixed and rocks.}
+					{You frantically claw with your fingers into the muddy earth mixed with rocks.}
 				)
 				(Print
 					{You hear your pack of darts fall to the ground, but at this point who cares?}
