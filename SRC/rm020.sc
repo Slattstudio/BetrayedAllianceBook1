@@ -219,7 +219,7 @@
 				)
 			)
 		)
-
+		(if (Said 'use/map') (Print 28 102))
 		(if (Said 'talk,ask/man,soldier,captain')
 			(if gDisguised
 				(PrintSoldier 20 41)
