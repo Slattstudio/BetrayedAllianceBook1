@@ -348,17 +348,29 @@
 				)
 			)
 			(if (Said '/toy')
-				(if (<= (gEgo distanceTo: bookshelf) 35)
-					(PrintOther 47 30)
-				else                     ; Rag dolls are no good for generals. Little plastic army men, different story.
+				(if (& (gEgo onControl:) ctlRED)
+					(if chestOpen
+						(PrintOther 47 30)
+					else
+						(Print {You can't get to it from there.})
+					)
+				else
 					(PrintNCE)
 				)
 			)
 			(if (Said '/picture')
-				(if (<= (gEgo distanceTo: bookshelf) 35)
-					(PrintOther 47 31)
-				else                      ; It really is a lovely picture of 'The Princess and the Pea', but you have no use for it.
-					(PrintNCE)
+				(if (& (gEgo onControl:) ctlRED)
+					(if chestOpen
+						(PrintOther 47 31)
+					else
+						(Print {You can't get to it from there.})
+					)
+				else
+					(if (& (gEgo onControl:) ctlGREY)
+						(PrintOther 47 44)	
+					else
+						(PrintNCE)
+					)
 				)
 			)
 			(if (Said '/towel')
