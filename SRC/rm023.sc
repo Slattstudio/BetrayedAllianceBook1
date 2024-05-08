@@ -183,6 +183,7 @@
 				(Said 'swear,make/oath,love,leah')
 				(Said 'elope')
 				(Said '(leave<with),(runaway<with),join/woman,leah')
+				(Said 'take/oath')
 			)
 			(= button
 				(Print
