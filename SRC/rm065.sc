@@ -171,10 +171,9 @@
 						(PrintOther 65 13)
 					)                     ; #width 280 #at -1 8)
 					(if
-						(==
-							ctlYELLOW
-							(OnControl ocPRIORITY (pEvent x?) (pEvent y?))
-						)                                                                    ; tree
+						(or
+							(== ctlYELLOW (OnControl ocPRIORITY (pEvent x?) (pEvent y?)))  ; tree
+							(== ctlFUCHSIA (OnControl ocPRIORITY (pEvent x?) (pEvent y?))))
 						(PrintOther 65 12)
 					)                     ; #width 280 #at -1 8)
 					(if (checkEvent pEvent 201 208 132 138)
@@ -360,7 +359,7 @@
 				)
 			)
 		)                        ; #at -1 8)
-		(if (Said 'use/map') (Print 65 16)) ; This isn't a good place to use that.
+		;(if (Said 'use/map') (Print 65 16)) ; This isn't a good place to use that.
 		(if (Said 'sing') (PrintOther 65 18)) ; This isn't a good place to use that.
 		(if (Said '((tell<about),show,give)/ring')
 			; (if(Said('ring'))
