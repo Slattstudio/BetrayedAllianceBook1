@@ -45,26 +45,7 @@
 			(keyGo pEvent $0070 gPond 24 9)
 			(keyGo pEvent $0067 gGrave 42 6)
 			(keyGo pEvent $0077 gRuin 60 7)
-; (if (== (send pEvent:message) $6D) // lowercase m
-; 				(if (gWizRm)
-; 					whereGo(18 8)
-; 				)
-; 			)
-; 			(if (== (send pEvent:message) $70) // lowercase p
-; 				(if (gPond)
-; 					whereGo(24 9)
-; 				)
-; 			)
-;   			(if (== (send pEvent:message) $67) // lowercase g
-; 				(if (gGrave)
-; 					whereGo(42 6)
-; 				)
-; 			)
-; 			(if (== (send pEvent:message) $77) // lowercase w
-; 				(if (gRuin)
-; 					whereGo(60 7)
-; 				)
-; 			)
+
 			(if
 				(or
 					(== (pEvent message?) $0065)
