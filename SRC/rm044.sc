@@ -132,6 +132,8 @@
 					cycleSpeed: 1
 					ignoreActors:
 				)
+				(SetCursor 999 1)
+				(= gCurrentCursor 999)
 			)
 			(5
 				; add a yes/no prompt to play chess
@@ -144,7 +146,7 @@
 				(if button
 				  	(PlayChess)	
 				else
-					(self cue:)  
+					(self cue:)
 				)
 				(= gVertButton 0)
 				(PlayerControl)

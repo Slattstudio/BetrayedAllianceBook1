@@ -390,7 +390,7 @@
 			)
 		)
 		(if (Said 'use/map') (Print 70 26)) ; This isn't a good place to use that.
-		(if (Said 'use,push,turn/dial,puzzle,combination')
+		(if (Said 'use,push,turn/dial,puzzle,combination,button')
 			(if safeOut
 				(if (& (gEgo onControl:) ctlGREY)
 					(dialScreen)
@@ -404,7 +404,7 @@
 		(if (Said 'use,turn/gear')
 			(PrintOther 67 30)	
 		)
-		(if (Said 'look>')
+		(if (Said 'look,search>')
 			(if (Said '/locker,cabinet,hole') (lookLocker))
 			(if (Said '/floor,ground')
 				(if (& (gEgo onControl:) ctlSILVER)       ; diggable area
@@ -425,7 +425,7 @@
 					(PrintOther 70 33)
 				)
 			)
-			(if (Said '/dial,puzzle,combination')
+			(if (Said '/dial,puzzle,combination,button')
 				(if safeOut
 					(if (& (gEgo onControl:) ctlGREY)
 						(dialScreen)
@@ -463,7 +463,7 @@
 		)
 		(if
 			(Said
-				'look,(pick<up),take,read/paper,note,letter,page,table'
+				'look,search,(pick<up),take,read/paper,note,letter,page,table'
 			)
 			(cond 
 				((<= (gEgo distanceTo: table) 40) (self changeState: 2))
