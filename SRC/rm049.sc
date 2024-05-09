@@ -168,6 +168,14 @@
 			(Print 49 8)
 		)                    ; Doesn't fit
 		(if (Said 'look,examine>')
+			(if (Said '/window,glass')
+				(if (or (& (gEgo onControl:) ctlGREY)
+						(& (gEgo onControl:) ctlRED))
+					(PrintOther 49 18)
+				else
+					(PrintOther 49 17)
+				)	
+			)
 			(if (Said '/barrel,lid')
 				(if (& (gEgo onControl:) ctlGREY)
 					(PrintOther 49 1) ; The barrel has some markings of arrows on it.
