@@ -462,7 +462,11 @@
 						(= message 1)
 						(ProgramControl)
 					)
-					((== lines 21) (PlayerControl) (++ lines) (self changeState: 5))
+					((== lines 21) 
+						(PlayerControl)
+						(++ lines)
+						(= [gLetters 3] 1)
+						(self changeState: 5))
 				)
 			)
 			(3

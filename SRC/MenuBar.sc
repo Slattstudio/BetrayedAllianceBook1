@@ -290,11 +290,13 @@
 							)
 							(if [gLetters 1] (Print 997 16 #font 4)) ; You have a sealed letter for Deborah from Jasper.
 							(if [gLetters 2] (Print 997 17 #font 4)) ; You have a sealed letter for Sammy from Gallegos.
+							(if [gLetters 3] (Print 997 13 #font 4)) ; Two soldiers discussed that the phrase "copy cat" might be a code word Lt. Gyre said to a squirrel.
 							(if
 								(and
 									(not [gLetters 0])
 									(not [gLetters 1])
 									(not [gLetters 2])
+									(not [gLetters 3])
 									(not [gArtwork 1])
 									(not [g70Notes 0])
 									(not [g70Notes 1])

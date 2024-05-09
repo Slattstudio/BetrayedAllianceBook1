@@ -88,10 +88,11 @@
 ; [0] is the block-puzzle picture found in     rm 58
 ; [1] is the directions of the cave maze       rm 70
 ; [2] is the barrel directions				 rm 49
-	[gLetters 3] = [0 0 0]
+	[gLetters 4] = [0 0 0 0]
 ; [0] Letter to LT GYRE                        rm 65
 ; [1] Letter to Deborah                        rm 62
 ; [2] Letter to Gallegos                       rm 62
+; [3] Heard Soldiers mention "copy cat"        rm 53
 	gSun =  0   ; rm 18 wizard's room
 	gMer =  0   ; rm 34 rocky path
 	gVen =  0   ; rm 28 tavern
