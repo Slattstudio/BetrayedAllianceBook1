@@ -59,7 +59,7 @@
 			)
 		)
 		(SetUpEgo)
-		(gEgo init:)
+		(gEgo init: setPri: 12)
 		(RunningCheck)
 		(oldMan
 			init:
