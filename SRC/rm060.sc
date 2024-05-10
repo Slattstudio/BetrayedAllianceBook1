@@ -252,11 +252,45 @@
 				(PrintNCE)
 			)
 		)
+		(if (Said 'take,cut,remove/rope')
+			(if (or (& (gEgo onControl:) ctlGREY)	
+					(& (gEgo onControl:) ctlNAVY))
+				(PrintOther 60 31)		
+			else
+				(PrintNCE)
+			)
+		)
+		(if (Said 'take,remove,(pick<up)>')
+			(if (Said '/bucket')
+				(if (or (& (gEgo onControl:) ctlGREY)	
+						(& (gEgo onControl:) ctlNAVY))
+					(if bucketUp
+						(PrintOther 60 29)	
+					else
+						(PrintOther 60 30)
+					)
+				else
+					(PrintNCE)
+				)
+			)	
+		)
 		(if (Said 'look,read>')
 			(if (Said '/well') (PrintOther 60 2))
 			(if (Said '/symbol,graffiti,marking') (PrintOther 60 25))
 			(if (Said '/rock')
 				(PrintOther 60 3)
+			)
+			(if (Said '/bucket')
+				(if (or (& (gEgo onControl:) ctlGREY)	
+						(& (gEgo onControl:) ctlNAVY))
+					(if bucketUp
+						(PrintOther 60 27)	
+					else
+						(PrintOther 60 28)
+					)
+				else
+					(PrintOther 60 26)
+				)
 			)
 			(if (Said '/sign,post')
 				(= gWndColor 0) ; clYELLOW
