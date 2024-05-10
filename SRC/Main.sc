@@ -688,7 +688,7 @@
 					(Print 0 70)
 				)
 			)
-			(if (Said '/book') (Print 0 71))
+			(if (Said '/book') (viewBooks))
 		)
 		
 		(if (Said 'look/*') (Print 0 74))

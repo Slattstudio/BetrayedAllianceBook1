@@ -353,6 +353,9 @@
 				(PrintOther 62 47)
 			)
 			(if (Said '/chest') (PrintOther 62 47))
+			(if (Said '/book')
+				(PrintOther 62 52)
+			)
 			(if (Said '/package')
 				(Print 62 8 #width 280 #at -1 8) ; With all the clutter you can't find the one you want.
 				(Print 62 9 #width 280 #at -1 8)
