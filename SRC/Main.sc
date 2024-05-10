@@ -593,7 +593,8 @@
 			)
 		)
 		
-		(if (Said 'hi') (Print 0 40))
+		(if (Said 'hi[/!*]') (Print 0 40))
+		(if (Said 'hi/*') (Print 0 115))
 		(if (Said 'bye') (Print 0 34))
 		(if (Said 'drink/water') (Print 0 33))
 		(if (Said 'use,drink/potion[<healing]')
