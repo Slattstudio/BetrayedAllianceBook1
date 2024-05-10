@@ -25,7 +25,10 @@
 	boardOpen =  0
 	myEvent
 	whichPage =  0 ; reward 1, julyn 2, prizes 3, gameHelp 4, close 5
-	sitting =  0
+	sitting =  0 
+	; 1 = sitting
+	; 2 = moving up the stairs
+	; 3 = moving down the stairs
 	talkingTo =  0 ; 0 no one, 1 girl, 2 old man, 3 sailor
 	
 )
@@ -58,12 +61,7 @@
 				(gTheMusic number: 44 loop: -1 play:)
 			)
 			(47
-				(gEgo
-					init:
-					posn: 230 145
-					loop: 1
-					setMotion: MoveTo 222 145
-				)
+				(gEgo init: posn: 230 145 loop: 1 setMotion: MoveTo 222 145)
 			)
 			(105
 				(gEgo init: hide: posn: 168 135 ignoreControl: ctlWHITE)
@@ -105,13 +103,7 @@
 	(method (changeState mainState button)
 		(= state mainState)
 		(switch state
-; (case 1 // entering
-;                ProgramControl() (SetCursor(997 1) = gCurrentCursor 997)
-;                (send gEgo:setMotion(MoveTo 83 149 self))
-;            )
-;            (case 2
-;                PlayerControl() (SetCursor(999 1) = gCurrentCursor 999)
-;            )
+
 			(3           ; going to sit
 				(ProgramControl)
 				(SetCursor 997 1)
@@ -208,6 +200,35 @@
 	                                ; #at -1 20 #title "Old man says:")
 	(method (handleEvent pEvent button)
 		(super handleEvent: pEvent)
+		(if (== (pEvent type?) evJOYSTICK)
+			(if (or (== (pEvent message?) 7) (== (pEvent message?) 6) (== (pEvent message?) 5)) ; If pressed the LEFT arrow ; LEFT/DOWN diagonal button ; DOWN
+				(if (== sitting 2)
+					(++ sitting)	; set sitting to 3 (so you cannot continue sending the same signal)
+					(switch (LadderScript state:)
+						(3
+							(LadderScript changeState: 7)
+						)
+						(4
+							(LadderScript changeState: 6)	
+						)	
+					)			
+				)
+			)
+			(if (or (== (pEvent message?) 1) (== (pEvent message?) 2) (== (pEvent message?) 3)) ; Up, right, or right/up
+				(if (== sitting 3)
+					(-- sitting)	; set sitting to 2 (so you cannot continue sending the same signal)
+					(switch (LadderScript state:)
+						(6
+							(LadderScript changeState: 4)
+						)
+						(7
+							(LadderScript changeState: 3)	
+						)	
+					)			
+				)
+			)
+		)
+		
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if boardOpen
 				(switch whichPage
@@ -749,8 +770,8 @@
 		)
 		(if (& (gEgo onControl:) ctlYELLOW)
 			(if (not sitting)
-				(= sitting 1)
-				(LadderScript changeState: 3)
+				(= sitting 2)	; not actually sitting, but rather used to walking up/down the stairs
+				(LadderScript changeState: 3)	; not actually a ladder, but stairs!
 			)
 		)
 
@@ -827,6 +848,19 @@
 				(= gEgoRunning 0)
 				(RunningCheck)
 				(gRoom newRoom: 47)
+			)
+			(6
+				(gEgo setMotion: MoveTo 290 106 self)		
+			)
+			(7
+				(gEgo setMotion: MoveTo 222 145 self)		
+			)
+			(8
+				(PlayerControl)
+				(SetCursor 999 (HaveMouse))
+				(= gCurrentCursor 999)	
+				(gEgo observeControl: ctlWHITE)
+				(= sitting 0)
 			)
 		)
 	)
