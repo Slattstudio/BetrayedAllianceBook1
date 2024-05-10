@@ -23,6 +23,8 @@
 	; 1 = falling to death
 	; 2 = falling to ledge
 	walkingDown =  0 ; player moving up or down the path
+	; 1 - walking down
+	; 2 - walking up
 	coinVis =  1
 )
 
@@ -81,18 +83,47 @@
 	)
 )
 
-; (wave1:init()setCycle(Fwd)cycleSpeed(8))
-; (wave2:init()cel(1)setCycle(Fwd)cycleSpeed(8))
-; (if(gMatt)
-;            (matt:init()setCycle(Walk)setScript(mattScript))
-;            (mattScript:changeState(1))
-;        )
-
 (instance RoomScript of Script
 	(properties)
 	
 	(method (handleEvent pEvent)
 		(super handleEvent: pEvent)
+		
+		(if (== (pEvent type?) evJOYSTICK)
+			(if (== (pEvent message?) 1) ; if pressed UP to run back up the hill
+				(if (== walkingDown 1)
+					(++ walkingDown)	; set walkingUp to 2
+					(switch (walkingScript state:)
+						(1
+							(walkingScript changeState: 7)
+						)
+						(2
+							(walkingScript changeState: 6)
+						)
+						(3
+							(walkingScript changeState: 5)
+						)
+					)			
+				)
+			)
+			(if (== (pEvent message?) 5) ; if pressed Down to run back down the hill
+				(if (== walkingDown 2)
+					(-- walkingDown)	; set walkingDown to 1
+					(switch (walkingScript state:)
+						(5
+							(walkingScript changeState: 3)
+						)
+						(6
+							(walkingScript changeState: 2)
+						)
+						(7
+							(walkingScript changeState: 1)
+						)
+					)			
+				)
+			)
+		)
+		
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if (& (pEvent modifiers?) emRIGHT_BUTTON)
 				(if
@@ -147,7 +178,6 @@
 			(PrintOther 43 4)
 		)
 		(if (Said 'take,(pick<up)/coin,gold')
-			; (if((not(g60Well))or(< gGold 9))
 			(if coinVis
 				(if (> (gEgo y?) 132)
 					(pickUpScript changeState: 1)
@@ -303,7 +333,7 @@
 				(if (not walkingDown)
 					(if (> (gEgo y?) 100) ; at the bottom
 						(walkingScript changeState: 5)
-						(= walkingDown 1)
+						(= walkingDown 2)
 					else ; at the top
 						(walkingScript changeState: 1)
 						(= walkingDown 1)
@@ -409,7 +439,7 @@
 				(= gCurrentCursor 999)
 				(= walkingDown 0)
 			)
-			(5      ; walking down
+			(5      ; walking up
 				(ProgramControl)
 				(SetCursor 997 (HaveMouse))
 				(= gCurrentCursor 997)
