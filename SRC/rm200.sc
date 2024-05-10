@@ -24,13 +24,7 @@
 
 
 	myEvent
-	; forest = 0
-; grave = 0
-;    ruins = 0
-;    pond = 0
-;    magic = 0
-;
-;    exit = 0
+
 	destination =  0 ; magic 1, pond 2, grave 3, ruins 4, exit 5
 	room =  0
 	mapOpen =  0
