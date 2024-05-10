@@ -156,7 +156,7 @@
 				)
 			)
 		)
-		(if (Said '(move,lift,(search,look)<under)/rug')
+		(if (Said 'move,lift,search,(look<under)/rug')
 			(if (gEgo inRect: 100 114 163 150)
 				(lookUnder changeState: 1)
 			else
@@ -181,7 +181,7 @@
 				(PrintDHI)
 			)
 		)
-		(if (Said '(look<in)/bed')
+		(if (Said 'search,(look<in)/bed,mattress')
 			(if (gEgo inRect: 100 114 163 150)
 				(= lookingForMarble 1)
 				(lookUnder changeState: 6)
