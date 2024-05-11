@@ -14,7 +14,7 @@ Book 1 is the first installment of a planned trilogy of games, each expanding on
 
 ## Links:
 **We hope this small labor of love can bring a little nostalgic joy to you.**
-* Please visit our main website at https://rjslattery.com/betrayed-alliance/ for latest news and updates!
+* Please visit our main website at https://slattstudio.com/betrayed-alliance/ for latest news and updates!
 * We have a [Discord Server](https://discord.gg/Rh62gD2uUG "Discord Server") available for discussion, help, and to report bugs.
 
 ## Help Support Us:
@@ -24,4 +24,4 @@ Book 1 is the first installment of a planned trilogy of games, each expanding on
 * We have a paperback Manual that features colored pages, complete with a hint guide for those who want a gentle push in the right direction, but also a walkthrough if you happen to get stuck. Available on [Amazon.com](https://www.amazon.com/Betrayed-Alliance-Book-1-Manual/dp/B0CWT6QVJQ "Amazon.com").
 
 ## Thanks for playing!
-* This game is brought to you by [Slattstudio](https://rjslattery.com/ "Slattstudio") - Devoted to bringing you Freeware so good you'd pay to buy it!
+* This game is brought to you by [Slattstudio](https://slattstudio.com/ "Slattstudio") - Devoted to bringing you Freeware so good you'd pay to buy it!
