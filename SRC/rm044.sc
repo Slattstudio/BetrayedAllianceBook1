@@ -394,6 +394,13 @@
 			(if (Said '/axe') (PrintOther 44 64))
 			(if (Said '/pitchfork') (PrintOther 44 88))
 		)
+		(if (Said 'order/food,drink')
+			(if (== talkingTo 1) ; girl
+				(PrintRose 44 93)
+			else
+				(PrintMan 44 37)
+			)
+		)
 		(if (Said 'talk>')
 			(if (Said '/man,patron')
 				(if (> talkingTo 1) (PrintMan 44 37) else (PrintNCE)) ; #width 290 #at -1 12 #title "He says:")
@@ -454,6 +461,13 @@
 						(if (== talkingTo 1) ; girl
 							(PrintRose 44 38)
 							(PrintRose 44 39)
+						else
+							(PrintMan 44 37)
+						)
+					)
+					(if (Said '/food,chicken')
+						(if (== talkingTo 1) ; girl
+							(PrintRose 44 93)
 						else
 							(PrintMan 44 37)
 						)

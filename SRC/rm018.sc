@@ -452,7 +452,7 @@
 			)
 		)
 		(if (Said 'talk/(man,wizard)') (WizTalk))
-		(if (Said '(walk<through,into)/mirror')
+		(if (Said '(step,walk<through,into)/mirror')
 			(PrintOther 18 8)
 		)
 		(if (Said 'run') (PrintOther 18 66))

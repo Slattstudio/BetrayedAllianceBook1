@@ -140,7 +140,7 @@
 				(= gCurrentCursor 999)
 				(= soldiersVisible 0)
 			)
-			; (send gRoom:newRoom(51))
+
 			(5      ; pick flowers
 				(ProgramControl)
 				(SetCursor 997 1)
@@ -242,7 +242,16 @@
 				)
 			)
 		)         
-
+		
+		(if (or (Said 'use/well')
+				(Said 'raise,lift/bucket')
+				(Said 'use,turn/pulley,handle'))
+			(if (& (gEgo onControl:) ctlMAROON)
+				(climbScript changeState: 7)	
+			else
+				(PrintNCE)
+			)
+		)
 		(if (Said 'smell[/!*]')
 			(PrintOther 53 44)
 			(PrintOther 53 29)	
@@ -517,6 +526,7 @@
 		(= state newState)
 		(switch state
 			(0)
+			; Moving to climb well
 			(1
 				(ProgramControl)
 				(SetCursor 997 (HaveMouse))
@@ -567,6 +577,25 @@
 				(SetCursor 999 (HaveMouse))
 				(= gCurrentCursor 999)
 				(gRoom newRoom: 58)
+			)
+			; Moving to use well/turn crank
+			(7
+				(ProgramControl)
+				(SetCursor 997 (HaveMouse))
+				(= gCurrentCursor 997)
+				(gEgo
+					setMotion: MoveTo 250 130 self
+					ignoreControl: ctlWHITE
+				)
+			)
+			(8	(= cycles 2) ; face up
+				(gEgo loop: 3)	
+			)
+			(9
+				(PrintOther 53 46)
+				(PlayerControl)
+				(SetCursor 999 (HaveMouse))
+				(= gCurrentCursor 999)	
 			)
 		)
 	)
