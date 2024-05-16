@@ -146,7 +146,7 @@
 	gDeathIconEnd =  0
 	gHardMode =  0
 	gRetry = 0
-	gAutosave = 1
+	gAutosave = 1	; used in dying script
 ; If TRUE, harder parser commands and less hints
 	gAnotherEgo =  0
 	gTeleporting =  0
