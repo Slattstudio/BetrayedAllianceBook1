@@ -70,20 +70,20 @@
 		(SetUpEgo)
 		(gEgo init: hide:)	; Ego, while hidden, is transported around screen to trigger different control colors and set boardNumberSelect
 		
-		(block1 init:)
-		(block2 init:)
-		(block3 init:)
-		(block4 init:)
-		(block5 init:)
-		(block6 init:)
-		(block7 init:)
-		(block8 init:)
-		(block9 init:)
+		(block1 init: setPri: 2)
+		(block2 init: setPri: 2)
+		(block3 init: setPri: 2)
+		(block4 init: setPri: 2)
+		(block5 init: setPri: 2)
+		(block6 init: setPri: 2)
+		(block7 init: setPri: 2)
+		(block8 init: setPri: 2)
+		(block9 init: setPri: 2)
 		
-		(lightningUp init: hide:)
-		(lightningDown init: hide:)
-		(lightningArcUp init: hide:)
-		(lightningArcDown init: hide:)
+		(lightningUp init: hide: setPri: 1)
+		(lightningDown init: hide: setPri: 1)
+		(lightningArcUp init: hide: setPri: 1)
+		(lightningArcDown init: hide: setPri: 1)
 		
 		(movingPiece init:)	; shows when taking a piece (and the corresponding block is hidden)
 		
@@ -321,31 +321,63 @@
 			(= [SurroundingBlockPotential 1] 2)
 		)
 	)
-	; Check the potentials against each other before rewriting these variables (then assignment lightning)			
+	; Check the potentials against each other before rewriting these variables (then assignment lightning)
+	; LIGHTNING UP and LEFT			
 	(if (== (+ [blockPlacedPotential 0] [SurroundingBlockPotential 5]) 3)	; input 1 + output 2 matching = 3
-		(lightningArcDown posn: (squareSelectorLight x?)(squareSelectorLight y?) show: cel: 0 setCycle: End)	; need to sort out where to position the POSN
-		(Print "up left")
+		(if (or (== (- boardNumberSelect 4) (+ num 1))
+				(== (+ boardNumberSelect 5) (+ num 1))
+			)
+			(lightningArcDown show: posn: (- (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 20) cel: 0 setCycle: End)	; need to sort out where to position the POSN
+		)
 	)
+	; LIGHTNING UP
 	(if (== (+ [blockPlacedPotential 1] [SurroundingBlockPotential 4]) 3)
-		(lightningUp show: posn: (squareSelectorLight x?)(squareSelectorLight y?) cel: 0 setCycle: End)
-		(Print "up")
+		(if (or (== (- boardNumberSelect 3) (+ num 1))
+				(== (+ boardNumberSelect 6) (+ num 1))
+			)
+			(lightningUp show: posn: (squareSelectorLight x?)(- (squareSelectorLight y?) 34) cel: 0 setCycle: End)
+		)
 	)
+	; LIGHTNING UP and RIGHT	
 	(if (== (+ [blockPlacedPotential 2] [SurroundingBlockPotential 3]) 3)
-		(lightningArcUp show: posn: (squareSelectorLight x?)(squareSelectorLight y?) cel: 0 setCycle: End)
-		(Print "up right")
+		(if (or (== (- boardNumberSelect 2) (+ num 1))
+				(== (+ boardNumberSelect 7) (+ num 1))
+			)	
+			(lightningArcUp show: posn: (+ (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 20) cel: 0 setCycle: End)
+		)
 	)
+	; LIGHTNING DOWN and LEFT	
 	(if (== (+ [blockPlacedPotential 3] [SurroundingBlockPotential 2]) 3)
-		(lightningArcUp show: posn: (squareSelectorLight x?)(squareSelectorLight y?) cel: 0 setCycle: End)
-		(Print "down left")
+		(if (or (== (+ boardNumberSelect 2) (+ num 1))
+				(== (- boardNumberSelect 4) (+ num 1))
+				(== (- boardNumberSelect 7) (+ num 1))
+			)
+			(lightningArcUp show: posn: (- (squareSelectorLight x?) 20) (+ (squareSelectorLight y?) 23) cel: 0 setCycle: End)
+		)
 	)
+	; LIGHTNING DOWN	
 	(if (== (+ [blockPlacedPotential 4] [SurroundingBlockPotential 1]) 3)
-		(lightningDown show: posn: (squareSelectorLight x?)(squareSelectorLight y?) cel: 0 setCycle: End)
-		(Print "down")
+		(if (or (== (+ boardNumberSelect 3) (+ num 1))
+				(== (- boardNumberSelect 6) (+ num 1))
+			)	
+			(lightningDown show: posn: (squareSelectorLight x?) (+ (squareSelectorLight y?) 20) cel: 0 setCycle: End)
+		)
 	)
+	; LIGHTNING DOWN and RIGHT	
 	(if (== (+ [blockPlacedPotential 5] [SurroundingBlockPotential 0]) 3)
-		(lightningArcDown show: posn: (squareSelectorLight x?)(squareSelectorLight y?) cel: 0 setCycle: End)
-		(Print "down right")
+		(if (or (== (+ boardNumberSelect 4) (+ num 1))
+				(== (- boardNumberSelect 5) (+ num 1))
+			)
+			(lightningArcDown show: posn: (+ (squareSelectorLight x?) 20) (+ (squareSelectorLight y?) 23) cel: 0 setCycle: End)
+		)
 	)
+	; set all the surrounding block potential variables back to zero
+	(= [SurroundingBlockPotential 0] 0)
+	(= [SurroundingBlockPotential 1] 0)
+	(= [SurroundingBlockPotential 2] 0)
+	(= [SurroundingBlockPotential 3] 0)
+	(= [SurroundingBlockPotential 4] 0)
+	(= [SurroundingBlockPotential 5] 0)	
 )
 
 (procedure (currentCheck)	; checks all surrounding blocks for variables meeting specific requirements for lightning
@@ -362,7 +394,7 @@
 		)
 		(3
 			(SurroundingSquareCheck 4)
-			(SurroundingSquareCheck 6)
+			(SurroundingSquareCheck 5)
 			(SurroundingSquareCheck 7)
 			(SurroundingSquareCheck 8)	
 		)
@@ -558,14 +590,7 @@
 	(= [blockPlacedPotential 2] 0)
 	(= [blockPlacedPotential 3] 0)
 	(= [blockPlacedPotential 4] 0)
-	(= [blockPlacedPotential 5] 0)
-	
-	(= [SurroundingBlockPotential 0] 0)
-	(= [SurroundingBlockPotential 1] 0)
-	(= [SurroundingBlockPotential 2] 0)
-	(= [SurroundingBlockPotential 3] 0)
-	(= [SurroundingBlockPotential 4] 0)
-	(= [SurroundingBlockPotential 5] 0)		
+	(= [blockPlacedPotential 5] 0)	
 )
 
 (procedure (solutionCheck &tmp i scoreUp)
@@ -730,7 +755,7 @@
 	(properties         
 		y 175
 		x 160
-		view 581
+		view 588
 		loop 10
 	)
 )
@@ -738,7 +763,7 @@
 	(properties         
 		y 175
 		x 160
-		view 581
+		view 588
 		loop 10
 	)
 )
@@ -746,7 +771,7 @@
 	(properties         
 		y 175
 		x 160
-		view 581
+		view 588
 		loop 11
 	)
 )
@@ -754,7 +779,7 @@
 	(properties         
 		y 175
 		x 160
-		view 581
+		view 588
 		loop 12
 	)
 )
