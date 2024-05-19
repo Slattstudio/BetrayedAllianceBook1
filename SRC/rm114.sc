@@ -70,6 +70,8 @@
 		(SetUpEgo)
 		(gEgo init: hide:)	; Ego, while hidden, is transported around screen to trigger different control colors and set boardNumberSelect
 		
+		(exitButton init: setPri: 7)
+		
 		(block1 init: setPri: 7)
 		(block2 init: setPri: 7)
 		(block3 init: setPri: 7)
@@ -79,6 +81,8 @@
 		(block7 init: setPri: 7)
 		(block8 init: setPri: 7)
 		(block9 init: setPri: 7)
+		
+		(lightningComp init: hide: setPri: 1)
 		
 		(lightningUp init: hide: setPri: 1)
 		(lightningDown init: hide: setPri: 1)
@@ -192,6 +196,14 @@
 		(super handleEvent: pEvent)
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if mouseControl
+				(if (and
+						(> (pEvent x?) (exitButton nsLeft?))
+						(< (pEvent x?) (exitButton nsRight?))
+						(> (pEvent y?) (+ (exitButton nsTop?) 0))
+						(< (pEvent y?) (+ (exitButton nsBottom?) 8))
+					)
+					(gRoom newRoom: 50)
+				)
 				(if blockHeld
 					(placePiece)			
 				else
@@ -256,6 +268,23 @@
 		(= state newState)
 		(switch state
 			(0 ; Handle state changes
+			)
+			(1
+				(lightningComp show: setCycle: End RoomScript cycleSpeed: 2)
+			)
+			(2
+				(= cycles 8)
+				(lightningComp loop: 15 setCycle: Fwd)
+			)
+			(3
+				(= cycles 10)
+				(Print 110 2)
+				(= g110Solved 1)
+				(gGame changeScore: 4)
+				(= gInt (+ gInt 3))
+				(= gArcStl 0)
+			)
+			(4 (gRoom newRoom: 50)
 			)
 		)
 	)
@@ -327,7 +356,7 @@
 		(if (or (== (- boardNumberSelect 4) (+ num 1))
 				(== (+ boardNumberSelect 5) (+ num 1))
 			)
-			(lightningArcDown show: posn: (- (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 23) cel: 0 setCycle: End)	; need to sort out where to position the POSN
+			(lightningArcDown show: posn: (- (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 18) cel: 0 setCycle: End)	; need to sort out where to position the POSN
 		)
 	)
 	; LIGHTNING UP
@@ -344,7 +373,7 @@
 				(== (+ boardNumberSelect 7) (+ num 1))
 				(== (+ boardNumberSelect 4) (+ num 1)) ; across diagonal
 			)	
-			(lightningArcUp show: posn: (+ (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 23) cel: 0 setCycle: End)
+			(lightningArcUp show: posn: (+ (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 18) cel: 0 setCycle: End)
 		)
 	)
 	; LIGHTNING DOWN and LEFT	
@@ -600,7 +629,8 @@
 			(++ scoreUp)
 		)
 		(if (== scoreUp 9)
-			(Print {You win!})
+			;(Print {You win!})
+			(RoomScript changeState: 1)
 			(return)
 		)		
 	)
@@ -646,7 +676,13 @@
 		(= [squareFilled num] blockHeld)
 	)
 )
-
+(instance exitButton of Prop
+	(properties         
+		y 174
+		x 26
+		view 590
+	)
+)
 (instance block1 of Prop
 	(properties     ; "Block One"
 		y 105
@@ -750,6 +786,14 @@
 		x 110
 		view 588
 		loop 0                        
+	)
+)
+(instance lightningComp of Act
+	(properties     
+		y 175
+		x 160
+		view 581
+		loop 14
 	)
 )
 (instance lightningUp of Prop

@@ -98,7 +98,8 @@
 				(= gInt (+ gInt 3))
 				(= gArcStl 0)
 			)
-			(4 (gRoom newRoom: 50))
+			(4 (gRoom newRoom: 50)
+			)
 		)
 	)
 	
