@@ -219,7 +219,7 @@
 					(PrintOther 0 97)
 				)
 			)
-			(if (Said '/woman') (PrintOther 23 39))
+			(if (Said '/woman,leah') (PrintOther 23 39))
 			; Print(23 39 #width 280 #at -1 8)
 			(if (Said '/horse') (PrintOther 23 40))
 			; Print(23 40 #width 280 #at -1 8)

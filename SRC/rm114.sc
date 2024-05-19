@@ -70,22 +70,22 @@
 		(SetUpEgo)
 		(gEgo init: hide:)	; Ego, while hidden, is transported around screen to trigger different control colors and set boardNumberSelect
 		
-		(block1 init: setPri: 2)
-		(block2 init: setPri: 2)
-		(block3 init: setPri: 2)
-		(block4 init: setPri: 2)
-		(block5 init: setPri: 2)
-		(block6 init: setPri: 2)
-		(block7 init: setPri: 2)
-		(block8 init: setPri: 2)
-		(block9 init: setPri: 2)
+		(block1 init: setPri: 7)
+		(block2 init: setPri: 7)
+		(block3 init: setPri: 7)
+		(block4 init: setPri: 7)
+		(block5 init: setPri: 7)
+		(block6 init: setPri: 7)
+		(block7 init: setPri: 7)
+		(block8 init: setPri: 7)
+		(block9 init: setPri: 7)
 		
 		(lightningUp init: hide: setPri: 1)
 		(lightningDown init: hide: setPri: 1)
 		(lightningArcUp init: hide: setPri: 1)
 		(lightningArcDown init: hide: setPri: 1)
 		
-		(movingPiece init:)	; shows when taking a piece (and the corresponding block is hidden)
+		(movingPiece init: setPri: 7) ; shows when taking a piece (and the corresponding block is hidden)
 		
 		(infoButton init: hide:)	; shows or hides in doit method depending on gHardMode
 		
@@ -327,7 +327,7 @@
 		(if (or (== (- boardNumberSelect 4) (+ num 1))
 				(== (+ boardNumberSelect 5) (+ num 1))
 			)
-			(lightningArcDown show: posn: (- (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 20) cel: 0 setCycle: End)	; need to sort out where to position the POSN
+			(lightningArcDown show: posn: (- (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 23) cel: 0 setCycle: End)	; need to sort out where to position the POSN
 		)
 	)
 	; LIGHTNING UP
@@ -344,7 +344,7 @@
 				(== (+ boardNumberSelect 7) (+ num 1))
 				(== (+ boardNumberSelect 4) (+ num 1)) ; across diagonal
 			)	
-			(lightningArcUp show: posn: (+ (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 20) cel: 0 setCycle: End)
+			(lightningArcUp show: posn: (+ (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 23) cel: 0 setCycle: End)
 		)
 	)
 	; LIGHTNING DOWN and LEFT	
