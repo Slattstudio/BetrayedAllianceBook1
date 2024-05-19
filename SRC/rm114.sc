@@ -342,6 +342,7 @@
 	(if (== (+ [blockPlacedPotential 2] [SurroundingBlockPotential 3]) 3)
 		(if (or (== (- boardNumberSelect 2) (+ num 1))
 				(== (+ boardNumberSelect 7) (+ num 1))
+				(== (+ boardNumberSelect 4) (+ num 1)) ; across diagonal
 			)	
 			(lightningArcUp show: posn: (+ (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 20) cel: 0 setCycle: End)
 		)
@@ -393,8 +394,8 @@
 			(SurroundingSquareCheck 5)		
 		)
 		(3
-			(SurroundingSquareCheck 4)
 			(SurroundingSquareCheck 5)
+			(SurroundingSquareCheck 6)
 			(SurroundingSquareCheck 7)
 			(SurroundingSquareCheck 8)	
 		)
