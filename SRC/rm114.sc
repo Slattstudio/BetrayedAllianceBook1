@@ -89,6 +89,11 @@
 		(lightningArcUp init: hide: setPri: 1)
 		(lightningArcDown init: hide: setPri: 1)
 		
+		; these are additional lightning flows for when the lightning must show on the top and bottom of the board at the same time
+		(extraLightningDown init: hide: setPri: 1)
+		(extraLightningArcUp init: hide: setPri: 1)
+		(extraLightningArcDown init: hide: setPri: 1)
+		
 		(movingPiece init: setPri: 7) ; shows when taking a piece (and the corresponding block is hidden)
 		
 		(infoButton init: hide:)	; shows or hides in doit method depending on gHardMode
@@ -356,7 +361,11 @@
 		(if (or (== (- boardNumberSelect 4) (+ num 1))
 				(== (+ boardNumberSelect 5) (+ num 1))
 			)
-			(lightningArcDown show: posn: (- (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 18) cel: 0 setCycle: End)	; need to sort out where to position the POSN
+			(lightningArcDown show: posn: (- (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 18) cel: 0 setCycle: End)
+			(if
+				(== (+ boardNumberSelect 5) (+ num 1))	; if jumping across from top to bottom posn lightning at bottom
+				(extraLightningArcDown show: posn: 187 195 cel: 0 setCycle: End)	
+			)
 		)
 	)
 	; LIGHTNING UP
@@ -365,6 +374,9 @@
 				(== (+ boardNumberSelect 6) (+ num 1))
 			)
 			(lightningUp show: posn: (squareSelectorLight x?)(- (squareSelectorLight y?) 34) cel: 0 setCycle: End)
+			(if (== (+ boardNumberSelect 6) (+ num 1))
+				(extraLightningDown show: posn: (squareSelectorLight x?)(+ (squareSelectorLight y?) 115) cel: 0 setCycle: End)
+			)
 		)
 	)
 	; LIGHTNING UP and RIGHT	
@@ -374,6 +386,12 @@
 				(== (+ boardNumberSelect 4) (+ num 1)) ; across diagonal
 			)	
 			(lightningArcUp show: posn: (+ (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 18) cel: 0 setCycle: End)
+			(if (== (+ boardNumberSelect 7) (+ num 1))
+				(extraLightningArcUp show: posn: 135 195 cel: 0 setCycle: End)		
+			)
+			(if (== (+ boardNumberSelect 4) (+ num 1)) ; across diagonal
+				(extraLightningArcUp show: posn: 83 195 cel: 0 setCycle: End)			
+			)
 		)
 	)
 	; LIGHTNING DOWN and LEFT	
@@ -383,6 +401,12 @@
 				(== (- boardNumberSelect 7) (+ num 1))
 			)
 			(lightningArcUp show: posn: (- (squareSelectorLight x?) 20) (+ (squareSelectorLight y?) 23) cel: 0 setCycle: End)
+			(if (== (- boardNumberSelect 4) (+ num 1)) ; across diagonal
+				(extraLightningArcUp show: posn: 236 40 cel: 0 setCycle: End)			
+			)
+			(if (== (- boardNumberSelect 7) (+ num 1))
+				(extraLightningArcUp show: posn: 133 40 cel: 0 setCycle: End)		
+			)
 		)
 	)
 	; LIGHTNING DOWN	
@@ -391,6 +415,9 @@
 				(== (- boardNumberSelect 6) (+ num 1))
 			)	
 			(lightningDown show: posn: (squareSelectorLight x?) (+ (squareSelectorLight y?) 20) cel: 0 setCycle: End)
+			(if (== (- boardNumberSelect 6) (+ num 1))	
+				(extraLightningDown show: posn: (squareSelectorLight x?)(- (squareSelectorLight y?) 125) cel: 0 setCycle: End)	
+			)
 		)
 	)
 	; LIGHTNING DOWN and RIGHT	
@@ -399,6 +426,9 @@
 				(== (- boardNumberSelect 5) (+ num 1))
 			)
 			(lightningArcDown show: posn: (+ (squareSelectorLight x?) 20) (+ (squareSelectorLight y?) 23) cel: 0 setCycle: End)
+			(if (== (- boardNumberSelect 5) (+ num 1))
+				(extraLightningArcDown show: posn: 185 40 cel: 0 setCycle: End)	
+			)
 		)
 	)
 	; set all the surrounding block potential variables back to zero
@@ -821,6 +851,30 @@
 	)
 )
 (instance lightningArcDown of Prop
+	(properties         
+		y 175
+		x 160
+		view 588
+		loop 12
+	)
+)
+(instance extraLightningDown of Prop
+	(properties         
+		y 175
+		x 160
+		view 588
+		loop 10
+	)
+)
+(instance extraLightningArcUp of Prop
+	(properties         
+		y 175
+		x 160
+		view 588
+		loop 11
+	)
+)
+(instance extraLightningArcDown of Prop
 	(properties         
 		y 175
 		x 160
