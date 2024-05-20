@@ -330,7 +330,7 @@
 							(if (Said '/weather') (PrintDebby 28 49)) ; #width 290 #at -1 -1 #title "She says:")
 							(if (Said '/ogre,monster') (PrintDebby 28 105)) ; #width 290 #at -1 -1 #title "She says:")
 							; peoples of shelah
-							(if (Said '/man, fisher,bobby') (PrintDebby 0 142))
+							(if (Said '/man, fisher,bobby') (PrintDebby 28 142))
 							(if (Said '/leah') (PrintDebby 28 142))
 							(if (Said '/sammy')
 								(PrintDebby 28 74) ; #width 290 #at -1 -1 #title "She says:")
