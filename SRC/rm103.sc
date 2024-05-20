@@ -208,13 +208,17 @@
 			(1
 				(= cycles 1)
 				(if (== gStr 15)
+;					(= gWndColor 14)
+;					(= gWndBack 4)
+;					; Print(103 0 #font 4)
+;					; Print(103 1 #font 4)
+;					(Print 103 5 #font 4 #at -1 120)
+;					(= gWndColor 0) ; clBLACK
+;					(= gWndBack 15)
 					(= gWndColor 14)
 					(= gWndBack 4)
-					; Print(103 0 #font 4)
-					; Print(103 1 #font 4)
-					(Print 103 5 #font 4 #at -1 120)
-					(= gWndColor 0)
-; clBLACK
+					(Print 103 5 #font 4 #title {Prepare for Battle} #at -1 120 #button {Ok} )
+					(= gWndColor 0) ; clBLACK
 					(= gWndBack 15)
 				)
 			)                                                 ; clWHITE
