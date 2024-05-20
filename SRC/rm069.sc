@@ -139,7 +139,7 @@
 		)
 	)
 	
-	(method (handleEvent pEvent dyingScript)
+	(method (handleEvent pEvent &tmp dyingScript)
 		(super handleEvent: pEvent)
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if (& (pEvent modifiers?) emRIGHT_BUTTON)
