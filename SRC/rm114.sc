@@ -101,6 +101,7 @@
 		(squareSelectorLight init: setPri: 0)	; shows when using keyboard controls to show which square is currently being selected
 		
 		(= gArcStl 1)	; disable typing
+		(= gMap 1)
 	)
 )
 
@@ -260,10 +261,132 @@
 		; Using keyboard controls
 		(if (== (pEvent type?) evJOYSTICK)
 			(if mouseControl
-				(= mouseControl 0)	
+				(= mouseControl 0)
+				(gEgo posn: 160 113)	; put at posn 5	
 			else
-				(if (== (pEvent message?) 3)
-					
+				(if (== (pEvent message?) 1)    ; If pressed the UP arrow
+					(cond
+						( (== (gEgo onControl:) ctlNAVY)	; 1
+							(gEgo posn: 108 165) 
+						)
+						( (== (gEgo onControl:) ctlGREEN)	; 2
+							(gEgo posn: 160 165) 	
+						)
+						( (== (gEgo onControl:) ctlTEAL)	; 3 
+							(gEgo posn: 211 165) 
+						)
+						( (== (gEgo onControl:) ctlMAROON)	; 4
+							(gEgo posn: 108 62)	
+						)
+						( (== (gEgo onControl:) ctlPURPLE)	; 5
+							(gEgo posn: 160 62)	
+						)
+						( (== (gEgo onControl:) ctlBROWN)	; 6 
+							(gEgo posn: 211 62)
+						)
+						( (== (gEgo onControl:) ctlSILVER)	; 7
+							(gEgo posn: 108 113) 
+						)
+						( (== (gEgo onControl:) ctlGREY)	; 8
+							(gEgo posn: 160 113) 
+						)
+						( (== (gEgo onControl:) ctlBLUE)	; 9
+							(gEgo posn: 211 113) 
+						)
+					)
+				)
+				(if (== (pEvent message?) 5)    ; If pressed the DOWN arrow
+					(cond
+						( (== (gEgo onControl:) ctlNAVY)	; 1
+							(gEgo posn: 108 113)
+						)
+						( (== (gEgo onControl:) ctlGREEN)	; 2
+							(gEgo posn: 160 113)	
+						)
+						( (== (gEgo onControl:) ctlTEAL)	; 3 
+							(gEgo posn: 211 113) 
+						)
+						( (== (gEgo onControl:) ctlMAROON)	; 4
+							(gEgo posn: 108 165) 	
+						)
+						( (== (gEgo onControl:) ctlPURPLE)	; 5
+							(gEgo posn: 160 165) 	
+						)
+						( (== (gEgo onControl:) ctlBROWN)	; 6 
+							(gEgo posn: 211 165) 	
+						)
+						( (== (gEgo onControl:) ctlSILVER)	; 7
+							(gEgo posn: 108 62)	
+						)
+						( (== (gEgo onControl:) ctlGREY)	; 8
+							(gEgo posn: 160 62)		
+						)
+						( (== (gEgo onControl:) ctlBLUE)	; 9
+							(gEgo posn: 211 62)	
+						)
+					)
+				)	
+				(if (== (pEvent message?) 3) ; If pressed the RIGHT arrow
+					(cond
+						( (== (gEgo onControl:) ctlNAVY)	; 1
+							(gEgo posn: 160 62) 
+						)
+						( (== (gEgo onControl:) ctlGREEN)	; 2
+							(gEgo posn: 211 62) 
+						)
+						( (== (gEgo onControl:) ctlTEAL)	; 3 - move to pieces
+							;(squareSelectorLight  cel: 1)
+						)
+						( (== (gEgo onControl:) ctlMAROON)	; 4
+							(gEgo posn: 160 113) 
+						)
+						( (== (gEgo onControl:) ctlPURPLE)	; 5
+							(gEgo posn: 211 113) 
+						)
+						( (== (gEgo onControl:) ctlBROWN)	; 6 - move to pieces
+						;	(squareSelectorLight  cel: 1)
+						)
+						( (== (gEgo onControl:) ctlSILVER)	; 7
+							(gEgo posn: 160 165) 
+						)
+						( (== (gEgo onControl:) ctlGREY)	; 8
+							(gEgo posn: 211 165) 
+						)
+						( (== (gEgo onControl:) ctlBLUE)	; 9
+						
+						)
+					)	
+				)
+				(if (== (pEvent message?) 7) ; If pressed the Left arrow	
+					(cond
+						( (== (gEgo onControl:) ctlNAVY)	; 1
+							
+						)
+						( (== (gEgo onControl:) ctlGREEN)	; 2
+							(gEgo posn: 108 62) 
+						)
+						( (== (gEgo onControl:) ctlTEAL)	; 3 - move to pieces
+							(gEgo posn: 160 62)
+						)
+						( (== (gEgo onControl:) ctlMAROON)	; 4
+							
+						)
+						( (== (gEgo onControl:) ctlPURPLE)	; 5
+							(gEgo posn: 108 113) 
+						)
+						( (== (gEgo onControl:) ctlBROWN)	; 6 - move to pieces
+							(gEgo posn: 160 113) 
+						)
+						( (== (gEgo onControl:) ctlSILVER)	; 7
+							
+						)
+						( (== (gEgo onControl:) ctlGREY)	; 8
+							(gEgo posn: 108 165) 
+						)
+						( (== (gEgo onControl:) ctlBLUE)	; 9
+							(gEgo posn: 160 165) 
+						)
+					)
 				)
 			)	
 		)
