@@ -22,6 +22,7 @@
 	blockInput = 0 ; This is the block number that will be inputted into the slot
 					 
 	boardNumberSelect = 0 ; which square is currently selected (by ego being on its respective control color)
+	handPosition = 0 ; used with keyboard controls to dictate where you can grab a block
 	
 	; each square will be filled with the number corresponding to the block the solution being	 1, 2, 3
 																							  	;4, 5, 6
@@ -146,54 +147,69 @@
 		)
 		
 		; determine which square the cursor is over
-		(cond
-			( (== (gEgo onControl:) ctlNAVY)
-				(= boardNumberSelect 1)
-				(squareSelectorLight posn: 108 62 cel: 1)
+		(if (not handPosition)
+			(cond
+				( (== (gEgo onControl:) ctlNAVY)
+					(= boardNumberSelect 1)
+					(squareSelectorLight posn: 108 62 cel: 1)
+				)
+				( (== (gEgo onControl:) ctlGREEN)
+					(= boardNumberSelect 2)
+					(squareSelectorLight posn: 160 62 cel: 1)
+				)
+				( (== (gEgo onControl:) ctlTEAL)
+					(= boardNumberSelect 3)
+					(squareSelectorLight posn: 211 62 cel: 1)
+				)
+				( (== (gEgo onControl:) ctlMAROON)
+					(= boardNumberSelect 4)
+					(squareSelectorLight posn: 108 113 cel: 1)
+				)
+				( (== (gEgo onControl:) ctlPURPLE)
+					(= boardNumberSelect 5)
+					(squareSelectorLight posn: 160 113 cel: 1)
+				)
+				( (== (gEgo onControl:) ctlBROWN)
+					(= boardNumberSelect 6)
+					(squareSelectorLight posn: 211 113 cel: 1)
+				)
+				( (== (gEgo onControl:) ctlSILVER)
+					(= boardNumberSelect 7)
+					(squareSelectorLight posn: 108 165 cel: 1)
+				)
+				( (== (gEgo onControl:) ctlGREY)
+					(= boardNumberSelect 8)
+					(squareSelectorLight posn: 160 165 cel: 1)
+				)
+				( (== (gEgo onControl:) ctlBLUE)
+					(= boardNumberSelect 9)
+					(squareSelectorLight posn: 211 165 cel: 1)
+				)
+				(else
+					(= boardNumberSelect 0)
+					(squareSelectorLight cel: 0)
+				)		
 			)
-			( (== (gEgo onControl:) ctlGREEN)
-				(= boardNumberSelect 2)
-				(squareSelectorLight posn: 160 62 cel: 1)
-			)
-			( (== (gEgo onControl:) ctlTEAL)
-				(= boardNumberSelect 3)
-				(squareSelectorLight posn: 211 62 cel: 1)
-			)
-			( (== (gEgo onControl:) ctlMAROON)
-				(= boardNumberSelect 4)
-				(squareSelectorLight posn: 108 113 cel: 1)
-			)
-			( (== (gEgo onControl:) ctlPURPLE)
-				(= boardNumberSelect 5)
-				(squareSelectorLight posn: 160 113 cel: 1)
-			)
-			( (== (gEgo onControl:) ctlBROWN)
-				(= boardNumberSelect 6)
-				(squareSelectorLight posn: 211 113 cel: 1)
-			)
-			( (== (gEgo onControl:) ctlSILVER)
-				(= boardNumberSelect 7)
-				(squareSelectorLight posn: 108 165 cel: 1)
-			)
-			( (== (gEgo onControl:) ctlGREY)
-				(= boardNumberSelect 8)
-				(squareSelectorLight posn: 160 165 cel: 1)
-			)
-			( (== (gEgo onControl:) ctlBLUE)
-				(= boardNumberSelect 9)
-				(squareSelectorLight posn: 211 165 cel: 1)
-			)
-			(else
-				(= boardNumberSelect 0)
-				(squareSelectorLight cel: 0)
-			)		
 		)
 		
 		(if mouseControl
 			(squareSelectorLight hide:)
 		else
-			(squareSelectorLight show:)
-			(gGame setCursor: 998) ; invisible cursor	
+			(squareSelectorLight show:)	; illustrate what you can do with keyboard controls
+			(gGame setCursor: 998) ; invisible cursor
+			(if blockHeld
+				(movingPiece loop: blockHeld posn: (squareSelectorLight x?)(squareSelectorLight y?))	
+			else
+				(movingPiece loop: 0)
+			)	
+		)
+		(if handPosition
+			(squareSelectorLight view: 587 setPri: 10)	; hand icon
+			;(= boardNumberSelect 0)
+		else
+			(if (not blockHeld)
+				(squareSelectorLight view: 588 setPri: 0)
+			)	
 		)
 		
 	)
@@ -215,35 +231,7 @@
 				else
 					(if cursorOver	; if over a puzzle piece
 						(= blockHeld cursorOver)	; take the piece
-						(switch blockHeld
-							(1
-								(block1 hide:)
-							)
-							(2
-								(block2 hide:)
-							)
-							(3
-								(block3 hide:)
-							)
-							(4
-								(block4 hide:)
-							)
-							(5
-								(block5 hide:)
-							)
-							(6
-								(block6 hide:)
-							)
-							(7
-								(block7 hide:)
-							)
-							(8
-								(block8 hide:)
-							)
-							(9
-								(block9 hide:)
-							)
-						)
+						(hideBlock)
 						; if the player picked up a piece that was already on the board
 						(for ( (= i 0)) (< i 10)  ( (++ i))
 							(if (== boardNumberSelect i)
@@ -259,132 +247,270 @@
 		)
 		
 		; Using keyboard controls
+		(if (== (pEvent type?) evKEYBOARD)
+			(if mouseControl
+				(= mouseControl 0)
+				(gEgo posn: 160 113)	; put at posn 5	
+			else
+				(if (== (pEvent message?) $0020)  ; If pressed the SPACEBAR
+					(FormatPrint {%u %u} boardNumberSelect handPosition)
+					(if blockHeld
+						(placePiece)	
+					else
+						(spacebarGrab block1 1)
+						(spacebarGrab block2 2)
+						(spacebarGrab block3 3)
+						(spacebarGrab block4 4)
+						(spacebarGrab block5 5)
+						(spacebarGrab block6 6)
+						(spacebarGrab block7 7)
+						(spacebarGrab block8 8)
+						(spacebarGrab block9 9)
+						(hideBlock)
+						; if the player picked up a piece that was already on the board
+						(for ( (= i 0)) (< i 10)  ( (++ i))
+							(if (== boardNumberSelect i)
+								(= [squareFilled (- i 1)] 0)
+							)	
+						)		
+					)
+				)
+			)
+		)
 		(if (== (pEvent type?) evJOYSTICK)
 			(if mouseControl
 				(= mouseControl 0)
 				(gEgo posn: 160 113)	; put at posn 5	
 			else
 				(if (== (pEvent message?) 1)    ; If pressed the UP arrow
-					(cond
-						( (== (gEgo onControl:) ctlNAVY)	; 1
-							(gEgo posn: 108 165) 
-						)
-						( (== (gEgo onControl:) ctlGREEN)	; 2
-							(gEgo posn: 160 165) 	
-						)
-						( (== (gEgo onControl:) ctlTEAL)	; 3 
-							(gEgo posn: 211 165) 
-						)
-						( (== (gEgo onControl:) ctlMAROON)	; 4
-							(gEgo posn: 108 62)	
-						)
-						( (== (gEgo onControl:) ctlPURPLE)	; 5
-							(gEgo posn: 160 62)	
-						)
-						( (== (gEgo onControl:) ctlBROWN)	; 6 
-							(gEgo posn: 211 62)
-						)
-						( (== (gEgo onControl:) ctlSILVER)	; 7
-							(gEgo posn: 108 113) 
-						)
-						( (== (gEgo onControl:) ctlGREY)	; 8
-							(gEgo posn: 160 113) 
-						)
-						( (== (gEgo onControl:) ctlBLUE)	; 9
-							(gEgo posn: 211 113) 
+					(if handPosition
+						(switch handPosition
+							(1
+								(setHandPosition 3 265 74)
+							)
+							(2
+								(setHandPosition 8 305 74)
+							)
+							(3
+								(setHandPosition 9 265 44)
+							)
+							(4
+								(setHandPosition 1 265 104)
+							)
+							(5
+								(setHandPosition 2 305 104)
+							)
+							(6
+								(setHandPosition 4 265 134)	
+							)
+							(7
+								(setHandPosition 5 305 134)	
+							)
+							(8
+								(setHandPosition 7 305 44)	
+							)
+							(9
+								(setHandPosition 6 265 164)	
+							)		
+						)	
+					else
+						(cond
+							( (== (gEgo onControl:) ctlNAVY)	; 1
+								(gEgo posn: 108 165) 
+							)
+							( (== (gEgo onControl:) ctlGREEN)	; 2
+								(gEgo posn: 160 165) 	
+							)
+							( (== (gEgo onControl:) ctlTEAL)	; 3 
+								(gEgo posn: 211 165) 
+							)
+							( (== (gEgo onControl:) ctlMAROON)	; 4
+								(gEgo posn: 108 62)	
+							)
+							( (== (gEgo onControl:) ctlPURPLE)	; 5
+								(gEgo posn: 160 62)	
+							)
+							( (== (gEgo onControl:) ctlBROWN)	; 6 
+								(gEgo posn: 211 62)
+							)
+							( (== (gEgo onControl:) ctlSILVER)	; 7
+								(gEgo posn: 108 113) 
+							)
+							( (== (gEgo onControl:) ctlGREY)	; 8
+								(gEgo posn: 160 113) 
+							)
+							( (== (gEgo onControl:) ctlBLUE)	; 9
+								(gEgo posn: 211 113) 
+							)
 						)
 					)
 				)
 				(if (== (pEvent message?) 5)    ; If pressed the DOWN arrow
-					(cond
-						( (== (gEgo onControl:) ctlNAVY)	; 1
-							(gEgo posn: 108 113)
-						)
-						( (== (gEgo onControl:) ctlGREEN)	; 2
-							(gEgo posn: 160 113)	
-						)
-						( (== (gEgo onControl:) ctlTEAL)	; 3 
-							(gEgo posn: 211 113) 
-						)
-						( (== (gEgo onControl:) ctlMAROON)	; 4
-							(gEgo posn: 108 165) 	
-						)
-						( (== (gEgo onControl:) ctlPURPLE)	; 5
-							(gEgo posn: 160 165) 	
-						)
-						( (== (gEgo onControl:) ctlBROWN)	; 6 
-							(gEgo posn: 211 165) 	
-						)
-						( (== (gEgo onControl:) ctlSILVER)	; 7
-							(gEgo posn: 108 62)	
-						)
-						( (== (gEgo onControl:) ctlGREY)	; 8
-							(gEgo posn: 160 62)		
-						)
-						( (== (gEgo onControl:) ctlBLUE)	; 9
-							(gEgo posn: 211 62)	
+					(if handPosition
+						(switch handPosition
+							(1
+								(setHandPosition 4 265 134)
+							)
+							(2
+								(setHandPosition 5 305 134)
+							)
+							(3
+								(setHandPosition 1 265 104)
+							)
+							(4
+								(setHandPosition 6 265 164)
+							)
+							(5
+								(setHandPosition 7 305 44)
+							)
+							(6
+								(setHandPosition 9 265 44)
+							)
+							(7
+								(setHandPosition 8 305 74)
+							)
+							(8
+								(setHandPosition 2 305 104)
+							)
+							(9
+								(setHandPosition 3 265 74)
+							)		
+						)	
+					else
+						(cond
+							( (== (gEgo onControl:) ctlNAVY)	; 1
+								(gEgo posn: 108 113)
+							)
+							( (== (gEgo onControl:) ctlGREEN)	; 2
+								(gEgo posn: 160 113)	
+							)
+							( (== (gEgo onControl:) ctlTEAL)	; 3 
+								(gEgo posn: 211 113) 
+							)
+							( (== (gEgo onControl:) ctlMAROON)	; 4
+								(gEgo posn: 108 165) 	
+							)
+							( (== (gEgo onControl:) ctlPURPLE)	; 5
+								(gEgo posn: 160 165) 	
+							)
+							( (== (gEgo onControl:) ctlBROWN)	; 6 
+								(gEgo posn: 211 165) 	
+							)
+							( (== (gEgo onControl:) ctlSILVER)	; 7
+								(gEgo posn: 108 62)	
+							)
+							( (== (gEgo onControl:) ctlGREY)	; 8
+								(gEgo posn: 160 62)		
+							)
+							( (== (gEgo onControl:) ctlBLUE)	; 9
+								(gEgo posn: 211 62)	
+							)
 						)
 					)
 				)	
 				(if (== (pEvent message?) 3) ; If pressed the RIGHT arrow
-					(cond
-						( (== (gEgo onControl:) ctlNAVY)	; 1
-							(gEgo posn: 160 62) 
-						)
-						( (== (gEgo onControl:) ctlGREEN)	; 2
-							(gEgo posn: 211 62) 
-						)
-						( (== (gEgo onControl:) ctlTEAL)	; 3 - move to pieces
-							;(squareSelectorLight  cel: 1)
-						)
-						( (== (gEgo onControl:) ctlMAROON)	; 4
-							(gEgo posn: 160 113) 
-						)
-						( (== (gEgo onControl:) ctlPURPLE)	; 5
-							(gEgo posn: 211 113) 
-						)
-						( (== (gEgo onControl:) ctlBROWN)	; 6 - move to pieces
-						;	(squareSelectorLight  cel: 1)
-						)
-						( (== (gEgo onControl:) ctlSILVER)	; 7
-							(gEgo posn: 160 165) 
-						)
-						( (== (gEgo onControl:) ctlGREY)	; 8
-							(gEgo posn: 211 165) 
-						)
-						( (== (gEgo onControl:) ctlBLUE)	; 9
-						
+					(if handPosition
+						(switch handPosition
+							(1
+								(setHandPosition 2 305 104)
+							)
+							(3
+								(setHandPosition 8 305 74)
+							)
+							(4
+								(setHandPosition 5 305 134)	
+							)
+							(6
+								(setHandPosition 5 305 134)		
+							)
+							(9
+								(setHandPosition 7 305 44)		
+							)		
+						)	
+					else
+						(cond
+							( (== (gEgo onControl:) ctlNAVY)	; 1
+								(gEgo posn: 160 62) 
+							)
+							( (== (gEgo onControl:) ctlGREEN)	; 2
+								(gEgo posn: 211 62) 
+							)
+							( (== (gEgo onControl:) ctlTEAL)	; 3 - move to pieces
+								(setHandPosition 1 265 104)
+								(gEgo posn: 1 1)
+							)
+							( (== (gEgo onControl:) ctlMAROON)	; 4
+								(gEgo posn: 160 113) 
+							)
+							( (== (gEgo onControl:) ctlPURPLE)	; 5
+								(gEgo posn: 211 113) 
+							)
+							( (== (gEgo onControl:) ctlBROWN)	; 6 - move to pieces
+								(setHandPosition 1 265 104)
+								(gEgo posn: 1 1)
+							)
+							( (== (gEgo onControl:) ctlSILVER)	; 7
+								(gEgo posn: 160 165) 
+							)
+							( (== (gEgo onControl:) ctlGREY)	; 8
+								(gEgo posn: 211 165) 
+							)
+							( (== (gEgo onControl:) ctlBLUE)	; 9 - move to pieces
+								(setHandPosition 1 265 104)
+								(gEgo posn: 1 1)
+							)
 						)
 					)	
 				)
 				(if (== (pEvent message?) 7) ; If pressed the Left arrow	
-					(cond
-						( (== (gEgo onControl:) ctlNAVY)	; 1
-							
-						)
-						( (== (gEgo onControl:) ctlGREEN)	; 2
-							(gEgo posn: 108 62) 
-						)
-						( (== (gEgo onControl:) ctlTEAL)	; 3 - move to pieces
-							(gEgo posn: 160 62)
-						)
-						( (== (gEgo onControl:) ctlMAROON)	; 4
-							
-						)
-						( (== (gEgo onControl:) ctlPURPLE)	; 5
-							(gEgo posn: 108 113) 
-						)
-						( (== (gEgo onControl:) ctlBROWN)	; 6 - move to pieces
-							(gEgo posn: 160 113) 
-						)
-						( (== (gEgo onControl:) ctlSILVER)	; 7
-							
-						)
-						( (== (gEgo onControl:) ctlGREY)	; 8
-							(gEgo posn: 108 165) 
-						)
-						( (== (gEgo onControl:) ctlBLUE)	; 9
-							(gEgo posn: 160 165) 
+					(if handPosition
+						(switch handPosition
+							(2
+								(setHandPosition 1 265 104)
+							)
+							(5
+								(setHandPosition 4 265 134)
+							)
+							(7
+								(setHandPosition 9 265 44)
+							)
+							(8
+								(setHandPosition 3 265 74)
+							)
+							(else
+								(= handPosition 0)
+								(gEgo posn: 211 113) 	
+							)		
+						)	
+					else
+						(cond
+							( (== (gEgo onControl:) ctlNAVY)	; 1
+								
+							)
+							( (== (gEgo onControl:) ctlGREEN)	; 2
+								(gEgo posn: 108 62) 
+							)
+							( (== (gEgo onControl:) ctlTEAL)	; 3 
+								(gEgo posn: 160 62)
+							)
+							( (== (gEgo onControl:) ctlMAROON)	; 4
+								
+							)
+							( (== (gEgo onControl:) ctlPURPLE)	; 5
+								(gEgo posn: 108 113) 
+							)
+							( (== (gEgo onControl:) ctlBROWN)	; 6 
+								(gEgo posn: 160 113) 
+							)
+							( (== (gEgo onControl:) ctlSILVER)	; 7
+								
+							)
+							( (== (gEgo onControl:) ctlGREY)	; 8
+								(gEgo posn: 108 165) 
+							)
+							( (== (gEgo onControl:) ctlBLUE)	; 9
+								(gEgo posn: 160 165) 
+							)
 						)
 					)
 				)
@@ -431,6 +557,11 @@
 		(return TRUE)
 	else
 		(return FALSE)
+	)
+)
+(procedure (spacebarGrab block num)	; num as a standin for blockHeld
+	(if (<= (squareSelectorLight distanceTo: block) 10)
+		(= blockHeld num)	
 	)
 )
 (procedure (SurroundingSquareCheck num)
@@ -615,6 +746,10 @@
 		)	
 	)
 )
+(procedure (setHandPosition num x y)
+	(= handPosition num)
+	(squareSelectorLight  posn: x y)	
+)
 (procedure (placePiece &tmp i ii x y)
 	(for ( (= i 0)) (< i 10)  ( (++ i))
 		(if (== boardNumberSelect i)	; determine where on the board we're placing the block
@@ -655,7 +790,7 @@
 					(= x 210)(= y 155)
 					(squareReplacementCheck 8)
 				)
-				(0	
+				(0	; if not on the board, place the piece back
 					(for ( (= ii 0)) (< ii 10)  ( (++ ii))
 						(if (== blockHeld ii)	; determine which block we're placing
 							(switch blockHeld	; put the block back to their original puzzle starting points
@@ -837,6 +972,37 @@
 		(= [squareFilled num] blockHeld)
 	)
 )
+(procedure (hideBlock)
+	(switch blockHeld
+		(1
+			(block1 hide:)
+		)
+		(2
+			(block2 hide:)
+		)
+		(3
+			(block3 hide:)
+		)
+		(4
+			(block4 hide:)
+		)
+		(5
+			(block5 hide:)
+		)
+		(6
+			(block6 hide:)
+		)
+		(7
+			(block7 hide:)
+		)
+		(8
+			(block8 hide:)
+		)
+		(9
+			(block9 hide:)
+		)
+	)	
+)
 (instance exitButton of Prop
 	(properties         
 		y 174
@@ -941,7 +1107,7 @@
 		loop 7                          
 	)
 )
-(instance squareSelectorLight of Prop
+(instance squareSelectorLight of Act
 	(properties
 		y 55
 		x 110
