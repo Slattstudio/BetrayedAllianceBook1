@@ -253,7 +253,6 @@
 				(gEgo posn: 160 113)	; put at posn 5	
 			else
 				(if (== (pEvent message?) $0020)  ; If pressed the SPACEBAR
-					(FormatPrint {%u %u} boardNumberSelect handPosition)
 					(if blockHeld
 						(placePiece)	
 					else
@@ -751,150 +750,187 @@
 	(squareSelectorLight  posn: x y)	
 )
 (procedure (placePiece &tmp i ii x y)
-	(for ( (= i 0)) (< i 10)  ( (++ i))
-		(if (== boardNumberSelect i)	; determine where on the board we're placing the block
-			(switch boardNumberSelect	; set the x and y value of the where the block will eventually go
-				(1 
-					(= x 110)(= y 55)
-					(squareReplacementCheck 0)
+	(if handPosition
+		(for ( (= ii 0)) (< ii 10)  ( (++ ii))
+			(if (== blockHeld ii)	; determine which block we're placing
+				(switch blockHeld	; put the block back to their original puzzle starting points
+					(1
+						(block1 show: posn: 260 105)									
+					)
+					(2
+						(block2 show: posn: 300 105)
+					)
+					(3
+						(block3 show: posn: 260 75)		
+					)
+					(4
+						(block4 show: posn: 260 135)	
+					)
+					(5
+						(block5 show: posn: 300 135)		
+					)
+					(6
+						(block6 show: posn: 260 165)
+					)
+					(7
+						(block7 show: posn: 300 45)	
+					)
+					(8
+						(block8 show: posn: 300 75)
+					)
+					(9
+						(block9 show: posn: 260 45)	
+					)
 				)
-				(2 
-					(= x 160)(= y 55)
-					(squareReplacementCheck 1)
-				)
-				(3 
-					(= x 210)(= y 55)
-					(squareReplacementCheck 2)
-				)
-				(4 
-					(= x 110)(= y 105)
-					(squareReplacementCheck 3)
-				)
-				(5 
-					(= x 160)(= y 105)
-					(squareReplacementCheck 4)
-				)
-				(6 
-					(= x 210)(= y 105)
-					(squareReplacementCheck 5)
-				)
-				(7 
-					(= x 110)(= y 155)
-					(squareReplacementCheck 6)
-				)
-				(8 
-					(= x 160)(= y 155)
-					(squareReplacementCheck 7)
-				)
-				(9 
-					(= x 210)(= y 155)
-					(squareReplacementCheck 8)
-				)
-				(0	; if not on the board, place the piece back
-					(for ( (= ii 0)) (< ii 10)  ( (++ ii))
-						(if (== blockHeld ii)	; determine which block we're placing
-							(switch blockHeld	; put the block back to their original puzzle starting points
-								(1
-									(block1 show: posn: 260 105)									
-								)
-								(2
-									(block2 show: posn: 300 105)
-								)
-								(3
-									(block3 show: posn: 260 75)		
-								)
-								(4
-									(block4 show: posn: 260 135)	
-								)
-								(5
-									(block5 show: posn: 300 135)		
-								)
-								(6
-									(block6 show: posn: 260 165)
-								)
-								(7
-									(block7 show: posn: 300 45)	
-								)
-								(8
-									(block8 show: posn: 300 75)
-								)
-								(9
-									(block9 show: posn: 260 45)	
+			)
+		)	
+		(= blockHeld 0)	; block held is set to 0 as it's either placed or replaced
+	else
+		(for ( (= i 0)) (< i 10)  ( (++ i))
+			(if (== boardNumberSelect i)	; determine where on the board we're placing the block
+				(switch boardNumberSelect	; set the x and y value of the where the block will eventually go
+					(1 
+						(= x 110)(= y 55)
+						(squareReplacementCheck 0)
+					)
+					(2 
+						(= x 160)(= y 55)
+						(squareReplacementCheck 1)
+					)
+					(3 
+						(= x 210)(= y 55)
+						(squareReplacementCheck 2)
+					)
+					(4 
+						(= x 110)(= y 105)
+						(squareReplacementCheck 3)
+					)
+					(5 
+						(= x 160)(= y 105)
+						(squareReplacementCheck 4)
+					)
+					(6 
+						(= x 210)(= y 105)
+						(squareReplacementCheck 5)
+					)
+					(7 
+						(= x 110)(= y 155)
+						(squareReplacementCheck 6)
+					)
+					(8 
+						(= x 160)(= y 155)
+						(squareReplacementCheck 7)
+					)
+					(9 
+						(= x 210)(= y 155)
+						(squareReplacementCheck 8)
+					)
+					(0	; if not on the board, place the piece back
+						(for ( (= ii 0)) (< ii 10)  ( (++ ii))
+							(if (== blockHeld ii)	; determine which block we're placing
+								(switch blockHeld	; put the block back to their original puzzle starting points
+									(1
+										(block1 show: posn: 260 105)									
+									)
+									(2
+										(block2 show: posn: 300 105)
+									)
+									(3
+										(block3 show: posn: 260 75)		
+									)
+									(4
+										(block4 show: posn: 260 135)	
+									)
+									(5
+										(block5 show: posn: 300 135)		
+									)
+									(6
+										(block6 show: posn: 260 165)
+									)
+									(7
+										(block7 show: posn: 300 45)	
+									)
+									(8
+										(block8 show: posn: 300 75)
+									)
+									(9
+										(block9 show: posn: 260 45)	
+									)
 								)
 							)
-						)
-					)	
-					(= blockHeld 0)	; block held is set to 0 as it's either placed or replaced
-					(return) 	
-				)
-	
-			)
-			(if (not swapping)	; if not swapping two blocks, this sets the blockSwapped variable to that of the currently held block to be placed.
-				(= blockInput blockHeld)	
-			)
-			(for ( (= ii 0)) (< ii 10)  ( (++ ii))
-				(if (== blockInput ii)	; determine which block we're placing
-					(switch blockInput
-						(1
-							(block1 show: posn: x y)
-							(= [blockPlacedPotential 2] 1)
-							(= [blockPlacedPotential 4] 2)	
-						)
-						(2
-							(block2 show: posn: x y)
-							(= [blockPlacedPotential 3] 1)
-							(= [blockPlacedPotential 4] 2)
-							(= [blockPlacedPotential 5] 1)		
-						)
-						(3
-							(block3 show: posn: x y)
-							(= [blockPlacedPotential 0] 1)
-							(= [blockPlacedPotential 4] 2)	
-						)
-						(4
-							(block4 show: posn: x y)
-							(= [blockPlacedPotential 1] 1)
-							(= [blockPlacedPotential 2] 2)
-							(= [blockPlacedPotential 4] 1)	
-						)
-						(5
-							(block5 show: posn: x y)
-							(= [blockPlacedPotential 1] 1)
-							(= [blockPlacedPotential 3] 2)
-							(= [blockPlacedPotential 4] 2)
-							(= [blockPlacedPotential 5] 2)	
-						)
-						(6
-							(block6 show: posn: x y)
-							(= [blockPlacedPotential 0] 2)
-							(= [blockPlacedPotential 1] 1)
-							(= [blockPlacedPotential 4] 1)		
-						)
-						(7
-							(block7 show: posn: x y)
-							(= [blockPlacedPotential 1] 2)
-							(= [blockPlacedPotential 2] 1)		
-						)
-						(8
-							(block8 show: posn: x y)
-							(= [blockPlacedPotential 1] 1)
-							(= [blockPlacedPotential 3] 2)
-							(= [blockPlacedPotential 5] 2)		
-						)
-						(9
-							(block9 show: posn: x y)
-							(= [blockPlacedPotential 0] 1)
-							(= [blockPlacedPotential 1] 2)		
-						)						
+						)	
+						(= blockHeld 0)	; block held is set to 0 as it's either placed or replaced
+						(return) 	
 					)
-					(if swapping
-						(= blockInput 0)
-						(= swapping 0)	
-					else
-						(= blockHeld 0)
-						(= blockInput 0)
-					)	
-				)						
+		
+				)
+				(if (not swapping)	; if not swapping two blocks, this sets the blockSwapped variable to that of the currently held block to be placed.
+					(= blockInput blockHeld)	
+				)
+				(for ( (= ii 0)) (< ii 10)  ( (++ ii))
+					(if (== blockInput ii)	; determine which block we're placing
+						(switch blockInput
+							(1
+								(block1 show: posn: x y)
+								(= [blockPlacedPotential 2] 1)
+								(= [blockPlacedPotential 4] 2)	
+							)
+							(2
+								(block2 show: posn: x y)
+								(= [blockPlacedPotential 3] 1)
+								(= [blockPlacedPotential 4] 2)
+								(= [blockPlacedPotential 5] 1)		
+							)
+							(3
+								(block3 show: posn: x y)
+								(= [blockPlacedPotential 0] 1)
+								(= [blockPlacedPotential 4] 2)	
+							)
+							(4
+								(block4 show: posn: x y)
+								(= [blockPlacedPotential 1] 1)
+								(= [blockPlacedPotential 2] 2)
+								(= [blockPlacedPotential 4] 1)	
+							)
+							(5
+								(block5 show: posn: x y)
+								(= [blockPlacedPotential 1] 1)
+								(= [blockPlacedPotential 3] 2)
+								(= [blockPlacedPotential 4] 2)
+								(= [blockPlacedPotential 5] 2)	
+							)
+							(6
+								(block6 show: posn: x y)
+								(= [blockPlacedPotential 0] 2)
+								(= [blockPlacedPotential 1] 1)
+								(= [blockPlacedPotential 4] 1)		
+							)
+							(7
+								(block7 show: posn: x y)
+								(= [blockPlacedPotential 1] 2)
+								(= [blockPlacedPotential 2] 1)		
+							)
+							(8
+								(block8 show: posn: x y)
+								(= [blockPlacedPotential 1] 1)
+								(= [blockPlacedPotential 3] 2)
+								(= [blockPlacedPotential 5] 2)		
+							)
+							(9
+								(block9 show: posn: x y)
+								(= [blockPlacedPotential 0] 1)
+								(= [blockPlacedPotential 1] 2)		
+							)						
+						)
+						(if swapping
+							(= blockInput 0)
+							(= swapping 0)	
+						else
+							(= blockHeld 0)
+							(= blockInput 0)
+						)	
+					)						
+				)
 			)
 		)
 	)
