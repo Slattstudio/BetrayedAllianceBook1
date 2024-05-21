@@ -227,6 +227,14 @@
 					)
 					(if
 						(==
+							ctlCYAN
+							(OnControl ocPRIORITY (pEvent x?) (pEvent y?))
+						)                                                                  ; flowers
+						(PrintOther 53 47)
+						(return)
+					)
+					(if
+						(==
 							ctlGREEN
 							(OnControl ocPRIORITY (pEvent x?) (pEvent y?))
 						)                                                                   ; tree for hiding
@@ -268,6 +276,9 @@
 			)
 		)
 		(if (Said 'look>')
+			(if (Said '/bush,azalea')
+				(PrintOther 53 47)	
+			)
 			(if (Said '/face,cave,skull')
 				(PrintOther 53 22)
 				(if g53OutFirstTime
@@ -297,6 +308,9 @@
 			else
 				(PrintNCE)
 			)
+		)
+		(if (Said 'take,pick/azalea')
+			(PrintOther 53 48)	
 		)
 		; PrintOther(53 31)
 		(if (Said 'talk/face,cave,well,skull')
