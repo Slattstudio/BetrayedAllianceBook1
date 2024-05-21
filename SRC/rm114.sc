@@ -22,7 +22,7 @@
 	blockInput = 0 ; This is the block number that will be inputted into the slot
 					 
 	boardNumberSelect = 0 ; which square is currently selected (by ego being on its respective control color)
-	handPosition = 0 ; used with keyboard controls to dictate where you can grab a block
+	;handPosition = 0 ; used with keyboard controls to dictate where you can grab a block
 	
 	; each square will be filled with the number corresponding to the block the solution being	 1, 2, 3
 																							  	;4, 5, 6
@@ -118,7 +118,7 @@
 			(infoButton hide:)
 		)
 		
-		(if mouseControl
+		;(if mouseControl
 			(= myEvent (Event new: evNULL))	; create new event to determine where the cursor is
 			(cond 
 				((checkEvent myEvent (block1 nsLeft?) (block1 nsRight?) (block1 nsTop?) (block1 nsBottom?) block1))
@@ -144,10 +144,10 @@
 			)
 			
 			(myEvent dispose:)	; dispose the event so heap is not building up
-		)
+		;)
 		
 		; determine which square the cursor is over
-		(if (not handPosition)
+		;(if (not handPosition)
 			(cond
 				( (== (gEgo onControl:) ctlNAVY)
 					(= boardNumberSelect 1)
@@ -190,27 +190,27 @@
 					(squareSelectorLight cel: 0)
 				)		
 			)
-		)
+		;)
 		
-		(if mouseControl
+		;(if mouseControl
 			(squareSelectorLight hide:)
-		else
-			(squareSelectorLight show:)	; illustrate what you can do with keyboard controls
-			(gGame setCursor: 998) ; invisible cursor
-			(if blockHeld
-				(movingPiece loop: blockHeld posn: (squareSelectorLight x?)(squareSelectorLight y?))	
-			else
-				(movingPiece loop: 0)
-			)	
-		)
-		(if handPosition
-			(squareSelectorLight view: 587 setPri: 10)	; hand icon
+		;else
+		;	(squareSelectorLight show:)	; illustrate what you can do with keyboard controls
+		;	(gGame setCursor: 998) ; invisible cursor
+		;	(if blockHeld
+		;		(movingPiece loop: blockHeld posn: (squareSelectorLight x?)(squareSelectorLight y?))	
+		;	else
+		;		(movingPiece loop: 0)
+		;	)	
+		;)
+		;(if handPosition
+		;	(squareSelectorLight view: 587 setPri: 10)	; hand icon
 			;(= boardNumberSelect 0)
-		else
-			(if (not blockHeld)
-				(squareSelectorLight view: 588 setPri: 0)
-			)	
-		)
+		;else
+		;	(if (not blockHeld)
+		;		(squareSelectorLight view: 588 setPri: 0)
+		;	)	
+		;)
 		
 	)
 	
@@ -224,6 +224,8 @@
 						(> (pEvent y?) (+ (exitButton nsTop?) 0))
 						(< (pEvent y?) (+ (exitButton nsBottom?) 8))
 					)
+					(= gMap 0)
+					(= gArcStl 0)
 					(gRoom newRoom: 50)
 				)
 				(if blockHeld
@@ -240,280 +242,7 @@
 						)
 					)
 				)
-			else ; if not mouse control AND you hit the mouse key, turn on mouse control
-				(= mouseControl 1)
-				(gGame setCursor: 999)
 			)
-		)
-		
-		; Using keyboard controls
-		(if (== (pEvent type?) evKEYBOARD)
-			(if mouseControl
-				(= mouseControl 0)
-				(gEgo posn: 160 113)	; put at posn 5	
-			else
-				(if (== (pEvent message?) $0020)  ; If pressed the SPACEBAR
-					(if blockHeld
-						(placePiece)	
-					else
-						(spacebarGrab block1 1)
-						(spacebarGrab block2 2)
-						(spacebarGrab block3 3)
-						(spacebarGrab block4 4)
-						(spacebarGrab block5 5)
-						(spacebarGrab block6 6)
-						(spacebarGrab block7 7)
-						(spacebarGrab block8 8)
-						(spacebarGrab block9 9)
-						(hideBlock)
-						; if the player picked up a piece that was already on the board
-						(for ( (= i 0)) (< i 10)  ( (++ i))
-							(if (== boardNumberSelect i)
-								(= [squareFilled (- i 1)] 0)
-							)	
-						)		
-					)
-				)
-			)
-		)
-		(if (== (pEvent type?) evJOYSTICK)
-			(if mouseControl
-				(= mouseControl 0)
-				(gEgo posn: 160 113)	; put at posn 5	
-			else
-				(if (== (pEvent message?) 1)    ; If pressed the UP arrow
-					(if handPosition
-						(switch handPosition
-							(1
-								(setHandPosition 3 265 74)
-							)
-							(2
-								(setHandPosition 8 305 74)
-							)
-							(3
-								(setHandPosition 9 265 44)
-							)
-							(4
-								(setHandPosition 1 265 104)
-							)
-							(5
-								(setHandPosition 2 305 104)
-							)
-							(6
-								(setHandPosition 4 265 134)	
-							)
-							(7
-								(setHandPosition 5 305 134)	
-							)
-							(8
-								(setHandPosition 7 305 44)	
-							)
-							(9
-								(setHandPosition 6 265 164)	
-							)		
-						)	
-					else
-						(cond
-							( (== (gEgo onControl:) ctlNAVY)	; 1
-								(gEgo posn: 108 165) 
-							)
-							( (== (gEgo onControl:) ctlGREEN)	; 2
-								(gEgo posn: 160 165) 	
-							)
-							( (== (gEgo onControl:) ctlTEAL)	; 3 
-								(gEgo posn: 211 165) 
-							)
-							( (== (gEgo onControl:) ctlMAROON)	; 4
-								(gEgo posn: 108 62)	
-							)
-							( (== (gEgo onControl:) ctlPURPLE)	; 5
-								(gEgo posn: 160 62)	
-							)
-							( (== (gEgo onControl:) ctlBROWN)	; 6 
-								(gEgo posn: 211 62)
-							)
-							( (== (gEgo onControl:) ctlSILVER)	; 7
-								(gEgo posn: 108 113) 
-							)
-							( (== (gEgo onControl:) ctlGREY)	; 8
-								(gEgo posn: 160 113) 
-							)
-							( (== (gEgo onControl:) ctlBLUE)	; 9
-								(gEgo posn: 211 113) 
-							)
-						)
-					)
-				)
-				(if (== (pEvent message?) 5)    ; If pressed the DOWN arrow
-					(if handPosition
-						(switch handPosition
-							(1
-								(setHandPosition 4 265 134)
-							)
-							(2
-								(setHandPosition 5 305 134)
-							)
-							(3
-								(setHandPosition 1 265 104)
-							)
-							(4
-								(setHandPosition 6 265 164)
-							)
-							(5
-								(setHandPosition 7 305 44)
-							)
-							(6
-								(setHandPosition 9 265 44)
-							)
-							(7
-								(setHandPosition 8 305 74)
-							)
-							(8
-								(setHandPosition 2 305 104)
-							)
-							(9
-								(setHandPosition 3 265 74)
-							)		
-						)	
-					else
-						(cond
-							( (== (gEgo onControl:) ctlNAVY)	; 1
-								(gEgo posn: 108 113)
-							)
-							( (== (gEgo onControl:) ctlGREEN)	; 2
-								(gEgo posn: 160 113)	
-							)
-							( (== (gEgo onControl:) ctlTEAL)	; 3 
-								(gEgo posn: 211 113) 
-							)
-							( (== (gEgo onControl:) ctlMAROON)	; 4
-								(gEgo posn: 108 165) 	
-							)
-							( (== (gEgo onControl:) ctlPURPLE)	; 5
-								(gEgo posn: 160 165) 	
-							)
-							( (== (gEgo onControl:) ctlBROWN)	; 6 
-								(gEgo posn: 211 165) 	
-							)
-							( (== (gEgo onControl:) ctlSILVER)	; 7
-								(gEgo posn: 108 62)	
-							)
-							( (== (gEgo onControl:) ctlGREY)	; 8
-								(gEgo posn: 160 62)		
-							)
-							( (== (gEgo onControl:) ctlBLUE)	; 9
-								(gEgo posn: 211 62)	
-							)
-						)
-					)
-				)	
-				(if (== (pEvent message?) 3) ; If pressed the RIGHT arrow
-					(if handPosition
-						(switch handPosition
-							(1
-								(setHandPosition 2 305 104)
-							)
-							(3
-								(setHandPosition 8 305 74)
-							)
-							(4
-								(setHandPosition 5 305 134)	
-							)
-							(6
-								(setHandPosition 5 305 134)		
-							)
-							(9
-								(setHandPosition 7 305 44)		
-							)		
-						)	
-					else
-						(cond
-							( (== (gEgo onControl:) ctlNAVY)	; 1
-								(gEgo posn: 160 62) 
-							)
-							( (== (gEgo onControl:) ctlGREEN)	; 2
-								(gEgo posn: 211 62) 
-							)
-							( (== (gEgo onControl:) ctlTEAL)	; 3 - move to pieces
-								(setHandPosition 1 265 104)
-								(gEgo posn: 1 1)
-							)
-							( (== (gEgo onControl:) ctlMAROON)	; 4
-								(gEgo posn: 160 113) 
-							)
-							( (== (gEgo onControl:) ctlPURPLE)	; 5
-								(gEgo posn: 211 113) 
-							)
-							( (== (gEgo onControl:) ctlBROWN)	; 6 - move to pieces
-								(setHandPosition 1 265 104)
-								(gEgo posn: 1 1)
-							)
-							( (== (gEgo onControl:) ctlSILVER)	; 7
-								(gEgo posn: 160 165) 
-							)
-							( (== (gEgo onControl:) ctlGREY)	; 8
-								(gEgo posn: 211 165) 
-							)
-							( (== (gEgo onControl:) ctlBLUE)	; 9 - move to pieces
-								(setHandPosition 1 265 104)
-								(gEgo posn: 1 1)
-							)
-						)
-					)	
-				)
-				(if (== (pEvent message?) 7) ; If pressed the Left arrow	
-					(if handPosition
-						(switch handPosition
-							(2
-								(setHandPosition 1 265 104)
-							)
-							(5
-								(setHandPosition 4 265 134)
-							)
-							(7
-								(setHandPosition 9 265 44)
-							)
-							(8
-								(setHandPosition 3 265 74)
-							)
-							(else
-								(= handPosition 0)
-								(gEgo posn: 211 113) 	
-							)		
-						)	
-					else
-						(cond
-							( (== (gEgo onControl:) ctlNAVY)	; 1
-								
-							)
-							( (== (gEgo onControl:) ctlGREEN)	; 2
-								(gEgo posn: 108 62) 
-							)
-							( (== (gEgo onControl:) ctlTEAL)	; 3 
-								(gEgo posn: 160 62)
-							)
-							( (== (gEgo onControl:) ctlMAROON)	; 4
-								
-							)
-							( (== (gEgo onControl:) ctlPURPLE)	; 5
-								(gEgo posn: 108 113) 
-							)
-							( (== (gEgo onControl:) ctlBROWN)	; 6 
-								(gEgo posn: 160 113) 
-							)
-							( (== (gEgo onControl:) ctlSILVER)	; 7
-								
-							)
-							( (== (gEgo onControl:) ctlGREY)	; 8
-								(gEgo posn: 108 165) 
-							)
-							( (== (gEgo onControl:) ctlBLUE)	; 9
-								(gEgo posn: 160 165) 
-							)
-						)
-					)
-				)
-			)	
 		)
 	)
 	
@@ -536,6 +265,7 @@
 				(gGame changeScore: 4)
 				(= gInt (+ gInt 3))
 				(= gArcStl 0)
+				(= gMap 0)
 			)
 			(4 (gRoom newRoom: 50)
 			)
@@ -745,192 +475,155 @@
 		)	
 	)
 )
-(procedure (setHandPosition num x y)
-	(= handPosition num)
-	(squareSelectorLight  posn: x y)	
-)
+;(procedure (setHandPosition num x y)
+;	(= handPosition num)
+;	(squareSelectorLight  posn: x y)	
+;)
 (procedure (placePiece &tmp i ii x y)
-	(if handPosition
-		(for ( (= ii 0)) (< ii 10)  ( (++ ii))
-			(if (== blockHeld ii)	; determine which block we're placing
-				(switch blockHeld	; put the block back to their original puzzle starting points
-					(1
-						(block1 show: posn: 260 105)									
-					)
-					(2
-						(block2 show: posn: 300 105)
-					)
-					(3
-						(block3 show: posn: 260 75)		
-					)
-					(4
-						(block4 show: posn: 260 135)	
-					)
-					(5
-						(block5 show: posn: 300 135)		
-					)
-					(6
-						(block6 show: posn: 260 165)
-					)
-					(7
-						(block7 show: posn: 300 45)	
-					)
-					(8
-						(block8 show: posn: 300 75)
-					)
-					(9
-						(block9 show: posn: 260 45)	
-					)
+	(for ( (= i 0)) (< i 10)  ( (++ i))
+		(if (== boardNumberSelect i)	; determine where on the board we're placing the block
+			(switch boardNumberSelect	; set the x and y value of the where the block will eventually go
+				(1 
+					(= x 110)(= y 55)
+					(squareReplacementCheck 0)
 				)
-			)
-		)	
-		(= blockHeld 0)	; block held is set to 0 as it's either placed or replaced
-	else
-		(for ( (= i 0)) (< i 10)  ( (++ i))
-			(if (== boardNumberSelect i)	; determine where on the board we're placing the block
-				(switch boardNumberSelect	; set the x and y value of the where the block will eventually go
-					(1 
-						(= x 110)(= y 55)
-						(squareReplacementCheck 0)
-					)
-					(2 
-						(= x 160)(= y 55)
-						(squareReplacementCheck 1)
-					)
-					(3 
-						(= x 210)(= y 55)
-						(squareReplacementCheck 2)
-					)
-					(4 
-						(= x 110)(= y 105)
-						(squareReplacementCheck 3)
-					)
-					(5 
-						(= x 160)(= y 105)
-						(squareReplacementCheck 4)
-					)
-					(6 
-						(= x 210)(= y 105)
-						(squareReplacementCheck 5)
-					)
-					(7 
-						(= x 110)(= y 155)
-						(squareReplacementCheck 6)
-					)
-					(8 
-						(= x 160)(= y 155)
-						(squareReplacementCheck 7)
-					)
-					(9 
-						(= x 210)(= y 155)
-						(squareReplacementCheck 8)
-					)
-					(0	; if not on the board, place the piece back
-						(for ( (= ii 0)) (< ii 10)  ( (++ ii))
-							(if (== blockHeld ii)	; determine which block we're placing
-								(switch blockHeld	; put the block back to their original puzzle starting points
-									(1
-										(block1 show: posn: 260 105)									
-									)
-									(2
-										(block2 show: posn: 300 105)
-									)
-									(3
-										(block3 show: posn: 260 75)		
-									)
-									(4
-										(block4 show: posn: 260 135)	
-									)
-									(5
-										(block5 show: posn: 300 135)		
-									)
-									(6
-										(block6 show: posn: 260 165)
-									)
-									(7
-										(block7 show: posn: 300 45)	
-									)
-									(8
-										(block8 show: posn: 300 75)
-									)
-									(9
-										(block9 show: posn: 260 45)	
-									)
+				(2 
+					(= x 160)(= y 55)
+					(squareReplacementCheck 1)
+				)
+				(3 
+					(= x 210)(= y 55)
+					(squareReplacementCheck 2)
+				)
+				(4 
+					(= x 110)(= y 105)
+					(squareReplacementCheck 3)
+				)
+				(5 
+					(= x 160)(= y 105)
+					(squareReplacementCheck 4)
+				)
+				(6 
+					(= x 210)(= y 105)
+					(squareReplacementCheck 5)
+				)
+				(7 
+					(= x 110)(= y 155)
+					(squareReplacementCheck 6)
+				)
+				(8 
+					(= x 160)(= y 155)
+					(squareReplacementCheck 7)
+				)
+				(9 
+					(= x 210)(= y 155)
+					(squareReplacementCheck 8)
+				)
+				(0	; if not on the board, place the piece back
+					(for ( (= ii 0)) (< ii 10)  ( (++ ii))
+						(if (== blockHeld ii)	; determine which block we're placing
+							(switch blockHeld	; put the block back to their original puzzle starting points
+								(1
+									(block1 show: posn: 260 105)									
+								)
+								(2
+									(block2 show: posn: 300 105)
+								)
+								(3
+									(block3 show: posn: 260 75)		
+								)
+								(4
+									(block4 show: posn: 260 135)	
+								)
+								(5
+									(block5 show: posn: 300 135)		
+								)
+								(6
+									(block6 show: posn: 260 165)
+								)
+								(7
+									(block7 show: posn: 300 45)	
+								)
+								(8
+									(block8 show: posn: 300 75)
+								)
+								(9
+									(block9 show: posn: 260 45)	
 								)
 							)
-						)	
-						(= blockHeld 0)	; block held is set to 0 as it's either placed or replaced
-						(return) 	
-					)
-		
-				)
-				(if (not swapping)	; if not swapping two blocks, this sets the blockSwapped variable to that of the currently held block to be placed.
-					(= blockInput blockHeld)	
-				)
-				(for ( (= ii 0)) (< ii 10)  ( (++ ii))
-					(if (== blockInput ii)	; determine which block we're placing
-						(switch blockInput
-							(1
-								(block1 show: posn: x y)
-								(= [blockPlacedPotential 2] 1)
-								(= [blockPlacedPotential 4] 2)	
-							)
-							(2
-								(block2 show: posn: x y)
-								(= [blockPlacedPotential 3] 1)
-								(= [blockPlacedPotential 4] 2)
-								(= [blockPlacedPotential 5] 1)		
-							)
-							(3
-								(block3 show: posn: x y)
-								(= [blockPlacedPotential 0] 1)
-								(= [blockPlacedPotential 4] 2)	
-							)
-							(4
-								(block4 show: posn: x y)
-								(= [blockPlacedPotential 1] 1)
-								(= [blockPlacedPotential 2] 2)
-								(= [blockPlacedPotential 4] 1)	
-							)
-							(5
-								(block5 show: posn: x y)
-								(= [blockPlacedPotential 1] 1)
-								(= [blockPlacedPotential 3] 2)
-								(= [blockPlacedPotential 4] 2)
-								(= [blockPlacedPotential 5] 2)	
-							)
-							(6
-								(block6 show: posn: x y)
-								(= [blockPlacedPotential 0] 2)
-								(= [blockPlacedPotential 1] 1)
-								(= [blockPlacedPotential 4] 1)		
-							)
-							(7
-								(block7 show: posn: x y)
-								(= [blockPlacedPotential 1] 2)
-								(= [blockPlacedPotential 2] 1)		
-							)
-							(8
-								(block8 show: posn: x y)
-								(= [blockPlacedPotential 1] 1)
-								(= [blockPlacedPotential 3] 2)
-								(= [blockPlacedPotential 5] 2)		
-							)
-							(9
-								(block9 show: posn: x y)
-								(= [blockPlacedPotential 0] 1)
-								(= [blockPlacedPotential 1] 2)		
-							)						
 						)
-						(if swapping
-							(= blockInput 0)
-							(= swapping 0)	
-						else
-							(= blockHeld 0)
-							(= blockInput 0)
-						)	
-					)						
+					)	
+					(= blockHeld 0)	; block held is set to 0 as it's either placed or replaced
+					(return) 	
 				)
+	
+			)
+			(if (not swapping)	; if not swapping two blocks, this sets the blockSwapped variable to that of the currently held block to be placed.
+				(= blockInput blockHeld)	
+			)
+			(for ( (= ii 0)) (< ii 10)  ( (++ ii))
+				(if (== blockInput ii)	; determine which block we're placing
+					(switch blockInput
+						(1
+							(block1 show: posn: x y)
+							(= [blockPlacedPotential 2] 1)
+							(= [blockPlacedPotential 4] 2)	
+						)
+						(2
+							(block2 show: posn: x y)
+							(= [blockPlacedPotential 3] 1)
+							(= [blockPlacedPotential 4] 2)
+							(= [blockPlacedPotential 5] 1)		
+						)
+						(3
+							(block3 show: posn: x y)
+							(= [blockPlacedPotential 0] 1)
+							(= [blockPlacedPotential 4] 2)	
+						)
+						(4
+							(block4 show: posn: x y)
+							(= [blockPlacedPotential 1] 1)
+							(= [blockPlacedPotential 2] 2)
+							(= [blockPlacedPotential 4] 1)	
+						)
+						(5
+							(block5 show: posn: x y)
+							(= [blockPlacedPotential 1] 1)
+							(= [blockPlacedPotential 3] 2)
+							(= [blockPlacedPotential 4] 2)
+							(= [blockPlacedPotential 5] 2)	
+						)
+						(6
+							(block6 show: posn: x y)
+							(= [blockPlacedPotential 0] 2)
+							(= [blockPlacedPotential 1] 1)
+							(= [blockPlacedPotential 4] 1)		
+						)
+						(7
+							(block7 show: posn: x y)
+							(= [blockPlacedPotential 1] 2)
+							(= [blockPlacedPotential 2] 1)		
+						)
+						(8
+							(block8 show: posn: x y)
+							(= [blockPlacedPotential 1] 1)
+							(= [blockPlacedPotential 3] 2)
+							(= [blockPlacedPotential 5] 2)		
+						)
+						(9
+							(block9 show: posn: x y)
+							(= [blockPlacedPotential 0] 1)
+							(= [blockPlacedPotential 1] 2)		
+						)						
+					)
+					(if swapping
+						(= blockInput 0)
+						(= swapping 0)	
+					else
+						(= blockHeld 0)
+						(= blockInput 0)
+					)	
+				)						
 			)
 		)
 	)
