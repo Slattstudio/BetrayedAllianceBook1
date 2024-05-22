@@ -384,7 +384,8 @@
 		)
 		; Print(23 37) /* Ask me anything you wish."#width 150 #at -1 12 #title "She says: */
 		(if (Said 'talk/horse,mircea') (Print 23 48)) ; Stop horsing around.
-		(if (Said 'use/map')
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
 			(Print
 				{You're afraid of frightening Leah by disappearing before her eyes.}
 			)

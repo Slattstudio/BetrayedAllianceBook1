@@ -512,7 +512,10 @@
 				)
 			)
 		)
-		(if (Said 'use/map') (PrintOther 37 36))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 	)
 	
 	(method (doit)

@@ -293,7 +293,10 @@
 		)
 		
 		(if (Said 'run') (Print 0 88))
-		(if (Said 'use/map') (Print 0 88))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said 'press/button') (PrintOther 60 32))
 		(if (Said 'get/(flask<ye)') (Print 18 75))
 		(if (Said '(pick<up),take>')

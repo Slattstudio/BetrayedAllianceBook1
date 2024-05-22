@@ -461,8 +461,9 @@
 				)
 			)
 		)                           ; #width 280 #at -1 20) ; end candle
-		(if (Said 'use/map')
-			(Print {This isn't a good place to use that.})
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
 		)
 		(if (Said 'take/stock')
 			(if candle (PrintOther 67 10) else (PrintOther 67 12))

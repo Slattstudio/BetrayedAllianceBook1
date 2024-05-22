@@ -322,7 +322,10 @@
 		; this will handle just "look" by itself
 		)
 		(if (Said 'run') (Print 0 88))
-		(if (Said 'use/map') (Print 0 88))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said '(pick<up),take>')
 			(if (Said '/book')
 				(if (== [gMissingBooks 0] 0)

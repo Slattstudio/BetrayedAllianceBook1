@@ -389,7 +389,10 @@
 				(overCircle (turnLeft))
 			)
 		)
-		(if (Said 'use/map') (Print 70 26)) ; This isn't a good place to use that.
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said 'use,push,turn/dial,puzzle,combination,button')
 			(if safeOut
 				(if (& (gEgo onControl:) ctlGREY)

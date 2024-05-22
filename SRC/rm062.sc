@@ -315,7 +315,10 @@
 			)
 		)                        ; #width 280 #at -1 8) // If only there were some way to see past all the mess.
 		(if (Said 'run') (Print 0 88))
-		(if (Said 'use/map') (Print 0 88))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said 'leave/name')
 			(if (not manAsleep)
 				(PrintMan 62 26) ; #width 280 #at -1 20 #title {He says:})

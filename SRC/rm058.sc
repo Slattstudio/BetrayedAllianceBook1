@@ -552,7 +552,10 @@
 				(PrintOther 58 33)
 			)
 		)
-		(if (Said 'use/map') (PrintOther 58 53)) ; This isn't a good place to use that.
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said '(pick<up),take/bone,skeleton')
 			(PrintOther 58 77)	
 		)

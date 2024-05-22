@@ -292,7 +292,10 @@
 				(PrintDHI)
 			)
 		)
-		(if (Said 'use/map') (Print 28 102))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 28 102)
+		)
 		(if (Said 'smell[/!*]') (PrintOther 28 107))
 		(if (Said '(ask<about)>')
 			(cond 

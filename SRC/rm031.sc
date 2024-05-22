@@ -390,7 +390,10 @@
 				(else (PrintOther 31 24))
 			)
 		)
-		(if (Said 'use/map') (PrintOther 31 25))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(PrintOther 31 25)
+		)
 		(if
 		(or (Said 'use/ruler') (Said 'measure/pole,pillar'))
 			(PrintOther 31 26)
