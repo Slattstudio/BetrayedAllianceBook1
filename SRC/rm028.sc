@@ -544,7 +544,7 @@
 				(PrintDHI)
 			)
 		)
-		(if (Said 'use,drop,put/marble')
+		(if (Said 'use,drop,put,shoot/marble')
 			(if (gEgo has: 9)
 				(if (& (gEgo onControl:) ctlSILVER)
 					(= marbleDown 1)

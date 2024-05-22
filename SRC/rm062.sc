@@ -510,7 +510,7 @@
 				)
 			)
 		)
-		(if (Said 'use,drop,put/marble')
+		(if (Said 'use,drop,put,throw,shoot/marble')
 			(if (not gUra)
 				(if (gEgo has: 9)
 					(if (gEgo inRect: 89 136 225 165)

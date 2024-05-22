@@ -533,7 +533,7 @@
 				(PrintDHI)
 			)
 		)
-		(if (Said 'use,drop,put,throw/marble')
+		(if (Said 'use,drop,put,throw,shoot/marble')
 			(if (not gPlu)
 				(if (gEgo has: 9)
 					(if (not sunDown)
