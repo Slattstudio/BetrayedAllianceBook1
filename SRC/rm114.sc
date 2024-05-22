@@ -288,11 +288,6 @@
 		(return FALSE)
 	)
 )
-(procedure (spacebarGrab block num)	; num as a standin for blockHeld
-	(if (<= (squareSelectorLight distanceTo: block) 10)
-		(= blockHeld num)	
-	)
-)
 (procedure (SurroundingSquareCheck num)
 	(if [squareFilled num]	; if the block is filled, check to see which block is in it, then assign variables to its various arrows (1 for out, 2 for in) 
 		(if (== [squareFilled num] 1)
@@ -341,8 +336,8 @@
 	; Check the potentials against each other before rewriting these variables (then assignment lightning)
 	; LIGHTNING UP and LEFT			
 	(if (== (+ [blockPlacedPotential 0] [SurroundingBlockPotential 5]) 3)	; input 1 + output 2 matching = 3
-		(if (or (== (- boardNumberSelect 4) (+ num 1))
-				(== (+ boardNumberSelect 5) (+ num 1))
+		(if (or (== (+ boardNumberSelect 5) (+ num 1)) 
+				(and (== (- boardNumberSelect 4) (+ num 1)) (or (== boardNumberSelect 6) (== boardNumberSelect 9)))
 			)
 			(lightningArcDown show: posn: (- (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 18) cel: 0 setCycle: End)
 			(if
@@ -366,7 +361,7 @@
 	(if (== (+ [blockPlacedPotential 2] [SurroundingBlockPotential 3]) 3)
 		(if (or (== (- boardNumberSelect 2) (+ num 1))
 				(== (+ boardNumberSelect 7) (+ num 1))
-				(== (+ boardNumberSelect 4) (+ num 1)) ; across diagonal
+				(and (== (+ boardNumberSelect 4) (+ num 1)) (== boardNumberSelect 3)) ; across diagonal
 			)	
 			(lightningArcUp show: posn: (+ (squareSelectorLight x?) 20) (- (squareSelectorLight y?) 18) cel: 0 setCycle: End)
 			(if (== (+ boardNumberSelect 7) (+ num 1))
@@ -380,8 +375,8 @@
 	; LIGHTNING DOWN and LEFT	
 	(if (== (+ [blockPlacedPotential 3] [SurroundingBlockPotential 2]) 3)
 		(if (or (== (+ boardNumberSelect 2) (+ num 1))
-				(== (- boardNumberSelect 4) (+ num 1))
 				(== (- boardNumberSelect 7) (+ num 1))
+				(and (== (- boardNumberSelect 4) (+ num 1)) (== boardNumberSelect 7)) ; across diagonal
 			)
 			(lightningArcUp show: posn: (- (squareSelectorLight x?) 20) (+ (squareSelectorLight y?) 23) cel: 0 setCycle: End)
 			(if (== (- boardNumberSelect 4) (+ num 1)) ; across diagonal
@@ -405,8 +400,8 @@
 	)
 	; LIGHTNING DOWN and RIGHT	
 	(if (== (+ [blockPlacedPotential 5] [SurroundingBlockPotential 0]) 3)
-		(if (or (== (+ boardNumberSelect 4) (+ num 1))
-				(== (- boardNumberSelect 5) (+ num 1))
+		(if (or (== (- boardNumberSelect 5) (+ num 1)) 
+				(and (== (+ boardNumberSelect 4) (+ num 1)) (or (== boardNumberSelect 2) (== boardNumberSelect 5)))
 			)
 			(lightningArcDown show: posn: (+ (squareSelectorLight x?) 20) (+ (squareSelectorLight y?) 23) cel: 0 setCycle: End)
 			(if (== (- boardNumberSelect 5) (+ num 1))
@@ -414,6 +409,14 @@
 			)
 		)
 	)
+	;(FormatPrint {BP %u SP %u\nBP %u SP %u\nBP %u SP %u\nBP %u SP %u\nBP %u SP %u\nBP %u SP %u\n}
+	;	[blockPlacedPotential 0] [SurroundingBlockPotential 0]
+	;	[blockPlacedPotential 1] [SurroundingBlockPotential 1]
+	;	[blockPlacedPotential 2] [SurroundingBlockPotential 2]
+	;	[blockPlacedPotential 3] [SurroundingBlockPotential 3]
+	;	[blockPlacedPotential 4] [SurroundingBlockPotential 4]
+	;	[blockPlacedPotential 5] [SurroundingBlockPotential 5]
+	;	)
 	; set all the surrounding block potential variables back to zero
 	(= [SurroundingBlockPotential 0] 0)
 	(= [SurroundingBlockPotential 1] 0)
@@ -475,10 +478,6 @@
 		)	
 	)
 )
-;(procedure (setHandPosition num x y)
-;	(= handPosition num)
-;	(squareSelectorLight  posn: x y)	
-;)
 (procedure (placePiece &tmp i ii x y)
 	(for ( (= i 0)) (< i 10)  ( (++ i))
 		(if (== boardNumberSelect i)	; determine where on the board we're placing the block
