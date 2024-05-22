@@ -120,6 +120,16 @@
 		
 		;(if mouseControl
 			(= myEvent (Event new: evNULL))	; create new event to determine where the cursor is
+			(if (and
+					(> (myEvent x?) (exitButton nsLeft?))
+					(< (myEvent x?) (exitButton nsRight?))
+					(> (myEvent y?) (+ (exitButton nsTop?) 0))
+					(< (myEvent y?) (+ (exitButton nsBottom?) 8))
+				)
+				(exitButton cel: 1)
+			else
+				(exitButton cel: 0)
+			)
 			(cond 
 				((checkEvent myEvent (block1 nsLeft?) (block1 nsRight?) (block1 nsTop?) (block1 nsBottom?) block1))
 				((checkEvent myEvent (block2 nsLeft?) (block2 nsRight?) (block2 nsTop?) (block2 nsBottom?) block2))
