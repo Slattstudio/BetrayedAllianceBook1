@@ -197,7 +197,6 @@
 			)
 		)
 	)
-	                                ; #at -1 20 #title "Old man says:")
 	(method (handleEvent pEvent button)
 		(super handleEvent: pEvent)
 		(if (== (pEvent type?) evJOYSTICK)
@@ -288,12 +287,24 @@
 					(if
 						(checkEvent
 							pEvent
+							(oldMan nsLeft?)
+							(oldMan nsRight?)
+							(oldMan nsTop?)
+							(oldMan nsBottom?)
+						)
+						(PrintOther 44 2)
+						(return)
+					)
+					(if
+						(checkEvent
+							pEvent
 							(dartMan nsLeft?)
 							(dartMan nsRight?)
 							(dartMan nsTop?)
 							(dartMan nsBottom?)
 						)
 						(PrintOther 44 3)
+						(return)
 					)
 					(if
 						(==
@@ -304,16 +315,7 @@
 					)
 					(cond 
 						((checkEvent pEvent 150 168 108 114) (PrintOther 44 5)) ; chessboard
-						(
-							(checkEvent
-								pEvent
-								(oldMan nsLeft?)
-								(oldMan nsRight?)
-								(oldMan nsTop?)
-								(oldMan nsBottom?)
-							)
-							(PrintOther 44 2)
-						)
+						
 					)
 					(if
 						(==
