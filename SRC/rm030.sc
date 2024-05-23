@@ -303,7 +303,7 @@
 		)
 		(if (Said 'give/flower/rosella,hero,roger,larry,erasmus,aziza')
 			(if (gEgo has: 21)
-				(PrintOther 30 66)
+				(PrintHenry 30 66)
 			else
 				(PrintDHI)
 			)	
