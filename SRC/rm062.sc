@@ -581,6 +581,7 @@
 						(or
 							(== (StrCmp @stringName {jasper}) 0)
 							(== (StrCmp @stringName {Jasper}) 0)
+							(== (StrCmp @stringName {JASPER}) 0)
 						)
 						(= name 1)
 					)
@@ -588,6 +589,7 @@
 						(or
 							(== (StrCmp @stringName {gallagos}) 0)
 							(== (StrCmp @stringName {Gallagos}) 0)
+							(== (StrCmp @stringName {GALLAGOS}) 0)
 						)
 						(= name 2)
 					)
@@ -595,6 +597,7 @@
 						(or
 							(== (StrCmp @stringName {colin}) 0)
 							(== (StrCmp @stringName {Colin}) 0)
+							(== (StrCmp @stringName {COLIN}) 0)
 						)
 						(= name 3)
 					)
