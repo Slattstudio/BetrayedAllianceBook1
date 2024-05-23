@@ -25,6 +25,8 @@
 	badJoke =  0
 	doorOpen =  0
 	falling =  0
+	inShed = 0
+
 )
 
 (instance rm049 of Rm
@@ -166,6 +168,14 @@
 			(Print 49 8)
 		)                    ; Doesn't fit
 		(if (Said 'look,examine>')
+			(if (Said '/window,glass')
+				(if (or (& (gEgo onControl:) ctlGREY)
+						(& (gEgo onControl:) ctlRED))
+					(PrintOther 49 18)
+				else
+					(PrintOther 49 17)
+				)	
+			)
 			(if (Said '/barrel,lid')
 				(if (& (gEgo onControl:) ctlGREY)
 					(PrintOther 49 1) ; The barrel has some markings of arrows on it.
@@ -199,7 +209,7 @@
 				(PrintOther 49 16)	
 			)
 			(if (Said '[/!*]')
-				(if (& (gEgo onControl:) ctlGREEN)
+				(if inShed
 					(PrintOther 49 12)
 				else
 					; this will handle just "look" by itself
@@ -208,24 +218,18 @@
 			)
 		)
 	)
-	                                   ; The dock/mail house, usually quite busy, has been nearly vacant for months due to the recent warfare. The bridge to the south is now off limits to the citizens of Shelah.
-; SCI AUDIO TEST SCRIPT
-;        (if(Said('look/sun'))
-;            Print(49 0)
-;            = snd aud
-;            (send snd:
-;           command("play")
-;           fileName("music\\Ending.sciAudio")
-;           volume("100")
-;           loopFadeInMillisecs("2000")
-;           loopFadeOutMillisecs("2000")
-;           loopCount("-1")  // loop forever
-;
-;           init()
-;           )
-;        )
+
 	(method (doit)
 		(super doit:)
+		
+		(if (& (gEgo onControl:) ctlGREEN)
+			(= inShed 1)
+			(gEgo setPri: 10)	; make sure ego sprite doesn't show through roof (did this so map could be higher priority than roof)		
+		else
+			(= inShed 0)
+			(gEgo setPri: -1)	; set ego priority back to being tracked by y axis
+		)
+		
 		(if (& (gEgo onControl:) ctlMAROON)
 			(gRoom newRoom: 60)
 		)
@@ -257,18 +261,6 @@
 	)
 )
 
-; (if(>=(send gEgo:distanceTo(door))35)
-;            (if(doorOpen)
-;                (door:setCycle(Beg))
-;                = doorOpen 0
-;                (send gEgo:observeControl(ctlRED))
-;            )
-;        )
-; (if(doorOpen)
-;            (send gEgo:ignoreControl(ctlCYAN))
-;        )(else
-;            (send gEgo:observeControl(ctlCYAN))
-;        )
 (instance fallScript of Script
 	(properties)
 	

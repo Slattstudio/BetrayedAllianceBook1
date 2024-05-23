@@ -75,7 +75,7 @@
 			(leah
 				init:
 				setScript: leahScript
-				setPri: 15
+				setPri: 14
 				ignoreControl: ctlWHITE
 			)
 		else
@@ -83,7 +83,7 @@
 				init:
 				posn: 140 157
 				setScript: leahScript
-				setPri: 15
+				setPri: 14
 				loop: 0
 				ignoreControl: ctlWHITE
 			)
@@ -183,6 +183,7 @@
 				(Said 'swear,make/oath,love,leah')
 				(Said 'elope')
 				(Said '(leave<with),(runaway<with),join/woman,leah')
+				(Said 'take/oath')
 			)
 			(= button
 				(Print
@@ -218,7 +219,7 @@
 					(PrintOther 0 97)
 				)
 			)
-			(if (Said '/woman') (PrintOther 23 39))
+			(if (Said '/woman,leah') (PrintOther 23 39))
 			; Print(23 39 #width 280 #at -1 8)
 			(if (Said '/horse') (PrintOther 23 40))
 			; Print(23 40 #width 280 #at -1 8)
@@ -383,7 +384,8 @@
 		)
 		; Print(23 37) /* Ask me anything you wish."#width 150 #at -1 12 #title "She says: */
 		(if (Said 'talk/horse,mircea') (Print 23 48)) ; Stop horsing around.
-		(if (Said 'use/map')
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
 			(Print
 				{You're afraid of frightening Leah by disappearing before her eyes.}
 			)
@@ -587,7 +589,7 @@
 							yStep: 13
 							setMotion: MoveTo (Random 200 211) (Random 107 123) archeryScript
 							ignoreActors:
-							setPri: 15
+							setPri: 14
 						)
 						(++ arrows)
 					else
@@ -598,7 +600,7 @@
 							yStep: 13
 							setMotion: MoveTo (Random 200 211) (Random 107 123) archeryScript
 							ignoreActors:
-							setPri: 15
+							setPri: 14
 						)
 						(++ arrows)
 					)
@@ -610,7 +612,7 @@
 						yStep: 13
 						setMotion: MoveTo (Random 200 211) (Random 107 123) archeryScript
 						ignoreActors:
-						setPri: 15
+						setPri: 14
 					)
 					(++ arrows)
 				)

@@ -99,6 +99,9 @@
 							)
 							(3 (gGame restart:) (return))
 							(4 (= gQuitGame TRUE) (return))
+							(else
+								(= gQuitGame TRUE) (return)	
+							)
 						)
 					)
 				else
@@ -119,6 +122,9 @@
 							)
 							(2 (gGame restart:) (return))
 							(3 (= gQuitGame TRUE) (return))
+							(else
+								(= gQuitGame TRUE) (return)	
+							)
 						)
 					)
 				)

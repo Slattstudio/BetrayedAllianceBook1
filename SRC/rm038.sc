@@ -400,7 +400,8 @@
 						-1
 						20
 					)
-					(if (== (StrCmp @stringName {you may pass}) 0)
+					(if (or (== (StrCmp @stringName {you may pass}) 0)
+							(== (StrCmp @stringName {YOU MAY PASS}) 0))
 						(PrintOther 38 3) ; #width 280 #at -1 150) // Your goggles search the letters on the floor for any combination of letters spelling 'you may pass'.
 						(PrintOther 38 4) ; #width 280 #at -1 150) //Through the miracle of science you know with scientific precision the correct combination, which you enter happily.
 						(leverScript changeState: 5)
@@ -434,7 +435,10 @@
 				(PrintOther 38 20)
 			)
 		)                            ; #width 280 #at -1 150) // There look to be some controls for the letters on the floor.
-		(if (Said 'use/map') (Print 38 8)) ; This isn't a good place to use that.
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said 'look,read>')
 			(if (Said '/paper,note,letter,sign')
 				(Print

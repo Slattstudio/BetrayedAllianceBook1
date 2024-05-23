@@ -179,8 +179,9 @@
 				(Print {You don't have a shovel.})
 			)
 		)
-		(if (Said 'use/map')
-			(Print {This isn't a good place to use that.})
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
 		)
 		(if (Said 'take,(pick<up)/ring')
 			(if

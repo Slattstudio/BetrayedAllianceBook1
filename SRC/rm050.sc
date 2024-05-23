@@ -89,9 +89,11 @@
 ;                )(else
 ;                    (door:init()hide()setPri(1)ignoreActors()setScript(doorScript))
 ;                )
-			(110
+			(114
 				(gEgo posn: 107 134 loop: 1)
-				(doorScript changeState: 1)
+				(if g110Solved
+					(doorScript changeState: 1)
+				)
 			)
 			(else 
 				(gEgo posn: 305 140 loop: 1)
@@ -764,7 +766,7 @@
 (procedure (openDoorProc)
 	(PrintOther 50 30)
 	(PrintOther 50 31)
-	(gRoom newRoom: 110)
+	(gRoom newRoom: 114)
 )
 
 (procedure (laserShot)

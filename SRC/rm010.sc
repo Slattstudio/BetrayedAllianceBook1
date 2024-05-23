@@ -77,7 +77,6 @@
 					(Print {Come on you can do better!})
 					(RoomScript changeState: 2)
 				else
-					; Format(@gName "Eliade")
 					(Format
 						@buffer
 						{Excellent! Good luck in your quest, %s.}

@@ -389,8 +389,11 @@
 				(overCircle (turnLeft))
 			)
 		)
-		(if (Said 'use/map') (Print 70 26)) ; This isn't a good place to use that.
-		(if (Said 'use,push,turn/dial,puzzle,combination')
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
+		(if (Said 'use,push,turn/dial,puzzle,combination,button')
 			(if safeOut
 				(if (& (gEgo onControl:) ctlGREY)
 					(dialScreen)
@@ -404,7 +407,7 @@
 		(if (Said 'use,turn/gear')
 			(PrintOther 67 30)	
 		)
-		(if (Said 'look>')
+		(if (Said 'look,search>')
 			(if (Said '/locker,cabinet,hole') (lookLocker))
 			(if (Said '/floor,ground')
 				(if (& (gEgo onControl:) ctlSILVER)       ; diggable area
@@ -425,7 +428,7 @@
 					(PrintOther 70 33)
 				)
 			)
-			(if (Said '/dial,puzzle,combination')
+			(if (Said '/dial,puzzle,combination,button')
 				(if safeOut
 					(if (& (gEgo onControl:) ctlGREY)
 						(dialScreen)
@@ -463,7 +466,7 @@
 		)
 		(if
 			(Said
-				'look,(pick<up),take,read/paper,note,letter,page,table'
+				'look,search,(pick<up),take,read/paper,note,letter,page,table'
 			)
 			(cond 
 				((<= (gEgo distanceTo: table) 40) (self changeState: 2))
@@ -508,7 +511,7 @@
 					(dyingScript
 						caller: 610
 						register:
-							{your supply of air expired, and so have you. Thanks for playing Betrayed Alliance!}
+							{Your supply of air expired, and so have you. Thanks for playing Betrayed Alliance!}
 					)
 					(gGame setScript: dyingScript)
 				)
@@ -550,7 +553,7 @@
 							(safeReset nsLeft?)
 							(safeReset nsRight?)
 							(+ (safeReset nsTop?) 8)
-							(+ (safeReset nsBottom?) 12)
+							(+ (safeReset nsBottom?) 22)
 						)
 						(safeReset cel: 1)
 						(= overCircle 0)
@@ -568,7 +571,7 @@
 								(safeFace nsLeft?)
 								(safeFace nsRight?)
 								(+ (safeFace nsTop?) 6)
-								(+ (safeFace nsBottom?) 50)
+								(+ (safeFace nsBottom?) 75)
 							)
 							(= overCircle 0)
 							(= select 1)

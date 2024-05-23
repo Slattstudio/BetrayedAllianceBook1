@@ -193,7 +193,8 @@
 				)
 			)
 		)
-		(if (Said 'use/map') 
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
 			(PrintOther 69 47)
 		)
 		(if (Said '(open,examine,search,lift)>')
@@ -263,6 +264,17 @@
 						8
 					)
 				)
+			)
+		)
+		(if (Said 'search/floor,ground') 
+			(if (== (gEgo onControl:) ctlMAROON)
+				(if (not [gArmor 1])
+					(getGreaves)
+				else
+					(PrintOther 135 8)
+				)	
+			else
+				(PrintOther 135 9)
 			)
 		)
 		(if (Said 'look>')

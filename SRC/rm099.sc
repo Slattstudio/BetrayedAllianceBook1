@@ -127,10 +127,18 @@
 						4
 					)
 				else
-					(Print
-						{Wow! Maybe you are the Great Wizard with a score like that! You are either a adventure game pro or a Razzle Dazzle Root Beer cheater! Either way, we salute you!}
-						#font
-						4
+					(if (> gScore gMaxScore)
+						(Print
+							{Wait a minute, you got a higher score than the maximum?! Incredible work! That's even higher than the programmer knew was possible!}
+							#font
+							4
+						)	
+					else	; perfect score
+						(Print
+							{Wow! Maybe you are the Great Wizard with a score like that! You are either a adventure game pro or a Razzle Dazzle Root Beer cheater! Either way, we salute you!}
+							#font
+							4
+						)
 					)
 				)
 				(Print

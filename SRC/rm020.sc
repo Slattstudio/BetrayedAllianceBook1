@@ -219,7 +219,10 @@
 				)
 			)
 		)
-
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 28 102)
+		)
 		(if (Said 'talk,ask/man,soldier,captain')
 			(if gDisguised
 				(PrintSoldier 20 41)

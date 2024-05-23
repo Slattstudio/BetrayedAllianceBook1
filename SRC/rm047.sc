@@ -40,6 +40,7 @@
 		(self setScript: RoomScript setRegions: 204)
 		(SetUpEgo)
 		(gEgo init:)
+		(RunningCheck)
 		(switch gPreviousRoomNumber
 			(else 
 				(gEgo posn: 155 115 loop: 2)
@@ -156,7 +157,7 @@
 				)
 			)
 		)
-		(if (Said '(move,lift,(search,look)<under)/rug')
+		(if (Said 'move,lift,search,(look<under)/rug')
 			(if (gEgo inRect: 100 114 163 150)
 				(lookUnder changeState: 1)
 			else
@@ -181,7 +182,7 @@
 				(PrintDHI)
 			)
 		)
-		(if (Said '(look<in)/bed')
+		(if (Said 'search,(look<in)/bed,mattress')
 			(if (gEgo inRect: 100 114 163 150)
 				(= lookingForMarble 1)
 				(lookUnder changeState: 6)
@@ -322,7 +323,10 @@
 		; this will handle just "look" by itself
 		)
 		(if (Said 'run') (Print 0 88))
-		(if (Said 'use/map') (Print 0 88))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said '(pick<up),take>')
 			(if (Said '/book')
 				(if (== [gMissingBooks 0] 0)
@@ -348,17 +352,29 @@
 				)
 			)
 			(if (Said '/toy')
-				(if (<= (gEgo distanceTo: bookshelf) 35)
-					(PrintOther 47 30)
-				else                     ; Rag dolls are no good for generals. Little plastic army men, different story.
+				(if (& (gEgo onControl:) ctlRED)
+					(if chestOpen
+						(PrintOther 47 30)
+					else
+						(Print {You can't get to it from there.})
+					)
+				else
 					(PrintNCE)
 				)
 			)
 			(if (Said '/picture')
-				(if (<= (gEgo distanceTo: bookshelf) 35)
-					(PrintOther 47 31)
-				else                      ; It really is a lovely picture of 'The Princess and the Pea', but you have no use for it.
-					(PrintNCE)
+				(if (& (gEgo onControl:) ctlRED)
+					(if chestOpen
+						(PrintOther 47 31)
+					else
+						(Print {You can't get to it from there.})
+					)
+				else
+					(if (& (gEgo onControl:) ctlGREY)
+						(PrintOther 47 44)	
+					else
+						(PrintNCE)
+					)
 				)
 			)
 			(if (Said '/towel')

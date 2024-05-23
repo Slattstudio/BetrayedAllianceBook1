@@ -196,15 +196,7 @@
 				)
 			)
 		)                            ; #width 270 #at -1 14)
-; (else
-;                    (if((> (send pEvent:x) 273)and // Fence
-;                        (< (send pEvent:x) 319)and
-;                        (> (send pEvent:y) 110)and
-;                        (< (send pEvent:y) 153))
-;                        PrintOther(28 28)// #width 270 #at -1 14)
-;                    )
-;                )
-		(if (Said '(tell<about),show,give/letter,note')
+		(if (Said '(tell<about),show,give/letter,note,message')
 			(cond 
 				((<= (gEgo distanceTo: seller) 35)
 					(if (gEgo has: INV_LETTER)
@@ -292,7 +284,10 @@
 				(PrintDHI)
 			)
 		)
-		(if (Said 'use/map') (Print 28 102))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 28 102)
+		)
 		(if (Said 'smell[/!*]') (PrintOther 28 107))
 		(if (Said '(ask<about)>')
 			(cond 
@@ -330,7 +325,7 @@
 							(if (Said '/weather') (PrintDebby 28 49)) ; #width 290 #at -1 -1 #title "She says:")
 							(if (Said '/ogre,monster') (PrintDebby 28 105)) ; #width 290 #at -1 -1 #title "She says:")
 							; peoples of shelah
-							(if (Said '/man, fisher,bobby') (PrintDebby 0 142))
+							(if (Said '/man, fisher,bobby') (PrintDebby 28 142))
 							(if (Said '/leah') (PrintDebby 28 142))
 							(if (Said '/sammy')
 								(PrintDebby 28 74) ; #width 290 #at -1 -1 #title "She says:")
@@ -541,7 +536,7 @@
 				(PrintDHI)
 			)
 		)
-		(if (Said 'use,drop,put/marble')
+		(if (Said 'use,drop,put,shoot/marble')
 			(if (gEgo has: 9)
 				(if (& (gEgo onControl:) ctlSILVER)
 					(= marbleDown 1)

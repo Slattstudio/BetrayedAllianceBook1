@@ -410,6 +410,23 @@
 				)
 			)
 		)
+		
+		(if (Said 'read,open/book')
+			(if (and (& (gEgo onControl:) ctlSILVER) (== (gEgo loop?) 2)) ; in front of blue book
+				(PrintOther 18 91)		
+			else
+				(if (& (gEgo onControl:) ctlNAVY) ; in front of book shelf
+					(PrintOther 18 49)	
+				else
+					(if [gMissingBooks 2]	; if has missing book
+						(viewBooks)	
+					else
+						(PrintOther 18 49)
+					)
+				)
+			)
+		)
+		
 		(if (Said 'drink/(flask[<ye]),potion,liquid')
 			(if (or (& (gEgo onControl:) ctlGREY) (& (gEgo onControl:) ctlCYAN))
 				(RoomScript changeState: 12)
@@ -435,17 +452,10 @@
 			)
 		)
 		(if (Said 'talk/(man,wizard)') (WizTalk))
-		(if (Said '(walk<through,into)/mirror')
+		(if (Said '(step,walk<through,into)/mirror')
 			(PrintOther 18 8)
 		)
 		(if (Said 'run') (PrintOther 18 66))
-		(if (Said 'read/book')
-			(if (and (& (gEgo onControl:) ctlSILVER) (== (gEgo loop?) 2)) ; in front of blue book
-				(PrintOther 18 91)		
-			else
-				(PrintOther 18 49)
-			)
-		)
 
 		(if (Said 'break/mirror') (PrintOther 18 71))
 		(if (Said 'open,push,move,(look<behind)>')

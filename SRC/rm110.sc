@@ -98,7 +98,8 @@
 				(= gInt (+ gInt 3))
 				(= gArcStl 0)
 			)
-			(4 (gRoom newRoom: 50))
+			(4 (gRoom newRoom: 50)
+			)
 		)
 	)
 	
@@ -371,6 +372,7 @@
 		(allDown)
 		(= myEvent (Event new: evNULL))
 		(if (not tO)
+			;(controlCheck bO ctlNAVY sOO)
 			(if (== (bO onControl:) ctlNAVY) (= sOO 1))
 			(if (== (bO onControl:) ctlGREEN) (= sTwO 1))
 			(if (== (bO onControl:) ctlTEAL) (= sThO 1))
@@ -605,7 +607,9 @@
 		(myEvent dispose:)
 	)
 )
-
+(procedure (controlCheck view control variable)
+	(if (== (view onControl:) control) (= variable 1))
+)
 (procedure (allDown)
 	(if (and sOO sTwO sThO sFoO sFiO sSiO sSeO sEO sNO)
 		(if (not solved)
@@ -630,11 +634,7 @@
 )
 
 (procedure (invHProc loopNum)
-	(invH
-		show:
-		loop: loopNum
-		posn: (myEvent x?) (myEvent y?)
-	)
+	(invH show: loop: loopNum posn: (myEvent x?) (myEvent y?))
 )
 
 (procedure (checkEventPT pEvent x1 x2 y1 y2)
@@ -755,6 +755,6 @@
 		y 162
 		x 299
 		view 998
-		loop 7                               ; 160 46
+		loop 7                
 	)
 )

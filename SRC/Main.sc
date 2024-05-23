@@ -88,10 +88,11 @@
 ; [0] is the block-puzzle picture found in     rm 58
 ; [1] is the directions of the cave maze       rm 70
 ; [2] is the barrel directions				 rm 49
-	[gLetters 3] = [0 0 0]
+	[gLetters 4] = [0 0 0 0]
 ; [0] Letter to LT GYRE                        rm 65
 ; [1] Letter to Deborah                        rm 62
 ; [2] Letter to Gallegos                       rm 62
+; [3] Heard Soldiers mention "copy cat"        rm 53
 	gSun =  0   ; rm 18 wizard's room
 	gMer =  0   ; rm 34 rocky path
 	gVen =  0   ; rm 28 tavern
@@ -145,7 +146,7 @@
 	gDeathIconEnd =  0
 	gHardMode =  0
 	gRetry = 0
-	gAutosave = 1
+	gAutosave = 1	; used in dying script
 ; If TRUE, harder parser commands and less hints
 	gAnotherEgo =  0
 	gTeleporting =  0
@@ -156,8 +157,8 @@
 	; gMatt = 0     /* If TRUE, Matt character will give hints in different areas */
 	gFollowed =  0
 ; If TRUE, an emeny is following gEgo from across rooms
-	gDartsWon =  0
-; If greater than 3, sailor will not play darts with you anymore
+	gDartsWon =  0 
+; If greater than 4, sailor will not play darts with you anymore
 	gWB =  900
 ; Specifies the View used for Window Buttons in the Control Script
 	gWF =  901
@@ -203,7 +204,7 @@
 	g70Safe =  0
 	[g70Notes 3] = [0 0 0]	; three notes found in crypt 
 	g73Wash =  0
-	g74Poster = 0
+	g74Poster = 0	; 0 if poster not ripped
 	g102Solved =  0
 	g105Solved =  0
 	[g107Solved 4] = [0 0 0 0] ; First 0 is for highest score, second is for second high score, third is for message after game, fourth is for ladder being shown in rm 26
@@ -534,32 +535,32 @@
 	
 	(method (handleEvent pEvent &tmp i)
 		; troflip debugging addition, For use in combination with the ALT key
-		;(if (== evKEYBOARD (pEvent type?))
-		;	(switch (pEvent message?)
-		;		($2f00 (Show 1))     ; alt-v -> Show visual screen
-		;		($2e00 (Show 4))     ; alt-c -> Show control screen
-		;		($1900 (Show 2))     ; alt-p -> Show priority screen
-		;		($1400
-		;			(gRoom newRoom: (GetNumber {Room Number?}))
-		;		)                                                            ; alt-t -> teleport to room
-		;		($1700
-		;			(gEgo get: (GetNumber {Which Item?}))
-		;		)                                                      ; alt-i -> get inventory
-		;		($1f00
-		;			(gCast eachElementDo: #showSelf)
-		;		)                                                  ; alt-s -> Show cast
-		;		($3200
-		;			(ShowFree)         ; alt-m -> Show memory usage
-		;			(FormatPrint
-		;				{Free Heap: %u Bytes\nLargest ptr: %u Bytes\nFreeHunk: %u KBytes\nLargest hunk: %u Bytes}
-		;				(MemoryInfo miFREEHEAP)
-		;				(MemoryInfo miLARGESTPTR)
-		;				(>> (MemoryInfo miFREEHUNK) 6)
-		;				(MemoryInfo miLARGESTHUNK)
-		;			)
-		;		)
-		;	)
-		;)             ; end formatprint ; end case $3200 ; end switch ; end if keyboard event
+		(if (== evKEYBOARD (pEvent type?))
+			(switch (pEvent message?)
+				($2f00 (Show 1))     ; alt-v -> Show visual screen
+				($2e00 (Show 4))     ; alt-c -> Show control screen
+				($1900 (Show 2))     ; alt-p -> Show priority screen
+				($1400
+					(gRoom newRoom: (GetNumber {Room Number?}))
+				)                                                            ; alt-t -> teleport to room
+				($1700
+					(gEgo get: (GetNumber {Which Item?}))
+				)                                                      ; alt-i -> get inventory
+				($1f00
+					(gCast eachElementDo: #showSelf)
+				)                                                  ; alt-s -> Show cast
+				($3200
+					(ShowFree)         ; alt-m -> Show memory usage
+					(FormatPrint
+						{Free Heap: %u Bytes\nLargest ptr: %u Bytes\nFreeHunk: %u KBytes\nLargest hunk: %u Bytes}
+						(MemoryInfo miFREEHEAP)
+						(MemoryInfo miLARGESTPTR)
+						(>> (MemoryInfo miFREEHUNK) 6)
+						(MemoryInfo miLARGESTHUNK)
+					)
+				)
+			)
+		)             ; end formatprint ; end case $3200 ; end switch ; end if keyboard event
 		; and now back to the normal script, You may want to delete all this bit upon release!*/
 		(super handleEvent: pEvent)
 		(if
@@ -592,7 +593,8 @@
 			)
 		)
 		
-		(if (Said 'hi') (Print 0 40))
+		(if (Said 'hi[/!*]') (Print 0 40))
+		(if (Said 'hi/*') (Print 0 115))
 		(if (Said 'bye') (Print 0 34))
 		(if (Said 'drink/water') (Print 0 33))
 		(if (Said 'use,drink/potion[<healing]')
@@ -687,7 +689,7 @@
 					(Print 0 70)
 				)
 			)
-			(if (Said '/book') (Print 0 71))
+			(if (Said '/book') (viewBooks))
 		)
 		
 		(if (Said 'look/*') (Print 0 74))

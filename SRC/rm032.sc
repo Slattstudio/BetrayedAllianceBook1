@@ -136,14 +136,30 @@
 				(PrintOther 31 39)	
 			)
 		)
-		(if (Said 'use/map')
-			(Print {This isn't a good place to use that.})
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
 		)
 		(if (Said 'talk/skull')
 			(PrintOther 32 22)
 		)
 		(if (Said 'stand,(get<on)/table,altar')
 			(PrintOther 32 19)
+		)
+		(if (or (Said 'measure/pole,pillar')
+				(Said 'use/ruler/pillar,pole'))
+			(if (gEgo has: INV_RULER)
+				(cond 
+					((& (gEgo onControl:) ctlGREY) (measureScript changeState: 9)) ; Near Small Pole
+					((& (gEgo onControl:) ctlSILVER)          ; Near Tall Pole
+						(measureScript changeState: 12)
+						;(PrintOther 32 14)						
+					)
+					(else (PrintNCE))
+				)
+			else
+				(PrintOther 32 13)
+			)
 		)
 		(if (Said 'use/ruler')
 			(if (gEgo has: INV_RULER)
@@ -191,20 +207,7 @@
 				(PrintOther 32 13)
 			)
 		)
-		(if (Said 'measure/pole,pillar')
-			(if (gEgo has: INV_RULER)
-				(cond 
-					((& (gEgo onControl:) ctlGREY) (measureScript changeState: 9)) ; Near Small Pole
-					((& (gEgo onControl:) ctlSILVER)          ; Near Tall Pole
-						(measureScript changeState: 12)
-						;(PrintOther 32 14)						
-					)
-					(else (PrintNCE))
-				)
-			else
-				(PrintOther 32 13)
-			)
-		)
+		
 		(if (Said 'measure/(shadow<(short,small))')
 			(if (gEgo has: INV_RULER)
 				(if

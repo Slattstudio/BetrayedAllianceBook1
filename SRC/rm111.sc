@@ -139,12 +139,17 @@
 		(self setScript: RoomScript)
 		(= gArcStl 1)
 		
-		(Scoreboard addToPic:)
+		(Scoreboard init: setPri: 0)
 		
 		; game setup
 		(= gameInitPoints 301)
 		; = gameInitPoints 50
 		(= computerSkill 1)
+		(if (== gDartsWon 0) 
+			(gGame changeScore: 1)
+			(++ gDartsWon)
+		)
+		
 		(if (== computerSkill 0) (= missPixels 5))
 		(if (== computerSkill 1) (= missPixels 10))
 		(if (== computerSkill 2) (= missPixels 15))
@@ -251,6 +256,7 @@
 	
 	(method (doit &tmp mbResult wildX wildY savePix)
 		(super doit:)
+		
 		(if (not scoreDisplayed)
 			
 			(Format @playerPointsDisp {%d} playerPoints)
@@ -263,7 +269,7 @@
 					dsCOLOUR
 					clRED
 					dsBACKGROUND
-					clTRANSPARENT
+					clSILVER
 					dsALIGN
 					alCENTER
 					dsWIDTH
@@ -271,6 +277,7 @@
 					dsFONT
 					3
 					dsSAVEPIXELS
+				
 				)
 			)
 			(Format @computerPointsDisp {%d} computerPoints)
@@ -283,7 +290,7 @@
 					dsCOLOUR
 					clNAVY
 					dsBACKGROUND
-					clTRANSPARENT
+					clSILVER
 					dsALIGN
 					alCENTER
 					dsWIDTH
@@ -414,12 +421,12 @@
 					(++ gDartsWon)
 					(= intro 1)
 					(cond 
-						((== gDartsWon 3)
+						((== gDartsWon 4)
 							(= gLuk (+ gLuk 5))
 							(= gAg (+ gAg 3))
 							(= gInt (+ gInt 1))
 						)
-						((== gDartsWon 1) (gGame changeScore: 1))
+						
 					)
 					(= mbResult
 						(Print
@@ -453,7 +460,7 @@
 				)
 				(switch mbResult
 					(1
-						(if (not (> gDartsWon 2))
+						(if (not (> gDartsWon 3))
 							(rm111 init:)
 							(= scoreDisplayed 0)
 							(return TRUE)

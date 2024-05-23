@@ -140,7 +140,7 @@
 				(= gCurrentCursor 999)
 				(= soldiersVisible 0)
 			)
-			; (send gRoom:newRoom(51))
+
 			(5      ; pick flowers
 				(ProgramControl)
 				(SetCursor 997 1)
@@ -227,6 +227,14 @@
 					)
 					(if
 						(==
+							ctlCYAN
+							(OnControl ocPRIORITY (pEvent x?) (pEvent y?))
+						)                                                                  ; flowers
+						(PrintOther 53 47)
+						(return)
+					)
+					(if
+						(==
 							ctlGREEN
 							(OnControl ocPRIORITY (pEvent x?) (pEvent y?))
 						)                                                                   ; tree for hiding
@@ -242,7 +250,16 @@
 				)
 			)
 		)         
-
+		
+		(if (or (Said 'use/well')
+				(Said 'raise,lift/bucket')
+				(Said 'use,turn/pulley,handle'))
+			(if (& (gEgo onControl:) ctlMAROON)
+				(climbScript changeState: 7)	
+			else
+				(PrintNCE)
+			)
+		)
 		(if (Said 'smell[/!*]')
 			(PrintOther 53 44)
 			(PrintOther 53 29)	
@@ -259,6 +276,9 @@
 			)
 		)
 		(if (Said 'look>')
+			(if (Said '/bush,azalea')
+				(PrintOther 53 47)	
+			)
 			(if (Said '/face,cave,skull')
 				(PrintOther 53 22)
 				(if g53OutFirstTime
@@ -288,6 +308,9 @@
 			else
 				(PrintNCE)
 			)
+		)
+		(if (Said 'take,pick/azalea')
+			(PrintOther 53 48)	
 		)
 		; PrintOther(53 31)
 		(if (Said 'talk/face,cave,well,skull')
@@ -462,7 +485,11 @@
 						(= message 1)
 						(ProgramControl)
 					)
-					((== lines 21) (PlayerControl) (++ lines) (self changeState: 5))
+					((== lines 21) 
+						(PlayerControl)
+						(++ lines)
+						(= [gLetters 3] 1)
+						(self changeState: 5))
 				)
 			)
 			(3
@@ -513,6 +540,7 @@
 		(= state newState)
 		(switch state
 			(0)
+			; Moving to climb well
 			(1
 				(ProgramControl)
 				(SetCursor 997 (HaveMouse))
@@ -563,6 +591,25 @@
 				(SetCursor 999 (HaveMouse))
 				(= gCurrentCursor 999)
 				(gRoom newRoom: 58)
+			)
+			; Moving to use well/turn crank
+			(7
+				(ProgramControl)
+				(SetCursor 997 (HaveMouse))
+				(= gCurrentCursor 997)
+				(gEgo
+					setMotion: MoveTo 250 130 self
+					ignoreControl: ctlWHITE
+				)
+			)
+			(8	(= cycles 2) ; face up
+				(gEgo loop: 3)	
+			)
+			(9
+				(PrintOther 53 46)
+				(PlayerControl)
+				(SetCursor 999 (HaveMouse))
+				(= gCurrentCursor 999)	
 			)
 		)
 	)

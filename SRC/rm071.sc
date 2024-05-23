@@ -375,7 +375,10 @@
 				(Print {You don't see one.})
 			)
 		)
-		(if (Said 'use/map') (PrintOther 71 12)) ; This isn't a good place to use that.
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said '(put<on),wear/helmet')
 			(if (== [gArmor 0] 1)
 				(PrintOther 71 13)

@@ -16,11 +16,7 @@
 )
 
 (local
-; Eastern Mountain - Stairs in side
 
-
-
-	; (use "sciAudio")
 	goingUp =  0
 )
 ; snd
@@ -143,6 +139,15 @@
 	
 	(method (handleEvent pEvent)
 		(super handleEvent: pEvent)
+		(if (== (pEvent type?) evJOYSTICK)
+			(if (or (== (pEvent message?) 7) (== (pEvent message?) 6) (== (pEvent message?) 5)) ; If pressed the LEFT arrow ; LEFT/DOWN diagonal button ; DOWN
+				(if (== goingUp 1)
+					(++ goingUp)	; set goingUp to 2 (so you cannot continue sending the same signal)
+					(self changeState: 6)			
+				)
+			)
+		)
+
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if (& (pEvent modifiers?) emRIGHT_BUTTON)
 				(if

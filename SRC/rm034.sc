@@ -191,29 +191,27 @@
 					(if rockDown
 						(Print 34 17)
 					else
-; Rolling Rock.
 						(Print 34 0 #width 280 #at -1 65)
 					)
 				)
-				(if
-					(and
-						(> (pEvent x?) 155)
-						(< (pEvent x?) 222)
-						(> (pEvent y?) 31)
-						(< (pEvent y?) 60)
-					)
+				(if (and (> (pEvent x?) 155) (< (pEvent x?) 222) (> (pEvent y?) 31) (< (pEvent y?) 60)) ; incline
 					(Print 34 1 #width 280 #at -1 65)
+				)
+				(if (and (> (pEvent x?) 155) (< (pEvent x?) 222) (> (pEvent y?) 0) (< (pEvent y?) 30)) ; niche
+					(if rockDown
+						(PrintOther 34 28)
+					)
 				)
 			)
 		)
-; (if(Said('use/map'))
-;            (if(marblesDown)
-;                Print(34 9 #width 280 #at -1 8)
-;            )(else
-;                ()
-;            )
-;        )
 		(if (Said 'look>')
+			(if (Said '/cave,niche')
+				(if rockDown
+					(PrintOther 34 28)	
+				else
+					(PrintOther 34 29)
+				)	
+			)
 			(if (Said '/rock,boulder')
 				(if rockDown (PrintOther 34 17) else (PrintOther 34 0))
 			)                        ; #width 280 #at -1 8)

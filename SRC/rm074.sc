@@ -198,8 +198,9 @@
 		)
 		(if (or canAttack gFollowed)
 			(if (not deadMan)
-				(if (Said 'use/map')
-					(PrintOther 68 11)	
+						(if (or (Said 'look,use,read,open/portal,map')
+						(Said 'map'))
+					(Print 0 88)
 				)
 			)
 		)
@@ -271,7 +272,11 @@
 			)
 			(if (Said '[/!*]')
 				; this will handle just "look" by itself
-				(PrintOther 74 4)
+				(if g74Poster	; post is ripped
+					(PrintOther 74 9)
+				else
+					(PrintOther 74 4)	
+				)
 				(if gFollowed 
 					(PrintOther 68 5) 
 				else

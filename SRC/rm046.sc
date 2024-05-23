@@ -370,7 +370,10 @@
 		)
 		; )
 		(if (Said 'run') (Print 0 88))
-		(if (Said 'use/map') (Print 0 88))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said 'wear,use,(put<on)/goggles')
 			(if (gEgo has: INV_GOGGLES)
 				(if gDisguised

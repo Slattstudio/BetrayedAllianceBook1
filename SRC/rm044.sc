@@ -25,7 +25,10 @@
 	boardOpen =  0
 	myEvent
 	whichPage =  0 ; reward 1, julyn 2, prizes 3, gameHelp 4, close 5
-	sitting =  0
+	sitting =  0 
+	; 1 = sitting
+	; 2 = moving up the stairs
+	; 3 = moving down the stairs
 	talkingTo =  0 ; 0 no one, 1 girl, 2 old man, 3 sailor
 	
 )
@@ -58,12 +61,7 @@
 				(gTheMusic number: 44 loop: -1 play:)
 			)
 			(47
-				(gEgo
-					init:
-					posn: 230 145
-					loop: 1
-					setMotion: MoveTo 222 145
-				)
+				(gEgo init: posn: 230 145 loop: 1 setMotion: MoveTo 222 145)
 			)
 			(105
 				(gEgo init: hide: posn: 168 135 ignoreControl: ctlWHITE)
@@ -102,16 +100,10 @@
 (instance RoomScript of Script
 	(properties)
 	
-	(method (changeState mainState)
+	(method (changeState mainState button)
 		(= state mainState)
 		(switch state
-; (case 1 // entering
-;                ProgramControl() (SetCursor(997 1) = gCurrentCursor 997)
-;                (send gEgo:setMotion(MoveTo 83 149 self))
-;            )
-;            (case 2
-;                PlayerControl() (SetCursor(999 1) = gCurrentCursor 999)
-;            )
+
 			(3           ; going to sit
 				(ProgramControl)
 				(SetCursor 997 1)
@@ -132,13 +124,28 @@
 					cycleSpeed: 1
 					ignoreActors:
 				)
+				(SetCursor 999 1)
+				(= gCurrentCursor 999)
 			)
 			(5
+				; add a yes/no prompt to play chess
+				(= gVertButton 1)
+				(= button (Print 44 91 #title {Chess}
+						#button {Yes} 1
+						#button {No } 0
+ 					)
+ 				)
+				(if button
+				  	(PlayChess)	
+				else
+					(self cue:)
+				)
+				(= gVertButton 0)
 				(PlayerControl)
 				(SetCursor 999 1)
 				(= gCurrentCursor 999)
 			)
-			(6
+			(6	; standing up
 				(egoAction setCycle: Beg RoomScript)
 				(ProgramControl)
 				(SetCursor 997 1)
@@ -169,7 +176,10 @@
 				(SetCursor 999 1)
 				(= gCurrentCursor 999)
 				(= sitting 0)
-				(if (== g105Solved 1) (PrintMan 44 20))
+				(if (== g105Solved 1) 
+					(PrintMan 44 20)
+					(Print 44 92)
+				)
 			)
 			; moving from top to bottom on the right side of the table
 			(10
@@ -187,9 +197,37 @@
 			)
 		)
 	)
-	                                ; #at -1 20 #title "Old man says:")
-	(method (handleEvent pEvent)
+	(method (handleEvent pEvent button)
 		(super handleEvent: pEvent)
+		(if (== (pEvent type?) evJOYSTICK)
+			(if (or (== (pEvent message?) 7) (== (pEvent message?) 6) (== (pEvent message?) 5)) ; If pressed the LEFT arrow ; LEFT/DOWN diagonal button ; DOWN
+				(if (== sitting 2)
+					(++ sitting)	; set sitting to 3 (so you cannot continue sending the same signal)
+					(switch (LadderScript state:)
+						(3
+							(LadderScript changeState: 7)
+						)
+						(4
+							(LadderScript changeState: 6)	
+						)	
+					)			
+				)
+			)
+			(if (or (== (pEvent message?) 1) (== (pEvent message?) 2) (== (pEvent message?) 3)) ; Up, right, or right/up
+				(if (== sitting 3)
+					(-- sitting)	; set sitting to 2 (so you cannot continue sending the same signal)
+					(switch (LadderScript state:)
+						(6
+							(LadderScript changeState: 4)
+						)
+						(7
+							(LadderScript changeState: 3)	
+						)	
+					)			
+				)
+			)
+		)
+		
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if boardOpen
 				(switch whichPage
@@ -249,12 +287,24 @@
 					(if
 						(checkEvent
 							pEvent
+							(oldMan nsLeft?)
+							(oldMan nsRight?)
+							(oldMan nsTop?)
+							(oldMan nsBottom?)
+						)
+						(PrintOther 44 2)
+						(return)
+					)
+					(if
+						(checkEvent
+							pEvent
 							(dartMan nsLeft?)
 							(dartMan nsRight?)
 							(dartMan nsTop?)
 							(dartMan nsBottom?)
 						)
 						(PrintOther 44 3)
+						(return)
 					)
 					(if
 						(==
@@ -265,16 +315,7 @@
 					)
 					(cond 
 						((checkEvent pEvent 150 168 108 114) (PrintOther 44 5)) ; chessboard
-						(
-							(checkEvent
-								pEvent
-								(oldMan nsLeft?)
-								(oldMan nsRight?)
-								(oldMan nsTop?)
-								(oldMan nsBottom?)
-							)
-							(PrintOther 44 2)
-						)
+						
 					)
 					(if
 						(==
@@ -311,7 +352,12 @@
 						(PrintOther 44 74)
 					)
 				else
-					(PrintNCE)
+					(if (or (== talkingTo 2) 
+							(== talkingTo 3) )
+						(PrintOther 44 94)
+					else
+						(PrintNCE)
+					)
 				)
 			else
 				(PrintDHI)
@@ -324,6 +370,7 @@
 				else
 					(PrintOther 0 80)
 					(= gDisguised 1)
+					(RunningCheck)
 					(gEgo setMotion: NULL)
 				)
 			else
@@ -354,6 +401,13 @@
 			)
 			(if (Said '/axe') (PrintOther 44 64))
 			(if (Said '/pitchfork') (PrintOther 44 88))
+		)
+		(if (Said 'order/food,drink')
+			(if (== talkingTo 1) ; girl
+				(PrintRose 44 93)
+			else
+				(PrintMan 44 37)
+			)
 		)
 		(if (Said 'talk>')
 			(if (Said '/man,patron')
@@ -408,7 +462,7 @@
 							(PrintRose 44 78)
 							(PrintRose 44 39)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/mother,family,deborah')
@@ -416,35 +470,42 @@
 							(PrintRose 44 38)
 							(PrintRose 44 39)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
+						)
+					)
+					(if (Said '/food,chicken')
+						(if (== talkingTo 1) ; girl
+							(PrintRose 44 93)
+						else
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/princess,cave')
 						(if (== talkingTo 1) ; girl
 							(PrintRose 44 55)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/tristan')
 						(if (== talkingTo 1) ; girl
 							(PrintRose 44 81)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/carmyle')
 						(if (== talkingTo 1) ; girl
 							(PrintRose 44 56)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/wizard')
 						(if (== talkingTo 1) ; girl
 							(PrintRose 44 57)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/father,jasper')
@@ -452,7 +513,7 @@
 							(PrintRose 44 47)
 							(PrintRose 44 48)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/chest')
@@ -460,7 +521,7 @@
 							(PrintRose 44 82)
 							(PrintRose 44 83)	
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/key,lock')
@@ -471,7 +532,7 @@
 								(PrintRose 44 84)
 							)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/letter')
@@ -479,7 +540,7 @@
 							(PrintRose 44 9)
 							(PrintRose 44 66)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/flask')
@@ -487,21 +548,21 @@
 							(PrintRose 44 49)
 							(PrintRose 44 14)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/titanite')
 						(if (== talkingTo 1) ; girl
 							(PrintRose 44 15)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/flower')
 						(if (== talkingTo 1) ; girl
 							(PrintRose 44 75)
 						else
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/potion')
@@ -518,14 +579,14 @@
 								(PrintRose 44 69)
 							)
 						else                    ; need a flower
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/book')
 						(if (== talkingTo 1) ; girl
 							(PrintRose 44 54)
 						else             ; I had a book on potion making. I think it's upstairs.
-							(PrintMan 44 43)
+							(PrintMan 44 37)
 						)
 					)
 					(if (Said '/tavern,bar')
@@ -538,7 +599,19 @@
 					(if (Said '/chess,board')
 						(if (== talkingTo 2) ; old man
 							(if (not g105Solved)
-								(PrintMan 44 31)
+								;(PrintMan 44 31)
+								(= gVertButton 1)
+								(= button (Print 44 91 #title {Chess}
+										#button {Yes} 1
+										#button {No } 0
+				 					)
+				 				)
+								(if button
+								  	(PlayChess)	
+								else
+									;(self cue:)  
+								)
+								(= gVertButton 0)
 							else
 								(PrintMan 44 20)
 							)
@@ -561,7 +634,10 @@
 			((Said '(ask<about)/*') (PrintNCE))
 		)
 		(if (Said 'run') (Print 0 88))
-		(if (Said 'use/map') (Print 0 88))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
+		)
 		(if (Said 'look,read>')
 			(if (Said '/(board<dart),dart') (PrintOther 44 22))
 			(if (Said '/table,chess,(board<chess)')
@@ -587,7 +663,7 @@
 					)
 					(sitting
 						(if (not g105Solved)
-							(PrintMan 44 31) ; #at -1 20 #title "Old man says:")
+							(PrintMan 44 31)
 							(gRoom newRoom: 105)
 						else
 							(Print 44 32)
@@ -596,26 +672,24 @@
 					(else (PrintOther 44 1))
 				)
 			)
-			; Print(44 1 #width 290 #at -1 20)
+
 			(if (Said '/barrel') (PrintOther 44 63))
 			(if (Said '/axe')
 				(PrintOther 44 23)
 				(PrintOther 44 24)
 				(PrintOther 44 25)
 			)
-			; Print(44 23 #width 280 #at -1 8)
-			; Print(44 24 #width 280 #at -1 8)
-			; Print(44 25 #width 280 #at -1 8)
+
 			(if (Said '/girl,bartender') (PrintOther 44 0))
-			; Print(44 0 #width 280 #at -1 20)
+
 			(if (Said '/sailor') (PrintOther 44 3))
-			; Print(44 3 #width 280 #at -1 20)
+
 			(if (Said '/man') (PrintOther 44 28))
-			; Print(44 28 #width 280 #at -1 8)
+
 			(if (Said '/fireplace') (PrintOther 44 80))
 			(if (Said '/ashes') (PrintOther 44 89))
 			(if (Said '[/!*]') (PrintOther 44 29))
-			; this will handle just "look" by itself
+
 		)
 		(if (Said 'sit')
 			(cond 
@@ -631,14 +705,16 @@
 				(Print 44 7)
 			)
 		)
-		(if (Said 'play/game')
+		(if (or (Said 'play[/game]')
+				(Said 'challenge/man')
+			)
 			(cond 
 				((== talkingTo 2)
 					(PlayChess)
 				)
 				((<= (gEgo distanceTo: dartMan) 35)
 					(if (> gGold 0)
-						(if (> gDartsWon 2)
+						(if (> gDartsWon 3)
 							(Print 44 8)
 						else            ; #title "Sailor says:")
 							(PrintMan 44 33) ; #at -1 10 #title "Sailor says:")
@@ -652,7 +728,10 @@
 				(else (PrintNCE))
 			)
 		)
-		(if (Said 'play/chess')
+		(if (or (Said 'play/chess')
+				(Said 'help/man')
+				(Said 'move/piece')
+				)
 			(PlayChess)
 		)
 		(if (Said 'play/dart')
@@ -716,8 +795,8 @@
 		)
 		(if (& (gEgo onControl:) ctlYELLOW)
 			(if (not sitting)
-				(= sitting 1)
-				(LadderScript changeState: 3)
+				(= sitting 2)	; not actually sitting, but rather used to walking up/down the stairs
+				(LadderScript changeState: 3)	; not actually a ladder, but stairs!
 			)
 		)
 
@@ -795,6 +874,19 @@
 				(RunningCheck)
 				(gRoom newRoom: 47)
 			)
+			(6
+				(gEgo setMotion: MoveTo 290 106 self)		
+			)
+			(7
+				(gEgo setMotion: MoveTo 222 145 self)		
+			)
+			(8
+				(PlayerControl)
+				(SetCursor 999 (HaveMouse))
+				(= gCurrentCursor 999)	
+				(gEgo observeControl: ctlWHITE)
+				(= sitting 0)
+			)
 		)
 	)
 )
@@ -812,6 +904,9 @@
 		)
 	else
 		(Print 44 32)
+		(if sitting
+			(RoomScript changeState: 6)	; stand up
+		)
 	)	
 )
 (procedure (CloseIt)

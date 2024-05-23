@@ -364,87 +364,10 @@
 					(if (Said '/*') (PrintBob 24 11))
 				)
 				((Said '/*') (PrintOther 24 19))
-			; Print(24 11 #width 280 #at -1 20 #title "Bobby says:")
 			)
 		)
 	)
 	
-	; Print(24 19 #width 280 #at -1 20)
-; (if(Said('use>'))
-;            (if(Said('/(dart,dartgun)')) // 8
-;                PrintItem(8)
-;            )(if(Said('/marble')) // 9
-;                PrintItem(9)
-;            )
-;
-;            (if(Said('/meat')) // 5
-;                PrintItem(5)
-;            )
-;            (if(Said('/letter')) // 6
-;                PrintItem(6)
-;            )
-;            (if(Said('/block')) // 13
-;                PrintItem(13)
-;            )
-;            (if(Said('/acorn')) // 17
-;                PrintItem(17)
-;            )
-;
-;            (if(Said('/goggles')) // 10
-;                PrintItem(10)
-;            )
-;            (if(Said('/ring')) // 18
-;                PrintItem(18)
-;            )
-;
-;            (if(Said('/kite'))
-;                PrintItem(4)
-;            )
-;
-;            (if(Said('/shovel')) // 2
-;                PrintItem(2)
-;            )
-;            (if(Said('/bar'))  // 3
-;                PrintItem(3)
-;            )
-;            (if(Said('/ruler')) // 14
-;                PrintItem(14)
-;            )
-;        )
-;        (if(Said('(shoot,drop)>'))
-;            (if(Said('/(dart,dartgun)')) // 8
-;                PrintItem(8)
-;            )(if(Said('/marble')) // 9
-;                PrintItem(9)
-;            )
-;        )
-;        (if(Said('(wear,give)>'))
-;            (if(Said('/meat')) // 5
-;                PrintItem(5)
-;            )
-;            (if(Said('/letter')) // 6
-;                PrintItem(6)
-;            )
-;            (if(Said('/block')) // 13
-;                PrintItem(13)
-;            )
-;            (if(Said('/acorn')) // 17
-;                PrintItem(17)
-;            )
-;
-;            (if(Said('/goggles')) // 10
-;                PrintItem(10)
-;            )
-;            (if(Said('/ring')) // 18
-;                PrintItem(18)
-;            )
-;        )
-;        (if(Said('fly/kite')) // 4
-;            PrintItem(4)
-;        )
-;        (if(Said('dig')) // 2
-;            PrintItem(2)
-;        )
 	(method (doit)
 		(super doit:)
 		(if (<= (gEgo distanceTo: fisher) 45)

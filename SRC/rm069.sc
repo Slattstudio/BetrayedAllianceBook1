@@ -139,7 +139,7 @@
 		)
 	)
 	
-	(method (handleEvent pEvent dyingScript)
+	(method (handleEvent pEvent &tmp dyingScript)
 		(super handleEvent: pEvent)
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if (& (pEvent modifiers?) emRIGHT_BUTTON)
@@ -349,7 +349,10 @@
 			)
 		)
 		(if (Said 'run') (Print 0 88))
-		(if (Said 'use/map') (PrintOther 69 47))
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(PrintOther 69 47)
+		)
 		(if (Said 'climb/down') (PrintOther 69 51))
 		(if (Said 'open/door,oubliette,hole,grate')
 			(cond 

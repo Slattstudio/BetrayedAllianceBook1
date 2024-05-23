@@ -461,8 +461,9 @@
 				)
 			)
 		)                           ; #width 280 #at -1 20) ; end candle
-		(if (Said 'use/map')
-			(Print {This isn't a good place to use that.})
+		(if (or (Said 'look,use,read,open/portal,map')
+				(Said 'map'))
+			(Print 0 88)
 		)
 		(if (Said 'take/stock')
 			(if candle (PrintOther 67 10) else (PrintOther 67 12))
@@ -537,7 +538,7 @@
 				(if (Said '[/!*]') (PrintOther 67 12))
 			)
 		)
-		(if (Said '(step,climb)<over/plate')
+		(if (Said '(step,climb)<over/plate,trap')
 			(if g67_70dark
 				(PrintOther 67 29)		
 			else
@@ -548,6 +549,21 @@
 				else	
 					(PrintOther 67 28)
 				)	
+			)	
+		)
+		(if (or (Said 'feel/around')
+				(Said 'start,ignite,light/fire'))
+			(if (not candle)
+				(PrintOther 67 13)
+				(= candle 1)
+				(= canLook 1)
+				(gGame changeScore: 1)
+				(table cel: 0)
+				(gEgo posn: 255 144 loop: 2)
+				
+				(= climbing 0)
+			else
+				(PrintOther 67 35)
 			)	
 		)
 		(if (Said '(pick<up),take,use,light>')
@@ -614,11 +630,18 @@
 				(else (PrintOther 67 24))
 			)
 		)
-		(if (Said 'hi')
-			(self changeState: 13)	
-		)	
+		(if (or (Said 'stop,plug/gear')
+				(Said 'put/bar,rod/gear'))
+				(if g67_70dark
+					(PrintOther 67 36)		
+				else	; print hint to use table
+					(PrintOther 67 37)
+				)	
+		)
 		(if
-			(or (Said 'move/table') (Said 'put,place/table'))
+			(or (Said 'move/table') 
+				(Said 'put,place/table')
+				(Said 'cover/plate,trap'))
 			(if (not tableMoved)
 				(if (<= (gEgo distanceTo: table) 30)
 					(PrintOther 67 19)
