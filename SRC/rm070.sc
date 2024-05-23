@@ -511,7 +511,7 @@
 					(dyingScript
 						caller: 610
 						register:
-							{your supply of air expired, and so have you. Thanks for playing Betrayed Alliance!}
+							{Your supply of air expired, and so have you. Thanks for playing Betrayed Alliance!}
 					)
 					(gGame setScript: dyingScript)
 				)
