@@ -352,7 +352,12 @@
 						(PrintOther 44 74)
 					)
 				else
-					(PrintNCE)
+					(if (or (== talkingTo 2) 
+							(== talkingTo 3) )
+						(PrintOther 44 94)
+					else
+						(PrintNCE)
+					)
 				)
 			else
 				(PrintDHI)

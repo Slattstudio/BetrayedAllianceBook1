@@ -301,6 +301,13 @@
 				(Said 'map'))
 			(Print 0 88)
 		)
+		(if (Said 'give/flower/rosella,hero,roger,larry,erasmus,aziza')
+			(if (gEgo has: 21)
+				(PrintOther 30 66)
+			else
+				(PrintDHI)
+			)	
+		)
 		(if (Said 'give/flower')
 			(if (gEgo has: 21)
 				(if [gFlowerGiven 3]
