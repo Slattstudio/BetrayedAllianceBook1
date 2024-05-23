@@ -75,7 +75,7 @@
 			(leah
 				init:
 				setScript: leahScript
-				setPri: 15
+				setPri: 14
 				ignoreControl: ctlWHITE
 			)
 		else
@@ -83,7 +83,7 @@
 				init:
 				posn: 140 157
 				setScript: leahScript
-				setPri: 15
+				setPri: 14
 				loop: 0
 				ignoreControl: ctlWHITE
 			)
@@ -589,7 +589,7 @@
 							yStep: 13
 							setMotion: MoveTo (Random 200 211) (Random 107 123) archeryScript
 							ignoreActors:
-							setPri: 15
+							setPri: 14
 						)
 						(++ arrows)
 					else
@@ -600,7 +600,7 @@
 							yStep: 13
 							setMotion: MoveTo (Random 200 211) (Random 107 123) archeryScript
 							ignoreActors:
-							setPri: 15
+							setPri: 14
 						)
 						(++ arrows)
 					)
@@ -612,7 +612,7 @@
 						yStep: 13
 						setMotion: MoveTo (Random 200 211) (Random 107 123) archeryScript
 						ignoreActors:
-						setPri: 15
+						setPri: 14
 					)
 					(++ arrows)
 				)
