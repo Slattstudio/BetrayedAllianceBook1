@@ -40,6 +40,7 @@
 		(self setScript: RoomScript setRegions: 204)
 		(SetUpEgo)
 		(gEgo init:)
+		(RunningCheck)
 		(switch gPreviousRoomNumber
 			(else 
 				(gEgo posn: 155 115 loop: 2)

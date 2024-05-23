@@ -65,6 +65,7 @@
 			init:
 			hide:
 			ignoreControl: ctlWHITE
+			ignoreActors:
 			setScript: fallScript
 		)
 		(waterfall init: setCycle: Fwd cycleSpeed: 3 setPri: 0)

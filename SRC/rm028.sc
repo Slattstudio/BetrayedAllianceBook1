@@ -196,15 +196,7 @@
 				)
 			)
 		)                            ; #width 270 #at -1 14)
-; (else
-;                    (if((> (send pEvent:x) 273)and // Fence
-;                        (< (send pEvent:x) 319)and
-;                        (> (send pEvent:y) 110)and
-;                        (< (send pEvent:y) 153))
-;                        PrintOther(28 28)// #width 270 #at -1 14)
-;                    )
-;                )
-		(if (Said '(tell<about),show,give/letter,note')
+		(if (Said '(tell<about),show,give/letter,note,message')
 			(cond 
 				((<= (gEgo distanceTo: seller) 35)
 					(if (gEgo has: INV_LETTER)

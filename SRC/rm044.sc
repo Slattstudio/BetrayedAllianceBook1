@@ -365,6 +365,7 @@
 				else
 					(PrintOther 0 80)
 					(= gDisguised 1)
+					(RunningCheck)
 					(gEgo setMotion: NULL)
 				)
 			else
