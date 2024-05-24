@@ -535,32 +535,32 @@
 	
 	(method (handleEvent pEvent &tmp i)
 		; troflip debugging addition, For use in combination with the ALT key
-		(if (== evKEYBOARD (pEvent type?))
-			(switch (pEvent message?)
-				($2f00 (Show 1))     ; alt-v -> Show visual screen
-				($2e00 (Show 4))     ; alt-c -> Show control screen
-				($1900 (Show 2))     ; alt-p -> Show priority screen
-				($1400
-					(gRoom newRoom: (GetNumber {Room Number?}))
-				)                                                            ; alt-t -> teleport to room
-				($1700
-					(gEgo get: (GetNumber {Which Item?}))
-				)                                                      ; alt-i -> get inventory
-				($1f00
-					(gCast eachElementDo: #showSelf)
-				)                                                  ; alt-s -> Show cast
-				($3200
-					(ShowFree)         ; alt-m -> Show memory usage
-					(FormatPrint
-						{Free Heap: %u Bytes\nLargest ptr: %u Bytes\nFreeHunk: %u KBytes\nLargest hunk: %u Bytes}
-						(MemoryInfo miFREEHEAP)
-						(MemoryInfo miLARGESTPTR)
-						(>> (MemoryInfo miFREEHUNK) 6)
-						(MemoryInfo miLARGESTHUNK)
-					)
-				)
-			)
-		)             ; end formatprint ; end case $3200 ; end switch ; end if keyboard event
+		;(if (== evKEYBOARD (pEvent type?))
+		;	(switch (pEvent message?)
+		;		($2f00 (Show 1))     ; alt-v -> Show visual screen
+		;		($2e00 (Show 4))     ; alt-c -> Show control screen
+		;		($1900 (Show 2))     ; alt-p -> Show priority screen
+		;		($1400
+		;			(gRoom newRoom: (GetNumber {Room Number?}))
+		;		)                                                            ; alt-t -> teleport to room
+		;		($1700
+		;			(gEgo get: (GetNumber {Which Item?}))
+		;		)                                                      ; alt-i -> get inventory
+		;		($1f00
+		;			(gCast eachElementDo: #showSelf)
+		;		)                                                  ; alt-s -> Show cast
+		;		($3200
+		;			(ShowFree)         ; alt-m -> Show memory usage
+		;			(FormatPrint
+		;				{Free Heap: %u Bytes\nLargest ptr: %u Bytes\nFreeHunk: %u KBytes\nLargest hunk: %u Bytes}
+		;				(MemoryInfo miFREEHEAP)
+		;				(MemoryInfo miLARGESTPTR)
+		;				(>> (MemoryInfo miFREEHUNK) 6)
+		;				(MemoryInfo miLARGESTHUNK)
+		;			)
+		;		)
+		;	)
+		;)             ; end formatprint ; end case $3200 ; end switch ; end if keyboard event
 		; and now back to the normal script, You may want to delete all this bit upon release!*/
 		(super handleEvent: pEvent)
 		(if
