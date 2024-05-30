@@ -296,7 +296,13 @@
 			(if (or (Said 'listen[/!*]')
 				(Said 'listen/hum,pole'))
 				(PrintOther 50 9)
-			)	
+			)
+			(if (== (IsOwnedBy 3 50) TRUE)	; handglidered in
+				(if (or (Said 'look,use,read,open/portal,map')	; disable using map in this area if puzzle not solved AND had used hanglider
+					(Said 'map'))
+				(Print 50 38)
+				)		
+			)
 		)
 		(if (Said 'look>')
 			(if (Said '/house,building') (PrintOther 50 4))
