@@ -234,9 +234,8 @@
 			)
 		)
 		(if
-			(Said
-				'((look<in),examine,search)/(hole,opening,grave[<open])'
-			)
+			(or (Said '((look<in),examine,search)/(hole,opening,grave[<open])')
+				(Said 'look/grave<open'))
 			(if (& (gEgo onControl:) ctlMAROON)
 				(if (gEgo has: INV_SHOVEL)
 					(PrintOther 42 4)
