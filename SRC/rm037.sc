@@ -610,6 +610,18 @@
 		(if (& (gEgo onControl:) ctlBROWN)      ; The hole
 			(if (not dying) (fallDownHole changeState: 1))
 		)
+		(if (& (gEgo onControl:) ctlFUCHSIA)      ; To eastern caves
+			(if	(gEgo has: INV_BOW)
+				; leave bow
+				(PrintOther 37 59)
+				(gEgo put: INV_BOW 37)  
+			)
+			(if	hasTorch
+				; leave torch
+				(PrintOther 37 60)  
+			)
+			(gRoom newRoom: 71)
+		)
 		(cond 
 			((& (gEgo onControl:) ctlNAVY) (tileTrapBroken cel: 1)) ; The broken tile Trap
 			((gEgo has: INV_BOW) (tileTrapBroken cel: 0))
@@ -632,22 +644,6 @@
 				(tileTrapActive cel: 0)
 			)
 		)	
-; (if(& (send gEgo:onControl()) ctlBLUE) // The trigger for the arrow to shoot
-;            (if(statueHasArrow)
-;                (if(> (arrowShot)0)
-;                    (if (== arrowShot 1)
-;                        (if(trigger)
-;                            ++ arrowShot
-;                            (arrowScript:changeState(1))
-;                        )
-;                    )
-;                )(else
-;                    (if(not(trigger))
-;                        (arrowScript:changeState(10))
-;                    )
-;                )
-;            )
-;        )
 		(if (& (gEgo onControl:) ctlMAROON)      ; The go between from top screen to bottom
 			(cond 
 				(hasTorch (gRoom newRoom: 38))
