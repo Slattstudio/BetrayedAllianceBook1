@@ -138,7 +138,7 @@
 			(3
 				(alterEgo setCycle: Beg RoomScript)
 				(if (== searchBody 1)
-					(if (gEgo has: INV_BLOCK)
+					(if (gEgo has: INV_BLOW_DART_GUN)
 						(Print {Another search yields no additional bounty.})
 					else
 						(Print 58 0 #width 280 #at -1 10)

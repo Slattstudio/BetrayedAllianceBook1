@@ -232,7 +232,7 @@
 			)
 		)
 		(if (Said 'look>')
-			(if (Said '/rock') (PrintOther 74 4))
+			(if (Said '/rock') (PrintOther 74 18))
 			(if (Said '/mountain') (PrintOther 74 3))
 			(if (Said '/soldier,man,body')
 				(cond 
