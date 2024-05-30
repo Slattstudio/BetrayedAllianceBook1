@@ -263,7 +263,7 @@
 			)
 		)
 		(if (Said 'look>')
-			(if (Said '/soldier,man') (PrintOther 20 33))
+			(if (Said '/soldier,guard,man') (PrintOther 20 33))
 			(if (Said '/castle') (PrintOther 20 35))
 			(if (Said '/mountain') (PrintOther 20 37))
 			(if (Said '[/!*]') (PrintOther 20 30))

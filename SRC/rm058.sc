@@ -344,8 +344,7 @@
 						)
 						(if ghostVisible
 							(PrintOther 58 8)
-						else                     ; #width 280 #at -1 20) /*  */
-							; Print(40 1) /* There is a sword lying against a dead tree. */
+						else                 
 							(PrintOther 58 7)
 						)
 					)
@@ -388,7 +387,13 @@
 					(PrintOther 58 60)
 				)
 			)
-			(if (Said '/sword') (PrintOther 58 7))
+			(if (Said '/sword')
+				(if ghostVisible
+					(PrintOther 58 8)
+				else                 
+					(PrintOther 58 7)
+				)
+			)
 			(if (Said '/water,river')
 				(PrintOther 58 4)
 				(if dartsVisible (PrintOther 58 47))
