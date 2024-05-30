@@ -10,6 +10,7 @@
 (use inv)
 (use main)
 (use obj)
+(use menubar)
 
 (public
 	rm053 0
@@ -25,6 +26,8 @@
 	soldiersVisible =  0
 	walkOff =  0
 	message =  0
+	
+	conversationMode = 0
 )
 
 (instance rm053 of Rm
@@ -68,8 +71,10 @@
 					(fatMan show:)
 					(conversationScript changeState: 1)
 					(= soldiersVisible 1)
+					(= conversationMode 1)
 					(gGame changeScore: 5)
 					(= g53OutFirstTime 0)
+					(TheMenuBar state: DISABLED)
 				)
 			)
 		)
@@ -187,8 +192,36 @@
 		)
 	)
 	
-	(method (handleEvent pEvent)
+	(method (handleEvent pEvent button)
 		(super handleEvent: pEvent)
+		(if (== (pEvent type?) evKEYBOARD)
+			(if (== (pEvent message?) KEY_ESCAPE)
+				(if conversationMode
+					(= gWndColor 0)
+					(= gWndBack 14)
+					(= button (Print 53 49 #button { Yes_} 1 #button { No_} 0 #font 4 #at -1 -1))
+					(= gWndColor 0)
+					(= gWndBack 15)
+					
+					(switch button
+						(0
+
+						)
+						(1 
+							(if gPrintDlg
+								(gPrintDlg dispose:)	
+							)
+							(PlayerControl)
+							(= lines 22)
+							(= [gLetters 3] 1)
+							(conversationScript changeState: 5)
+							(TheMenuBar state: ENABLED)
+							(= conversationMode 0)
+						)
+					)
+				)
+			)
+		)
 		(if
 			(or
 				(== (pEvent message?) KEY_RETURN)
@@ -489,7 +522,10 @@
 						(PlayerControl)
 						(++ lines)
 						(= [gLetters 3] 1)
-						(self changeState: 5))
+						(self changeState: 5)
+						(TheMenuBar state: ENABLED)
+						(= conversationMode 0)
+					)
 				)
 			)
 			(3
@@ -516,7 +552,7 @@
 						(= message 1)
 						(ProgramControl)
 					)
-					((== lines 21) (PlayerControl) (++ lines) (self changeState: 5))
+					((== lines 21) (PlayerControl) (++ lines) (self changeState: 5) (TheMenuBar state: ENABLED)(= conversationMode 0))
 				)
 			)
 			(4
