@@ -89,7 +89,8 @@
 		(statue1 init: setScript: moveStatue)
 		(statue2 init: setScript: arrowScript)
 		(bow init: ignoreActors: setPri: 1 setPri: 4)
-		(rope init: ignoreActors:)
+		(rope init: ignoreActors: setPri: 3)
+		
 		(ropeTop init: ignoreActors:)
 		(alterEgo
 			init:
