@@ -488,7 +488,9 @@
 		)
 ; GOING LEFT
 		(if (& (gEgo onControl:) ctlSILVER)
-			(if sendTo37 (gRoom newRoom: 37))
+			(if sendTo37 (gRoom newRoom: 37)
+				(return)	
+			)
 			(if (not passage)
 				(= onTheWay 1) ; First move towards the tower.
 				(= [toTower 0] 9)
