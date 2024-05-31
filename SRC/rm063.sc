@@ -55,7 +55,7 @@
 	movingTwo =  0
 	
 	cutScene = 0 ; = 1 when giving acorn, = 2 when petting squirrel
-)                 ; Used to make sure the squirrel stops when ego stops during mimic
+)            
 
 (instance rm063 of Rm
 	(properties

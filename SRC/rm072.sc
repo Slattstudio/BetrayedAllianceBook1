@@ -16,7 +16,9 @@
 	rm072 0
 )
 
-
+(local
+	petting = 0	
+)
 ; Passage to Secret Grove
 
 
@@ -119,6 +121,35 @@
 				(SetCursor 999 (HaveMouse))
 				(= gCurrentCursor 999)
 			)
+			; petting squirrel
+			(7
+				(ProgramControl)
+				(SetCursor 997 (HaveMouse))
+				(= gCurrentCursor 997)
+				(= petting 1)
+				
+				(gEgo setMotion: MoveTo (- (squirrel x?) 15) (squirrel y?) self ignoreControl: ctlWHITE)	
+			)
+			(8
+				(gEgo hide:)
+				(alterEgo show: view: 232 posn: (gEgo x?)(gEgo y?) setCycle: End self cycleSpeed: 2)
+				(squirrel loop: 1)		
+			)
+			(9	(= cycles 6)
+				(PrintOther 63 20)	
+			)
+			(10
+				(alterEgo setCycle: Beg self)	
+			)
+			(11
+				(alterEgo hide:)
+				(gEgo show: loop: 0 observeControl: ctlWHITE)
+
+				(PlayerControl)
+				(SetCursor 999 (HaveMouse))
+				(= gCurrentCursor 999)	
+				(= petting 0)
+			)
 		)
 	)
 	
@@ -147,6 +178,13 @@
 					)
 				)
 			)
+		)
+		(if (Said 'touch/squirrel,animal,creature')
+			(if (<= (gEgo distanceTo: squirrel) 35)
+				(self changeState: 7)
+			else
+				(PrintNCE)
+			)	
 		) 
 		(if (or (Said 'listen[/!*]')
 				(Said 'listen/voice,song'))
@@ -198,8 +236,13 @@
 	
 	(method (doit)
 		(super doit:)
-		(if (>= (gEgo distanceTo: squirrel) 30)
-			(squirrel setMotion: Follow gEgo)
+		(if (not petting)
+			(if (>= (gEgo distanceTo: squirrel) 30)
+				(squirrel setMotion: Follow gEgo)
+			else
+				(squirrel setMotion: NULL)
+				(squirrel cel: 0)
+			)
 		else
 			(squirrel setMotion: NULL)
 			(squirrel cel: 0)
