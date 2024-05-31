@@ -238,6 +238,18 @@
 					(= gArcStl 0)
 					(gRoom newRoom: 50)
 				)
+				(if (not gHardMode)
+					(if
+						(and
+							(> (pEvent x?) (infoButton nsLeft?))
+							(< (pEvent x?) (infoButton nsRight?))
+							(> (pEvent y?) (infoButton nsTop?))
+							(< (pEvent y?) (infoButton nsBottom?))
+						)
+						(Print 110 3 #title {Hint:})
+					)
+				)
+					
 				(if blockHeld
 					(placePiece)			
 				else

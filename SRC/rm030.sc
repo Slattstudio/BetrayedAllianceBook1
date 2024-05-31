@@ -11,6 +11,7 @@
 (use main)
 (use obj)
 (use window)
+(use menubar)
 
 (public
 	rm030 0
@@ -57,6 +58,7 @@
 			; (RoomScript:changeState(1))
 			(107
 				(gEgo posn: 151 53 loop: 1)
+				(TheMenuBar state: ENABLED)
 				(= comingIn 0)
 				(if [g107Solved 1]
 					(cond 
@@ -345,6 +347,7 @@
 				'play,insert,use,pay/coin,gold,game,arcade,machine,sailboat'
 			)
 			(PrintOther 30 38)
+			(TheMenuBar state: DISABLED)
 			(gRoom newRoom: 107)
 		)
 		(if
