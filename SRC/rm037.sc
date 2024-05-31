@@ -403,6 +403,13 @@
 			)
 		)
 ; You already have it.
+		(if (Said 'put<out/torch,fire')
+			(if (<= (gEgo distanceTo: torch) 40)
+				
+			else
+			
+			)	
+		)
 		(if (Said 'put,place,return,replace/torch,fire')
 			(if hasTorch
 				(if (<= (gEgo distanceTo: torch) 40)

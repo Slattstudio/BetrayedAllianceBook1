@@ -147,6 +147,13 @@
 				)
 			)
 		)
+		(if (or (== (pEvent message?) 1) (== (pEvent message?) 2) (== (pEvent message?) 3)) ; Up, right, or right/up
+			(if (== goingUp 2)
+				(-- goingUp)	; set goingUp to 1 (so you cannot continue sending the same signal)
+				(self changeState: 2)					
+			)
+		)
+	
 
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if (& (pEvent modifiers?) emRIGHT_BUTTON)
