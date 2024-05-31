@@ -176,6 +176,7 @@
 	gListened = 71	; when 74 (listened to ghost) three times, death
 
 	g20Entered =  0
+	g20PileOfBodies =  0  ; cel number equal to number of defeated enemies (up to 7)
 	g23Kissed =  0
 	g26Ladder =  0
 	g26Intro =  0

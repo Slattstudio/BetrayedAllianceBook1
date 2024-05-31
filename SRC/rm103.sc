@@ -63,6 +63,7 @@
 	snd
 	
 	gameLoss = 0
+	countPile = 0
 )
 ; --------------------------------------------------------------------------------------------------------------
 ; Note: Each creature is determined by the gBattleNumber, all multiples of 100. So the view of each opponent
@@ -414,6 +415,15 @@
 		(if (<= oHealth 0)
 			(= oHealth 0)
 			(if (== gBatNum 300) (= gTrollHealth 0)) ; against the troll
+			(if (== gPreviousRoomNumber 20) 
+				(if (not countPile)
+					(++ g20PileOfBodies)
+					(if (> g20PileOfBodies 7)
+						(= g20PileOfBodies 7)	
+					)
+					(= countPile 1)
+				)
+			)
 			(cond 
 				((> gEnNum 1) (-- gEnNum) (goAgain))
 				((not opponentDeath) (compAttack changeState: 10))
@@ -833,6 +843,7 @@
 	)
 	(= oHealth gBatNum)
 	(= oCrippled 0)
+	(= countPile 0)
 	(cond 
 		(targetHead (= accuracy 40))
 		(targetBody (= accuracy 80))
