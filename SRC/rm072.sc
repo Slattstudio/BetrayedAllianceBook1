@@ -44,19 +44,19 @@
 			)
 			(63      ; Squirrel Music Puzzle
 				(gEgo posn: 27 150 loop: 0)
-				(squirrel posn: 1 150 setCycle: Walk ignoreActors:)
+				(squirrel posn: 20 150 ignoreActors:)
 				
 			)
 			(65      ; Hidden "Grove"
 				(gEgo posn: 294 150 loop: 1)
-				(squirrel posn: 319 150 setCycle: Walk ignoreActors:)
+				(squirrel posn: 319 150 ignoreActors:)
 			)
 		)
 		(SetUpEgo)
 		(gEgo init:)
 		(= gEgoRunning 0)
 		(RunningCheck)
-		(squirrel init:)
+		(squirrel init: setCycle: Walk)
 		(alterEgo init: hide: ignoreActors:)
 		
 		;(gTheMusic prevSignal: 0 fade:)
@@ -128,11 +128,19 @@
 				(= gCurrentCursor 997)
 				(= petting 1)
 				
-				(gEgo setMotion: MoveTo (- (squirrel x?) 15) (squirrel y?) self ignoreControl: ctlWHITE)	
+				(if (> (gEgo x?) (squirrel x?))	; ego on the right
+					(gEgo setMotion: MoveTo (+ (squirrel x?) 25) (squirrel y?) self ignoreControl: ctlWHITE)
+				else	
+					(gEgo setMotion: MoveTo (- (squirrel x?) 15) (squirrel y?) self ignoreControl: ctlWHITE)
+				)	
 			)
 			(8
 				(gEgo hide:)
-				(alterEgo show: view: 232 posn: (gEgo x?)(gEgo y?) setCycle: End self cycleSpeed: 2)
+				(if (> (gEgo x?) (squirrel x?))	; ego on the right
+					(alterEgo show: view: 232 loop: 1 posn: (gEgo x?)(gEgo y?) setCycle: End self cycleSpeed: 2)	
+				else
+					(alterEgo show: view: 232 posn: (gEgo x?)(gEgo y?) setCycle: End self cycleSpeed: 2)
+				)
 				(squirrel loop: 1)		
 			)
 			(9	(= cycles 6)
@@ -180,7 +188,7 @@
 			)
 		)
 		(if (Said 'touch/squirrel,animal,creature')
-			(if (<= (gEgo distanceTo: squirrel) 35)
+			(if (<= (gEgo distanceTo: squirrel) 45)
 				(self changeState: 7)
 			else
 				(PrintNCE)
