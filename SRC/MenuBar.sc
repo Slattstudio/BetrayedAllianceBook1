@@ -237,6 +237,7 @@
 			)
 			(MENU_NOTES
 				(= gVertButton 1)
+				(= button 1)
 				(while (> button 0)
 					(= button
 						(Print
