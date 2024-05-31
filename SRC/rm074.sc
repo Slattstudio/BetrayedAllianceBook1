@@ -204,7 +204,7 @@
 				)
 			)
 		)
-		(if (Said 'take,remove,tear/poster,notice,paper')
+		(if (Said 'take,remove,tear/poster,notice,paper,note')
 			(if (not (or canAttack gFollowed))
 				(if (not g74Poster)	
 					(if (& (gEgo onControl:) ctlSILVER)
