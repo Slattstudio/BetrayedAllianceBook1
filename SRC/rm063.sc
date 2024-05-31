@@ -451,9 +451,11 @@
 					)
 				)
 			)
+			(gEgo observeControl: ctlWHITE)
 		else
 			(squirrel setMotion: NULL)
 			(squirrel cel: 0)
+			(gEgo ignoreControl: ctlWHITE)
 		)
 
 		(if (& (gEgo onControl:) ctlCYAN) (gRoom newRoom: 72))
