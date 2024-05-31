@@ -78,7 +78,7 @@
 						setMotion: MoveTo 1 15 RoomScript
 					)
 				else
-					; (= goingUp 1)
+					(= goingUp 2)
 					(gEgo posn: 288 82 loop: 1)
 					(RoomScript changeState: 5)
 				)

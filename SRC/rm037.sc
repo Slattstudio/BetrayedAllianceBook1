@@ -403,11 +403,11 @@
 			)
 		)
 ; You already have it.
-		(if (Said 'put<out/torch,fire')
+		(if (Said '(put<out),extinguish/torch,fire')
 			(if (<= (gEgo distanceTo: torch) 40)
-				
+				(PrintOther 37 61)	
 			else
-			
+				(PrintNCE)
 			)	
 		)
 		(if (Said 'put,place,return,replace/torch,fire')
