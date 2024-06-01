@@ -128,7 +128,10 @@
 					(grave show:)
 					(table show:)
 					(gears show:)
-					(if (or (gEgo has: INV_METAL_BAR) g70Safe)
+					(if (or 
+							(gEgo has: INV_METAL_BAR)
+							(gEgo has: INV_GLIDER)  
+							g70Safe)
 						(locker
 							loop: 1
 							cel: 3
@@ -471,7 +474,7 @@
 			(cond 
 				((<= (gEgo distanceTo: table) 40) (self changeState: 2))
 				((<= (gEgo distanceTo: grave) 40) (self changeState: 5))
-				((or (gEgo has: INV_METAL_BAR) g70Safe) (self changeState: 9))
+				((or (gEgo has: INV_METAL_BAR) (gEgo has: INV_GLIDER) g70Safe) (self changeState: 9))
 				(else (PrintNCE))
 			)
 		)
@@ -801,6 +804,8 @@
 			)
 			(5
 				(PrintOther 70 17) ; opening complete!
+				(= g70Safe 1)
+				
 				(PlayerControl)
 				(SetCursor 999 (HaveMouse))
 				(= gCurrentCursor 999)
