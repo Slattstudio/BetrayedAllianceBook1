@@ -164,7 +164,7 @@
 						(if (> gInt 34)
 							(if (not [gArmor 3])
 								(PrintHans 46 39) ; #title "Librarian:" #width 280 #at -1 20)
-								(Print 46 102 #title {Armor Bonus:} #icon 277 1)
+								(Print 46 102 #title {Armor Bonus:} #icon 277 3)
 								(= gStr (+ gStr 3))
 								(= gDef (+ gDef 5))
 								(= [gArmor 3] 1)
