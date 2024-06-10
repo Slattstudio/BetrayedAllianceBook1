@@ -136,7 +136,7 @@
 			)
 			(4
 				(FormatPrint
-					{After what seemed like an eternity you finish your exam. Your score is %u out of 100.}
+					{After what seemed like an eternity you finish your exam. Your score is %u out of 60.}
 					gInt
 				)
 				(if (> gInt 0)
