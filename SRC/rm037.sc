@@ -313,7 +313,20 @@
 				(if (checkBox pEvent 10 37 94 140) (PrintOther 37 38))
 			)
 		)                             ; #at -1 28)
-		(if (Said 'open,close/face,furnace') (PrintOther 37 24)) ; #width 280 #at -1 8)
+		(if (Said 'open,close/face,furnace')
+			(PrintOther 37 24)
+		)
+		(if (Said 'block,hide/face,furnace')
+			(if (not faceBlocked)
+				(if (<= (gEgo distanceTo: statue1) 20)
+					(moveStatue changeState: 1)
+				else
+					(PrintOther 37 62)
+				)
+			else
+				(PrintOther 37 7)
+			)			
+		)
 		(if (Said 'search/statue')
 			(cond 
 				((<= (gEgo distanceTo: statue1) 20) (PrintOther 37 32))
