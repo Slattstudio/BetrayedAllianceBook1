@@ -95,11 +95,12 @@
 				(prisoner4 loop: 1)
 				(prisoner5 loop: 1)
 				(gGame changeScore: 5)      ; 5 points less for killing him instead of tricking him
-				(RoomScript changeState: 1)
+				(RoomScript changeState: 3)
 				(gTheMusic number: 109 loop: -1 play:)
 			)
 			(else 
-				(gEgo posn: 163 159 loop: 3)
+				(gEgo posn: 163 165 loop: 3)
+				(RoomScript changeState: 1)
 			)
 		)
 	)
@@ -112,13 +113,29 @@
 	(method (changeState newState)
 		(= state newState)
 		(switch state
-			(0)
-			(1 (= cycles 7)
+			(0				
+			)
+			(1
 				(ProgramControl)
 				(SetCursor 997 (HaveMouse))
 				(= gCurrentCursor 997)
+				(gEgo setMotion: MoveTo 163 150 self)		
 			)
 			(2
+				(PlayerControl)
+				(SetCursor 999 (HaveMouse))
+				(= gCurrentCursor 999)
+				(PrintOther 69 72)
+				(Print 69 73 #title {You wonder:} #at -1 20)		
+			)
+			; moving to ending sequence
+			(3 (= cycles 7)
+				(ProgramControl)
+				(SetCursor 997 (HaveMouse))
+				(= gCurrentCursor 997)
+				(= gameOver 1)
+			)
+			(4
 				(gEgo setMotion: MoveTo 163 133 RoomScript)
 				(julyn
 					setCycle: Walk
@@ -126,13 +143,13 @@
 					setPri: 13
 				)
 			)
-			(3
+			(5
 				(= cycles 7)
 				(PrintHero 69 48) ; #title "You say:")
 				(julyn setCycle: Walk setMotion: MoveTo 173 170)
 				(gEgo setMotion: MoveTo 163 170)
 			)
-			(4 
+			(6 
 				(= gAutosave 0) ; don't want to autosave during ending
 				(gRoom newRoom: 8)
 			)
@@ -276,8 +293,6 @@
 				(if gyreHere
 					(-- gApple)
 					(= dartShot 1)
-					; Print(69 38 #width 280 #at -1 8)
-					; (gyreScript:changeState(6)) // go to battle
 					(dartScript changeState: 1)
 				else
 					(PrintOther 69 40)
@@ -574,8 +589,7 @@
 				(oublietteScript changeState: 5) ; close the oubliette
 				(gGame changeScore: 10)
 				(= gMap 0)
-				(RoomScript changeState: 1)
-				(= gameOver 1)
+				(RoomScript changeState: 3)
 			)
 		)
 	)
