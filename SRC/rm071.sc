@@ -322,6 +322,7 @@
 				(if button (gRoom newRoom: 31))
 			)
 		)
+		(if (Said 'run') (Print 0 88))
 		(if (Said 'look>')
 			(if (Said '/door,cave') (PrintOther 71 5)) ; Many directions are open to you, but it's hard to tell where they will lead.
 			(if (Said '/treasure,chest,box')
@@ -599,7 +600,7 @@
 				(SetCursor 999 1)
 				(= gCurrentCursor 999)
 				(alterEgo hide:)
-				(gEgo show: observeControl: ctlWHITE)
+				(gEgo show: observeControl: ctlWHITE observeControl: ctlBLUE)
 				(= animation 0)
 			)
 		)
@@ -614,9 +615,11 @@
 	(-- countdown)
 	(alterEgo
 		show:
+		view: 0
 		loop: 2
 		posn: (gEgo x?) (gEgo y?)
 		setCycle: Fwd
+		cycleSpeed: 0
 		z: countdown
 	)
 	(if (== countdown -40) (RoomScript changeState: 9))
