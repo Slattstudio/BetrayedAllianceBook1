@@ -344,7 +344,7 @@
 			(if (Said '[/!*]') (PrintOther 41 17))
 		; this will handle just "look" by itself
 		)
-		(if (Said 'open/coffin,grave,slab')
+		(if (Said 'open,push/coffin,grave,slab')
 			(cond 
 				((not g41Coffin)
 					(if (& (gEgo onControl:) ctlMAROON)

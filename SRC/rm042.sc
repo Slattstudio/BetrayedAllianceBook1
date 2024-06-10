@@ -304,6 +304,7 @@
 			)						
 		)
 		(if (Said 'look>')
+			(if (Said '/symbol,image') (PrintOther 42 1))
 			(if (Said '/mausoleum') (PrintOther 42 9))
 			(if (Said '/grave,epitaph,gravestone')
 				(PrintOther 42 12)
