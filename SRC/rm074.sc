@@ -524,6 +524,7 @@
 		x 135
 		view 322
 		loop 4
+		cel 1
 	)
 )
 (instance poster of Prop
