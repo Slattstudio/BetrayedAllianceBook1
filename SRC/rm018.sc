@@ -451,7 +451,13 @@
 				(PrintNCE)
 			)
 		)
-		(if (Said 'talk/(man,wizard)') (WizTalk))
+		(if (Said 'talk/(man,wizard)')
+			(if (and (gEgo has: 7) (not portVis))
+				(WizTalk)
+			else
+				(PrintOther 18 93)
+			)
+		)
 		(if (Said '(step,walk<through,into)/mirror')
 			(PrintOther 18 8)
 		)
@@ -497,12 +503,6 @@
 			(if (Said '/rug,tapestry') (PrintOther 18 6))
 			(if (Said '/door') (Print 18 27 #at -1 8))
 			
-			
-			; Print(18 24 #width 280 #at -1 8)
-; (if (Said('/mask'))
-;                PrintOther(18 26)
-;                //Print(18 26 #width 280 #at -1 8)
-;            )
 			(if (Said '/reflection')
 				(if (not gWizRm)
 					(if (gEgo has: 7)
@@ -519,11 +519,6 @@
 					(PrintOther 18 73)
 				)
 			)
-			; Print(18 26 #width 280 #at -1 8)
-; (if (Said('/(chess,board)'))
-;                PrintOther(18 28)
-;                //Print(18 28 #width 280 #at -1 8)
-;            )
 			(if (Said '/book')
 				(if onRed
 					(if (> [gMissingBooks 2] 0)
@@ -542,15 +537,22 @@
 			(if (Said '/bookshelf')
 				(PrintOther 18 51)
 			)
-			; Print(18 51 #width 280 #at -1 8)
+
 			(if (Said '/portal') (PrintOther 18 48))
-			; Print(18 48 #width 280 #at -1 8)
-			(if (Said '/orb') (PrintOther 18 25))
-			; Print(18 25 #width 280 #at -1 8)
-			(if (Said '/(mirror,man,wizard)') (WizTalk))
+
+			(if (Said '/mirror') 
+				(WizTalk)				
+			)
+			(if (Said '/man,wizard') 
+				(if (and (gEgo has: 7) (not portVis))
+					(WizTalk)
+				else
+					(PrintOther 18 92)
+				)				
+			)
 			(if (Said '/reflection')
 				(if (not gWizRm) (PrintOther 18 73) else (WizTalk))
-			; Print(18 26 #width 280 #at -1 8)
+
 			)
 			(if (Said '/floor') 
 				(PrintOther 18 12)
@@ -901,12 +903,12 @@
 
 (procedure (WizTalk)
 	(if (not gWizRm)
-		(if (gEgo has: 7)
+		(if (gEgo has: 7)	; map
 			(if (& (gEgo onControl:) ctlSILVER)      ; SILVER
 				(Print 18 22 #width 280 #at -1 8)
 				(WizWalk changeState: 2)
 			else
-				(PrintNCE)
+				(PrintOther 18 94)
 			)
 		else
 			(Print 18 7 #width 280 #at -1 8)
