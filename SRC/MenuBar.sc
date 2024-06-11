@@ -44,7 +44,7 @@
 		)
 		(AddMenu
 			{ Speed_}
-			{Change...`^s:--!:Faster`+:Normal`=:Slower`-Music}
+			{Change...`^s:--!:Faster`+:Normal`=:Slower`}
 		)
 		(if (DoSound sndSET_SOUND)
 			(AddMenu { %_} {Volume...`^v:Turn Off`#2=1})
