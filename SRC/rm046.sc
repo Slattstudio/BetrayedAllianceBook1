@@ -597,7 +597,7 @@
 		(if (Said 'take,(pick<up)>')
 			(if (Said '/book') (PrintOther 46 88))
 		)
-		(if (Said 'take/exam,test')
+		(if (Said 'take,start/exam,test')
 			(if
 				(or
 					(& (gEgo onControl:) ctlMAROON)
