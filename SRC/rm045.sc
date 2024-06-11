@@ -24,7 +24,6 @@
 	movingRight =  0
 	running =  0
 )
-; snd
 
 (instance rm045 of Rm
 	(properties
@@ -155,7 +154,8 @@
 ;                PrintNCE()
 ;            )
 ;        )
-		(if (Said 'open/door')
+		(if (or (Said 'open/door')
+				(Said 'enter/building,library'))
 			(if (& (gEgo onControl:) ctlMAROON)
 				(gRoom newRoom: 46)
 			else

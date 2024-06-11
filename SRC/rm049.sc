@@ -141,7 +141,8 @@
 				)
 			)
 		)                       ; Shelah's dock for larger vessels.
-		(if (Said 'open/door')
+		(if (or (Said 'open/door')
+				(Said 'enter/building,dock,house'))
 			(if (& (gEgo onControl:) ctlRED)
 				(PrintOK)
 				(gRoom newRoom: 62)

@@ -387,7 +387,7 @@
 ; (if(Said('run'))
 ;            Print("Moving slowly and carefully is more prudent."#width 280 #at -1 20)
 ;        )
-		(if (Said 'open,enter,use/door,building,panel')
+		(if (Said 'open,enter,use/door,building,panel,house')
 			(if (& (gEgo onControl:) ctlNAVY)
 				(if doorOpen
 					(gRoom newRoom: 66)
