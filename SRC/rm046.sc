@@ -280,19 +280,7 @@
 				(gEgo loop: 1)
 			)
 			(13
-				(Print
-					46
-					90
-					#title
-					{The Arcane Symbol:}
-					#width
-					120
-					#at
-					-1
-					-1
-					#font
-					4
-				)
+				(Print 46 90 #title {The Arcane Symbol:} #width 164 #at 70 -1 #font 4 #icon 168)
 				(gEgo setMotion: MoveTo 35 167 self)
 			)
 			(14
