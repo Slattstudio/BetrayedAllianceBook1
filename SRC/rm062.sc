@@ -254,17 +254,7 @@
 							(OnControl ocPRIORITY (pEvent x?) (pEvent y?))
 						)
 					)
-					(= message (Random 60 77))
-					(if (== message repeat_)
-						(++ message)
-						(if (> message 76) (= message (Random 60 77)))
-					)
-					(cond 
-						((== message 64) (Print {} #title {A postcard?} #icon 994) (Print 62 64))
-						((== message 74) (Print 62 message #width 100 #font 4))
-						(else (Print 62 message #width 180 #at -1 -1 #font 4))
-					)
-					(= repeat_ message)
+					(randomLetter)
 				)
 			)
 		)
@@ -305,12 +295,12 @@
 		)                   ; You quickly decide that you don't really want a form anyway!
 		(if (Said 'take,find>')
 			(if (Said '/letter')
-				(PrintOther 62 8) ; #width 280 #at -1 8) // With all the clutter you can't find the one you want.
-				(PrintOther 62 9)
+				(randomLetter)
+				(PrintOther 62 57)
 			)                    ; #width 280 #at -1 8) // If only there were some way to see past all the mess.
 			(if (Said '/fish') (PrintOther 62 51)) ; With all the clutter you can't find the one you want.
 			(if (Said '/package')
-				(PrintOther 62 8) ; #width 280 #at -1 8) // With all the clutter you can't find the one you want.
+				(PrintOther 62 8)
 				(PrintOther 62 9)
 			)
 		)                        ; #width 280 #at -1 8) // If only there were some way to see past all the mess.
@@ -818,6 +808,19 @@
 	(Print textRes textResIndex #width 280 #at -1 20 #title "He says:")
 	(= gWndColor 0) ; clBLACK
 	(= gWndBack 15)
+)
+(procedure (randomLetter)
+	(= message (Random 60 77))
+	(if (== message repeat_)
+		(++ message)
+		(if (> message 76) (= message (Random 60 77)))
+	)
+	(cond 
+		((== message 64) (Print {} #title {A postcard?} #icon 994) (Print 62 64))
+		((== message 74) (Print 62 message #width 100 #font 4))
+		(else (Print 62 message #width 180 #at -1 -1 #font 4))
+	)
+	(= repeat_ message)
 )
 
 (instance orbit of Script
