@@ -337,6 +337,7 @@
 					; Print(23 22 #width 290 #at -1 12 #title "She says:")
 					(if (Said '/king') (PrintLeah 23 23))
 					(if (Said '/cave') (PrintLeah 23 49))
+					(if (Said '/healing,potion') (PrintLeah 23 94))
 					(if (Said '/(life<new)') (PrintLeah 23 79))
 					(if (Said '/ogre') (PrintLeah 23 50) (PrintLeah 23 51))
 					(if (Said '/graveyard,sarcophagus,grave')

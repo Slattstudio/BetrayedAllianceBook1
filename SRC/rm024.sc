@@ -329,6 +329,7 @@
 							(PrintBob 24 36)
 						)
 					)
+					(if (Said '/healing,potion') (PrintBob 24 53))
 					; Print(24 20 #width 280 #at -1 20 #title "Bobby says:")
 					(if (Said '/hair,beard,mustache,book')
 						(PrintBob 24 16)
