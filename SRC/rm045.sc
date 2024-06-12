@@ -11,8 +11,6 @@
 (use inv)
 (use main)
 (use obj)
-(use dpath)
-(use sciaudio)
 
 (public
 	rm045 0

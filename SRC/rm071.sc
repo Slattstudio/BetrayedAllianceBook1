@@ -55,6 +55,7 @@
 	
 	armorNum = 0
 	armorI
+	chestNearby = 0	; equal 1 if you went up, 2 for right, 3 for down, 4 for left
 	
 )
 ; snd
@@ -127,55 +128,82 @@
 		(= state mainState)
 		(switch state
 			(0)
-			(1
+			(1	; walkding left
 				(= passage 1)
 				(ProgramControl)
 				(SetCursor 997 (HaveMouse))
 				(= gCurrentCursor 997)
 				(gEgo setMotion: MoveTo 0 (gEgo y?) RoomScript)
+				(if treasureVisible
+					(= chestNearby 4)	
+				else
+					(if (not (== chestNearby 2))
+						(= chestNearby 0)
+					)	
+				)
 			)
 			(2
-; MOVING TO THE NEXT PART OF THE CAVE
 				(if (== [toTower 4] 9)
 					(PlayerControl)
 					(SetCursor 999 (HaveMouse))
 					(= gCurrentCursor 999)
 					(gRoom newRoom: 37)
 				)
-; MOVING TO THE NEXT PART OF THE CAVE
-				(if (== treasureCounter 5) (= treasureVisible 1))
+				; if you were coming from the room where the treasure was already visible
+				(if treasureVisible
+					(treasureToZero)	
+				)
+				(if (== treasureCounter 5)
+					(= treasureVisible 1)
+				)
 				(= [toTreasure 4] 9)
 				(gEgo
 					posn: 315 (gEgo y?)
 					setMotion: MoveTo 280 (gEgo y?) RoomScript
 				)
+				(if (== chestNearby 2)	; if returning from the room with the chest
+					(= treasureCounter 5)
+					(= chestNearby 0)
+					(= treasureVisible 1)	
+				)
 			)
 			(3
-				; (send gEgo:observeControl(ctlGREY))
-				; PlayerControl()(SetCursor(999 HaveMouse()) = gCurrentCursor 999)
 				(= passage 0)
 				(RoomScript changeState: 14)
 			)
-			(4
+			(4	; waking right
 				(= passage 1)
 				(ProgramControl)
 				(SetCursor 997 (HaveMouse))
 				(= gCurrentCursor 997)
 				(gEgo setMotion: MoveTo 319 (gEgo y?) RoomScript)
+				(if treasureVisible
+					(= chestNearby 2)
+				else
+					(if (not (== chestNearby 4))
+						(= chestNearby 0)
+					)	
+				)
 			)
 			(5
 				(gEgo
 					posn: 10 (gEgo y?)
 					setMotion: MoveTo 50 (gEgo y?) RoomScript
 				)
+				(if treasureVisible
+					(treasureToZero)	
+				)
+				(if (== chestNearby 4)	; if returning from the room with the chest
+					(= treasureCounter 5)
+					(= chestNearby 0)
+					(= treasureVisible 1)	
+				)
 			)
 			(6
-				; (send gEgo:observeControl(ctlSILVER))
-				; PlayerControl()(SetCursor(999 HaveMouse()) = gCurrentCursor 999)
 				(= passage 0)
 				(RoomScript changeState: 14)
 			)
-			(7
+			(7	; walking down
 				(= cycles 1)
 				(= passage 1)
 				(ProgramControl)
@@ -183,6 +211,14 @@
 				(= gCurrentCursor 997)
 				(gEgo hide:)
 				(elevation)
+				(if treasureVisible
+					(= chestNearby 3)
+				else
+					(if (not (== chestNearby 1))
+						(= chestNearby 0)
+					)	
+				)
+				
 			)
 			(8
 				(elevation)
@@ -191,6 +227,7 @@
 				else
 					(RoomScript changeState: 9)
 				)
+				
 			)
 			(9
 				(alterEgo hide:)
@@ -200,26 +237,23 @@
 					setMotion: MoveTo 160 130 RoomScript
 					ignoreControl: ctlWHITE
 				)
+				(if treasureVisible
+					(treasureToZero)	
+				)
+				(if (== chestNearby 1)	; if returning from the room with the chest
+					(= treasureCounter 5)
+					;(= chestNearby 0)
+					(= treasureVisible 1)	
+				)
 			)
 			(10
-				; PlayerControl()(SetCursor(999 HaveMouse()) = gCurrentCursor 999)
 				(= countdown 0)
 				(= passage 0)
 				(gEgo observeControl: ctlWHITE)
 				(RoomScript changeState: 14)
 			)
-; (case 7
-;                = passage 1
-;                 ProgramControl()(SetCursor(997 HaveMouse()) = gCurrentCursor 997)
-;                (send gEgo:setMotion(MoveTo(send gEgo:x) 189 RoomScript)ignoreControl(ctlWHITE))
-;            )(case 8
-;                (send gEgo:posn((send gEgo:x) 94) setMotion(MoveTo (send gEgo:x) 120 RoomScript))
-;            )(case 9
-;                 (send gEgo:observeControl(ctlWHITE))
-;                PlayerControl()(SetCursor(999 HaveMouse()) = gCurrentCursor 999)
-;                = passage 0
-;            )
-			(11
+
+			(11	; walking up
 				(= passage 1)
 				(ProgramControl)
 				(SetCursor 997 (HaveMouse))
@@ -228,11 +262,27 @@
 					setMotion: MoveTo 160 88 RoomScript
 					ignoreControl: ctlWHITE
 				)
+				(if treasureVisible
+					(= chestNearby 1)
+				else
+					(if (not (== chestNearby 3))
+						(= chestNearby 0)
+					)	
+				)
 			)
 			(12
 				(gEgo
 					posn: (gEgo x?) 189
 					setMotion: MoveTo (gEgo x?) 158 RoomScript
+				)
+				(if treasureVisible
+					(treasureToZero)
+					(++ treasureCounter)	
+				)
+				(if (== chestNearby 3)	; if returning from the room with the chest
+					(= treasureCounter 5)
+					(= chestNearby 0)
+					(= treasureVisible 1)	
 				)
 			)
 			(13
@@ -321,6 +371,9 @@
 				)
 				(if button (gRoom newRoom: 31))
 			)
+		)
+		(if (Said 'hi')
+			(FormatPrint {%u %u} chestNearby treasureVisible)
 		)
 		(if (Said 'run') (Print 0 88))
 		(if (Said 'look>')
@@ -446,7 +499,12 @@
 							(++ treasureCounter)
 						)
 					)
-					(else (treasureToZero) (++ treasureCounter))
+					(else
+						(if (not (== treasureCounter 5))
+							(treasureToZero)
+						) 
+						(++ treasureCounter)
+					)
 				)
 				(RoomScript changeState: 11)
 			)
@@ -456,7 +514,9 @@
 			(if (not passage)
 				(= onTheWay 0) ; First move towards nothing
 				(towerToZero)
-				(treasureToZero)
+				(if (not (== treasureCounter 5))
+					(treasureToZero)
+				)
 				(RoomScript changeState: 7)
 			)
 		)
@@ -482,7 +542,9 @@
 						)
 					)
 				else
-					(treasureToZero)
+					(if (not (== treasureCounter 5))
+						(treasureToZero)
+					)
 				)
 				(RoomScript changeState: 4)
 			)
@@ -515,7 +577,9 @@
 						)
 					)
 				else
-					(treasureToZero)
+					(if (not (== treasureCounter 5))
+						(treasureToZero)
+					)
 				)
 				(RoomScript changeState: 1)
 			)
