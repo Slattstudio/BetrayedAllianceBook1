@@ -71,24 +71,11 @@
 			(22
 				(if (< (gEgo y?) 91)   ; glider
 					(gEgo init: hide:)
-					(alterEgo
-						show:
-						view: 60
-						posn: 262 10
-						xStep: 7
-						setMotion: MoveTo 159 15 RoomScript
-						ignoreControl: ctlWHITE
-						setPri: 15
-					)
+					(alterEgo show: view: 60 posn: 262 10 xStep: 7 setMotion: MoveTo 159 15 RoomScript ignoreControl: ctlWHITE setPri: 15)
 				else
 					(gEgo posn: 305 140 loop: 1)
 				)
 			)
-; (if(not(g110Solved))
-;                    (door:init()setPri(1)ignoreActors()setScript(doorScript))
-;                )(else
-;                    (door:init()hide()setPri(1)ignoreActors()setScript(doorScript))
-;                )
 			(114
 				(gEgo posn: 107 134 loop: 1)
 				(if g110Solved
@@ -99,12 +86,8 @@
 				(gEgo posn: 305 140 loop: 1)
 			)
 		)
-		; (= g110Solved 1)
-		; (door:init()setPri(1)ignoreActors()setScript(doorScript))
-		; (energy1:init()hide()ignoreActors())
+
 		(energy2 init: hide: ignoreActors: setScript: knockScript)
-		; (energy3:init()hide()ignoreActors())
-		; (energy4:init()hide()ignoreActors())
 		(sparks init: hide: ignoreActors: setScript: damageScript)
 		(kite init: hide: setScript: doorScript)
 		(bird
@@ -171,11 +154,12 @@
 			(4
 				(= cycles 3)
 				(kite hide:)
-				(gEgo put: 3 50)
+				(gEgo get: 3 put: 3 50)
 				(gEgo put: 4 50)
 				(gEgo put: 25 50)
 				(gGame changeScore: 3)
 				(= gInt (+ gInt 3))
+				(= gArcStl 0)
 				(PlayerControl)
 				(SetCursor 999 1)
 				(= gCurrentCursor 999)

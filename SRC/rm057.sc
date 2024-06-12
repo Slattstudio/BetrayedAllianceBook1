@@ -308,6 +308,10 @@
 		(switch state
 			(0)
 			(1
+				(ProgramControl)
+				(SetCursor 997 (HaveMouse))
+				(= gCurrentCursor 997)
+				(= gArcStl 1)
 				(gEgo
 					setMotion: MoveTo 175 95 hangGlideScript
 					ignoreControl: ctlWHITE
