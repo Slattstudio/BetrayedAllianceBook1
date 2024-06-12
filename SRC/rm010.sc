@@ -74,7 +74,7 @@
 					40
 				)
 				(if (== gName 0)
-					(Print {Come on you can do better!})
+					(Print {Come on, you can do better!})
 					(RoomScript changeState: 2)
 				else
 					(Format
