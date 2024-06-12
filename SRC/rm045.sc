@@ -82,25 +82,6 @@
 		(super handleEvent: pEvent)
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if (& (pEvent modifiers?) emRIGHT_BUTTON)
-; (if((> (send pEvent:x) 1)and // fence
-;                    (< (send pEvent:x) 87)and
-;                    (> (send pEvent:y) 85)and
-;                    (< (send pEvent:y) 148))
-;                    Print("The fence keeps the crops safe from potential herbivores, both animal and human." #width 290 #at -1 8)
-;                )
-;                (if((> (send pEvent:x) (statue:nsLeft))and
-;                    (< (send pEvent:x) (statue:nsRight))and
-;                    (> (send pEvent:y) (statue:nsTop))and
-;                    (< (send pEvent:y) (statue:nsBottom)))
-;                    Print("A statue of the Great Wizard. Looks different than the wizard you met earlier." #width 280 #at -1 8)
-;                )(else
-;                    (if((> (send pEvent:x) 88)and // bush
-;                        (< (send pEvent:x) 163)and
-;                        (> (send pEvent:y) 92)and
-;                        (< (send pEvent:y) 105))
-;                        Print("There are lovely looking berries in the bush by the library." #width 290 #at -1 8)
-;                    )
-;                )
 				(if
 					(and
 						(> (pEvent x?) 117)    ; library
@@ -112,19 +93,6 @@
 				)
 			)
 		)                            ; #width 290 #at -1 8)
-; (if (Said('talk>'))
-;            (if (Said('/wizard,statue'))
-;                Print("It may be a wizard, but it's still a statue. It doesn't talk back."#width 280 #at -1 8)
-;            )
-;            (if (Said('[/!*]'))
-;                // this will handle just "talk" by itself
-;                Print("Who are you talking to?" #width 280 #at -1 8)
-;            )
-;            (if (Said('/*'))
-;                // this will handle "talk anyword"
-;                Print("No one talks back." #width 280 #at -1 8)
-;            )
-;        )
 		(if (Said 'look>')
 			(if (Said '/library,building') (PrintOther 45 0))
 
@@ -152,8 +120,8 @@
 ;                PrintNCE()
 ;            )
 ;        )
-		(if (or (Said 'open/door')
-				(Said 'enter/building,library'))
+		(if (or (Said 'open/door,library')
+				(Said 'enter/library,building'))
 			(if (& (gEgo onControl:) ctlMAROON)
 				(gRoom newRoom: 46)
 			else
