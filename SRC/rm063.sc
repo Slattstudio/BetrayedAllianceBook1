@@ -275,7 +275,7 @@
 			)
 			(if (Said '/tile') (PrintOther 63 13))
 			(if (Said '/pillar') (PrintOther 63 26))
-			(if (Said '/door')
+			(if (Said '/door,wall')
 				(if g63PuzSol 
 					(PrintOther 63 27)
 				else
