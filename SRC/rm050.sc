@@ -53,7 +53,7 @@
 		)
 		(gEgo init:)
 		(SetUpEgo)
-		(= gEgoRunning 0)
+		;(= gEgoRunning 0)
 		(RunningCheck)
 		(alterEgo
 			init:

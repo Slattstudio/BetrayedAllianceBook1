@@ -47,6 +47,9 @@
 			)
 		)
 		(SetUpEgo)
+		(= gEgoRunning 0)
+		(RunningCheck)
+		
 		(gEgo init:)
 		(scientist
 			init:
