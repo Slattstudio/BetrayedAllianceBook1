@@ -35,10 +35,12 @@
 	takingMarble =  0
 	
 	teleportAnimation = 0
-; snd
-	[planetMoveX 12] = [1 -2 -6 -10 -6 -2 1 4 8 12 8 4] ; (2 -4 -12 -20 -12  -4   2   8 16 24 16 8)
+
+	[planetMoveX 12] = [1 -2 -6 -10 -6 -2 1 4 8 12 8 4]
 	[planetMoveY 12] = [4 3 2 -1 -4 -5 -6 -5 -4 -1 2 3]
-)                                                 ; (8  7   4  -2  -8 -11 -12 -11 -8 -2  4 7)
+	
+	[planetReflectMoveY 12] = [-6 -5 -4 -1 2 3 4 3 2 -1 -4 -5]
+)                                                
 
 (instance rm018 of Rm
 	(properties
@@ -78,17 +80,14 @@
 			setPri: 7
 		)
 		(mirrorShine init: hide: ignoreActors:)
+		
 
 		(if (not (gEgo has: INV_MARBLES))
-			(planet
-				init:
-				ignoreActors:
-				setPri: -1
-				xStep: 2
-				setCycle: Fwd
-				setScript: orbit
-			)
-			(sun init: ignoreActors: setPri: -1 setScript: sunShot)
+			(planet init: ignoreActors: setPri: -1 xStep: 2 setCycle: Fwd setScript: orbit)
+			(sun init: ignoreActors: setCycle: Walk xStep: 5 setPri: -1 setScript: sunShot)
+			
+			(sunMirror init: hide: ignoreActors: setCycle: Walk xStep: 5  setPri: 2)
+			(planetMirror init: hide: ignoreActors: xStep: 2 setCycle: Fwd setPri: 2 ignoreControl: ctlWHITE)
 		)
 		
 		(ProgramControl)
@@ -252,6 +251,7 @@
 				; Print(18 3 #width 280 #at -1 8)
 				(sun hide:)
 				(planet hide:)
+
 				(gEgo get: 9)
 				(gGame changeScore: 1)
 				(= gErth 1)
@@ -685,6 +685,18 @@
 				)
 			)
 		)
+		(if (& (sun onControl:) ctlSILVER)
+			(if (not (gEgo has: INV_MARBLES))
+				(sunMirror show:)
+				(planetMirror show:)	
+			else
+				(sunMirror hide:)
+				(planetMirror hide:)
+			)
+		else
+			(sunMirror hide:)
+			(planetMirror hide:)
+		)
 		(if (not (& (gEgo onControl:) ctlSILVER))
 			(gEgo mirrorEgoDispose:)
 		)
@@ -718,6 +730,9 @@
 				(if (<= (gEgo distanceTo: sun) 9)
 					(sunShot changeState: 2)
 				)
+				(if (<= (Wizard distanceTo: sunMirror) 9)
+					(sunShot changeState: 2)	
+				)
 			)
 		)
 	)
@@ -732,6 +747,13 @@
 				MoveTo
 				(+ (sun x?) [planetMoveX state])
 				(+ (sun y?) [planetMoveY state])
+				orbit
+		)
+		(planetMirror
+			setMotion:
+				MoveTo
+				(+ (sunMirror x?) [planetMoveX state])
+				(+ (sunMirror y?) [planetReflectMoveY state])
 				orbit
 		)
 	)
@@ -765,32 +787,20 @@
 				(cond 
 					((> (gEgo x?) (sun x?))    ; Ego on the Right
 						(if (> (sun x?) 95)
-							(sun
-								setCycle: Walk
-								xStep: 5
-								setMotion: MoveTo (- (sun x?) rando) (sun y?) sunShot
-							)
+							(sun setMotion: MoveTo (- (sun x?) rando) (sun y?) sunShot)
+							(sunMirror setMotion: MoveTo (- (sunMirror x?) rando) (sunMirror y?))
 						else
-							(sun
-								setCycle: Walk
-								xStep: 5
-								setMotion: MoveTo (+ (sun x?) rando) (sun y?) sunShot
-							)
+							(sun setMotion: MoveTo (+ (sun x?) rando) (sun y?) sunShot)
+							(sunMirror setMotion: MoveTo (+ (sunMirror x?) rando) (sunMirror y?))
 						)
 					)
 					((> (sun x?) 215) ; Ego on the Left
-						(sun
-							setCycle: Walk
-							xStep: 5
-							setMotion: MoveTo (- (sun x?) rando) (sun y?) sunShot
-						)
+						(sun setMotion: MoveTo (- (sun x?) rando) (sun y?) sunShot)
+						(sunMirror setMotion: MoveTo (- (sunMirror x?) rando) (sunMirror y?))
 					)
 					(else
-						(sun
-							setCycle: Walk
-							xStep: 5
-							setMotion: MoveTo (+ (sun x?) rando) (sun y?) sunShot
-						)
+						(sun setMotion: MoveTo (+ (sun x?) rando) (sun y?) sunShot)
+						(sunMirror setMotion: MoveTo (+ (sunMirror x?) rando) (sunMirror y?))
 					)
 				)
 			)
@@ -1010,6 +1020,21 @@
 (instance sun of Act
 	(properties
 		y 142
+		x 220
+		view 21
+	)
+)
+(instance planetMirror of Act
+	(properties
+		y 113
+		x 225
+		view 20
+	)
+)
+
+(instance sunMirror of Act
+	(properties
+		y 113
 		x 220
 		view 21
 	)
