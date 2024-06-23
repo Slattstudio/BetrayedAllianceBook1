@@ -15,13 +15,13 @@ We're sorry, but there is nothing we can do about this. It's the nature of how s
 * Walking down in Maze cave after looting chest displays wrong view
 * "Cover, block" furnace should reply with a custom response
 * "Search floor" in storeroom should find greaves even if character not on the control color
-* Right-clicking on the mirror while the wizard is present but you aren’t near it just says "you aren’t close enough."
+* Right-clicking on the mirror while the wizard is present but you aren't near it just says "you aren't close enough."
 * Ego mentions "open shackles" to Julyn, but those are no longer in the new picture - change to stand near the lever.
 * Description of STUPID kit mention items will be used automatically by player when you need them
 * "Look symbol" in graveyard does not compute
-* "Push sarcophagus" doesn’t computer - hint at using a shovel
+* "Push sarcophagus" doesn't compute - hint at using a shovel
 * Add "13?" image on the drawing of the block puzzle
-* "Enter" buildings doesn’t seem to compute
+* "Enter" buildings doesn't seem to compute
 * IQ test should be lowered from 100 to 60
 * Add "winch" to vocab
 * "Look" "search" "take" letters in dock should all have different responses
