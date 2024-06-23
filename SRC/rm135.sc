@@ -81,9 +81,10 @@
 		(= state mainState)
 		(switch state
 			(0)
-			(1
+			(1	; going up the stepms
 				(ProgramControl)
 				(gEgo setMotion: MoveTo 294 128 RoomScript)
+				(= goingUpSteps 1)
 			)
 			(2
 				(gEgo setMotion: MoveTo 273 77 RoomScript)
@@ -92,8 +93,9 @@
 				(gEgo setMotion: MoveTo 279 77 RoomScript)
 			)
 			(4 (gRoom newRoom: 109))
+			
 			(5
-				(= goingUpSteps 1) ; technically this doesn't make sense, but this is just a trigger to ignore ctlGREY
+				(= goingUpSteps 2)	; going down
 				(ProgramControl)
 				(gEgo setMotion: MoveTo 273 77 RoomScript)
 			)
@@ -112,6 +114,42 @@
 	
 	(method (handleEvent pEvent)
 		(super handleEvent: pEvent)
+		
+		(if (== (pEvent type?) evJOYSTICK)
+			(if (or (== (pEvent message?) 7) (== (pEvent message?) 6) (== (pEvent message?) 5)) ; If pressed the LEFT arrow ; LEFT/DOWN diagonal button ; DOWN
+				(if (== goingUpSteps 1)
+					(++ goingUpSteps)	; set goingUpSteps to 2
+					(switch (self state:)
+						(1
+							(self changeState: 7)
+						)
+						(2
+							(self changeState: 6)
+						)
+						(3
+							(self changeState: 5)
+						)
+					)			
+				)
+			)
+			(if (or (== (pEvent message?) 1) (== (pEvent message?) 2) (== (pEvent message?) 3)) ; Up, right, or right/up
+				(if (== goingUpSteps 2)
+					(-- goingUpSteps)	; set goingUpSteps to 1
+					(switch (self state:)
+						(5
+							(self changeState: 3)
+						)
+						(6
+							(self changeState: 2)
+						)
+						(7
+							(self changeState: 1)
+						)
+					)			
+				)
+			)
+		)
+		
 		(if (== (pEvent type?) evMOUSEBUTTON)
 			(if (& (pEvent modifiers?) emRIGHT_BUTTON)
 				(cond 
@@ -267,9 +305,9 @@
 			)
 		)
 		(if (Said 'search/floor,ground') 
-			(if (== (gEgo onControl:) ctlMAROON)
+			(if (or (& (gEgo onControl:) ctlMAROON) (& (gEgo onControl:) ctlRED))
 				(if (not [gArmor 1])
-					(getGreaves)
+					(climbScript changeState: 5) ; bend over to get greaves animation
 				else
 					(PrintOther 135 8)
 				)	
@@ -591,10 +629,30 @@
 				(PrintOther 135 6)	
 				(PrintOther 135 7)	
 			)
+				; searching the floor
+			(5
+				(ProgramControl)
+				(= hitGreaves 1)
+				(gEgo setMotion: MoveTo 100 155 self)	; move to the right of the glimmer	
+			)			
+			(6	; bend over to get greaves
+				(gEgo hide:)
+				(alterEgo show: posn: (gEgo x?)(gEgo y?) view: 232 loop: 1 cel: 0 setCycle: End self cycleSpeed: 2)
+			)
+			(7	(= cycles 5)
+				(getGreaves)	
+			)
+			(8	; stand back up
+				(alterEgo setCycle: Beg self)		
+			)
+			(9
+				(PlayerControl)
+				(alterEgo hide:)
+				(gEgo show: loop: 1)	
+			)
 		)
 	)
 )
-                                 ; technically this doesn't make sense, but this is just a trigger to ignore ctlGREY
 (procedure (PrintOther textRes textResIndex)
 	(Print textRes textResIndex #width 280 #at -1 10)
 )

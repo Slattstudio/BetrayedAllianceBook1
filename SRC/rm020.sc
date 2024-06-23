@@ -47,6 +47,7 @@
 		(RunningCheck)
 		(soldier1 init: setScript: soldierScript ignoreActors:)
 		(soldier2 init: setScript: soldierDown)
+					
 		(self setScript: RoomScript setRegions: 204)
 		(switch gPreviousRoomNumber
 			(103
@@ -61,11 +62,7 @@
 						(= side 1)
 					)
 					(= deadMan 1)
-					(deadSoldier
-						init:
-						posn: (gEgo x?) (+ (gEgo y?) 3)
-						ignoreActors:
-					)
+					
 					(soldier1 init: hide:)
 					(soldierProp1 init: z: countdown ignoreActors: setPri: 6)
 					(soldierProp2 init: z: countdown ignoreActors: setPri: 6)
@@ -108,17 +105,20 @@
 			(21
 				(gEgo posn: 282 150 loop: 1)
 				(RoomScript changeState: 1)
+				(= g20PileOfBodies 0)
 				(= side 2)
 			)
 			(25
 				(gEgo posn: 35 150 loop: 0)
 				(RoomScript changeState: 1)
+				(= g20PileOfBodies 0)
 				(= side 1)
 			)
 			(else 
 				(gEgo posn: 35 150 loop: 0)
 			)
 		)
+		(deadSoldier init: posn: (gEgo x?) (+ (gEgo y?) 3) cel: g20PileOfBodies)
 	)
 )
 
@@ -208,7 +208,13 @@
 						(> (pEvent y?) (deadSoldier nsTop?))
 						(< (pEvent y?) (deadSoldier nsBottom?))
 					)
-					(PrintOther 20 34)
+					(if (== g20PileOfBodies 1)
+						(PrintOther 20 34)
+					else
+						(if (> g20PileOfBodies 1)
+							(PrintOther 20 42)
+						)
+					)
 				)
 				(if
 					(==
@@ -263,14 +269,24 @@
 			)
 		)
 		(if (Said 'look>')
-			(if (Said '/soldier,man') (PrintOther 20 33))
+			(if (Said '/soldier,guard,man') (PrintOther 20 33))
 			(if (Said '/castle') (PrintOther 20 35))
 			(if (Said '/mountain') (PrintOther 20 37))
 			(if (Said '[/!*]') (PrintOther 20 30))
 		; this will handle just "look" by itself
 		)
-		(if (Said 'search,examine/body,body')
-			(if deadMan (PrintOther 20 38) else (PrintOther 20 39))
+		(if (Said 'look,search,examine/body')
+			(if deadMan
+				(if (== g20PileOfBodies 1)
+					(PrintOther 20 34)
+				else
+					(if (> g20PileOfBodies 1)
+						(PrintOther 20 42)
+					)
+				)
+			else 
+				(PrintOther 20 39)
+			)
 		)
 	)
 )

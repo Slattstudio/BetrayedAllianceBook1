@@ -74,7 +74,7 @@
 			clTRANSPARENT
 		)
 		(Display
-			{- v.1.3.2}
+			{- v.1.3.3}
 			dsFONT
 			4
 			dsCOORD

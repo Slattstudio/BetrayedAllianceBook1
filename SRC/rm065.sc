@@ -25,6 +25,7 @@
 	sarahGone =  0
 	; snd
 	falling =  0
+	squirrelStationary = 0
 )
 
 (instance rm065 of Rm
@@ -106,6 +107,33 @@
 			(3
 				(PrintOther 65 15) ; #width 280 #at -1 20)
 				(= [g65Grove 0] 2)
+			)
+			; petting squirrel
+			(4
+				(ProgramControl)
+				(SetCursor 997 (HaveMouse))
+				(= gCurrentCursor 997)
+				
+				(gEgo setMotion: MoveTo (- (squirrel x?) 15) (squirrel y?) self ignoreControl: ctlWHITE)	
+			)
+			(5
+				(gEgo hide:)
+				(actionEgo show: view: 232 posn: (gEgo x?)(gEgo y?) setCycle: End self cycleSpeed: 2)
+				(squirrel loop: 1)		
+			)
+			(6	(= cycles 6)
+				(PrintOther 63 20)	
+			)
+			(7
+				(actionEgo setCycle: Beg self)	
+			)
+			(8
+				(actionEgo hide:)
+				(gEgo show: loop: 0 observeControl: ctlWHITE)
+
+				(PlayerControl)
+				(SetCursor 999 (HaveMouse))
+				(= gCurrentCursor 999)	
 			)
 		)
 	)
@@ -196,6 +224,17 @@
 						)
 					)
 				)
+			)
+		)
+		(if (Said 'touch/squirrel,animal,creature')
+			(if squirrelStationary
+				(if (<= (gEgo distanceTo: squirrel) 45)
+					(RoomScript changeState: 4)
+				else
+					(PrintNCE)
+				)	
+			else
+				(PrintCantDoThat)
 			)
 		)
 		(if (or (Said 'listen[/!*]')
@@ -406,7 +445,10 @@
 			(2
 				(squirrel setMotion: MoveTo 258 175 squirrelScript)
 			)
-			(3 (squirrel loop: 1 cel: 0))
+			(3 
+				(squirrel loop: 1 cel: 0)
+				(= squirrelStationary 1)
+			)
 		)
 	)
 )

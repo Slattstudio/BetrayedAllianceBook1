@@ -201,11 +201,7 @@
 						(< (pEvent y?) 42)
 					)
 					(Print 26 4 #width 280 #at -1 8)
-				)                                   ; Over the rock face is an entrance. The wall looks too steep to climb, however, so there must be a different way in.
-; (if((> (send pEvent:x) 290)and // towards the graveyard
-;                    (< (send pEvent:x) 319)and
-;                    (> (send pEvent:y) 62)and
-;                    (< (send pEvent:y) 189))
+				)
 				(if
 					(==
 						ctlWHITE
@@ -262,7 +258,7 @@
 				)
 				((== (gEgo onControl:) ctlGREY) (LadderScript changeState: 9))
 				((== (gEgo onControl:) ctlGREY) (PrintOther 26 0))
-				(else (PrintNCE))
+				(else (PrintOther 26 13))
 			)
 		)
 	)

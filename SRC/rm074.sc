@@ -204,7 +204,7 @@
 				)
 			)
 		)
-		(if (Said 'take,remove,tear/poster,notice,paper')
+		(if (Said 'take,remove,tear/poster,notice,paper,note')
 			(if (not (or canAttack gFollowed))
 				(if (not g74Poster)	
 					(if (& (gEgo onControl:) ctlSILVER)
@@ -232,7 +232,7 @@
 			)
 		)
 		(if (Said 'look>')
-			(if (Said '/rock') (PrintOther 74 4))
+			(if (Said '/rock') (PrintOther 74 18))
 			(if (Said '/mountain') (PrintOther 74 3))
 			(if (Said '/soldier,man,body')
 				(cond 
@@ -524,6 +524,7 @@
 		x 135
 		view 322
 		loop 4
+		cel 1
 	)
 )
 (instance poster of Prop

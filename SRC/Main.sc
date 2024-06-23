@@ -102,7 +102,7 @@
 	gMarbleNum =  0 ; Since Saturn not in game, this is the total number of marbles
 	gUra =  0   ; rm 62 dockhouse
 	gNep =  0   ; rm 60 well
-	gPlu =  0   ; rm 58 cavner of whispers
+	gPlu =  0   ; rm 58 cavern of whispers
 ; Way Point Variables
 	gWizRm =  0
 	gFrst =  0  ; being randomly used if you wore a disguise around Lex
@@ -156,7 +156,7 @@
 	gVertButton =  0
 	; gMatt = 0     /* If TRUE, Matt character will give hints in different areas */
 	gFollowed =  0
-; If TRUE, an emeny is following gEgo from across rooms
+; If TRUE, an enemy is following gEgo from across rooms
 	gDartsWon =  0 
 ; If greater than 4, sailor will not play darts with you anymore
 	gWB =  900
@@ -176,6 +176,7 @@
 	gListened = 71	; when 74 (listened to ghost) three times, death
 
 	g20Entered =  0
+	g20PileOfBodies =  0  ; cel number equal to number of defeated enemies (up to 7)
 	g23Kissed =  0
 	g26Ladder =  0
 	g26Intro =  0

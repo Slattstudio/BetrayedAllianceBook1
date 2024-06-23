@@ -128,7 +128,10 @@
 					(grave show:)
 					(table show:)
 					(gears show:)
-					(if (or (gEgo has: INV_METAL_BAR) g70Safe)
+					(if (or 
+							(gEgo has: INV_METAL_BAR)
+							(gEgo has: INV_GLIDER)  
+							g70Safe)
 						(locker
 							loop: 1
 							cel: 3
@@ -471,7 +474,7 @@
 			(cond 
 				((<= (gEgo distanceTo: table) 40) (self changeState: 2))
 				((<= (gEgo distanceTo: grave) 40) (self changeState: 5))
-				((or (gEgo has: INV_METAL_BAR) g70Safe) (self changeState: 9))
+				((or (gEgo has: INV_METAL_BAR) (gEgo has: INV_GLIDER) g70Safe) (self changeState: 9))
 				(else (PrintNCE))
 			)
 		)
@@ -479,14 +482,15 @@
 			(Said
 				'open,(pick<up),take,pull/bar,handle,locker,cabinet,door'
 			)
-			(if (not (gEgo has: 3))
+			(if (or (gEgo has: INV_METAL_BAR)
+				(gEgo has: INV_GLIDER))
 				(if (<= (gEgo distanceTo: locker) 40)
 					(barScript changeState: 1)
 				else
 					(PrintNCE)
 				)
 			else
-				(PrintOther 70 9)
+				(PrintOther 70 55)
 			)
 		)
 		(if (or (Said 'dig') (Said 'use/shovel'))
@@ -801,6 +805,8 @@
 			)
 			(5
 				(PrintOther 70 17) ; opening complete!
+				(= g70Safe 1)
+				
 				(PlayerControl)
 				(SetCursor 999 (HaveMouse))
 				(= gCurrentCursor 999)

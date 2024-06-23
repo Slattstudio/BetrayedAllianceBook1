@@ -136,16 +136,20 @@
 			)
 			(4
 				(FormatPrint
-					{After what seemed like an eternity you finish your exam. Your score is %u out of 100.}
+					{After what seemed like an eternity you finish your exam. Your score is %u out of 60.}
 					gInt
 				)
 				(if (> gInt 0)
 					(if (not (gEgo has: 14))
 						(gEgo get: 14)
-						(PrintHans 46 6) ; #title "Librarian:" #width 280 #at -1 20)
+						(PrintHans 46 6)						
 						(= gWndColor 1)
 						(= gWndBack 11)
-						(Print 46 7 #title {Librarian:} #at -1 20 #icon 266)
+						(if (< gInt 20)
+							(Print 46 7 #title {Librarian:} #at -1 20 #icon 266)
+						else
+							(Print 46 116 #title {Librarian:} #at -1 20 #icon 266)
+						)
 						(= gWndColor 0)
 						(= gWndBack 15)
 						(gGame changeScore: 1)
@@ -164,7 +168,7 @@
 						(if (> gInt 34)
 							(if (not [gArmor 3])
 								(PrintHans 46 39) ; #title "Librarian:" #width 280 #at -1 20)
-								(Print 46 102 #title {Armor Bonus:} #icon 277 1)
+								(Print 46 102 #title {Armor Bonus:} #icon 277 3)
 								(= gStr (+ gStr 3))
 								(= gDef (+ gDef 5))
 								(= [gArmor 3] 1)
@@ -280,19 +284,7 @@
 				(gEgo loop: 1)
 			)
 			(13
-				(Print
-					46
-					90
-					#title
-					{The Arcane Symbol:}
-					#width
-					120
-					#at
-					-1
-					-1
-					#font
-					4
-				)
+				(Print 46 90 #title {The Arcane Symbol:} #width 164 #at 70 -1 #font 4 #icon 168)
 				(gEgo setMotion: MoveTo 35 167 self)
 			)
 			(14
@@ -564,6 +556,9 @@
 				(bookCheck)
 			)
 			(if (Said '/exam,test') (PrintHans 46 1)) ; #title "Librarian:" #width 280 #at -1 20)
+			(if (Said '/healing,potion') 
+				(PrintHans 46 115)
+			)
 			(if (Said '/prize,reward') (PrintHans 46 2)) ; #title "Librarian:" #width 150 #at -1 20)
 			(if (Said '/weights,lifting,gym') (PrintHans 46 107))
 			(if (Said '/volume,book')
@@ -609,7 +604,7 @@
 		(if (Said 'take,(pick<up)>')
 			(if (Said '/book') (PrintOther 46 88))
 		)
-		(if (Said 'take/exam,test')
+		(if (Said 'take,start/exam,test')
 			(if
 				(or
 					(& (gEgo onControl:) ctlMAROON)

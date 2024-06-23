@@ -743,6 +743,8 @@
 						(PrintMan 44 33)
 						(gRoom newRoom: 111)
 					)
+				else
+					(Print 44 34)
 				)
 			else
 				(PrintNCE)
@@ -751,13 +753,6 @@
 		(if (Said 'play') (PrintOther 44 67))
 	)
 	
-; (if( (Said('climb')) or (Said('use/ladder')) )
-;           (if(== (send gEgo: onControl()) ctlSILVER)
-;                    (LadderScript:changeState(3))
-;            )(else
-;                PrintNCE()
-;            )
-;       )
 	(method (doit)
 		(super doit:)
 		(if boardOpen

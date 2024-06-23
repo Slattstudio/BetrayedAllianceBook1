@@ -16,17 +16,12 @@
 )
 
 (local
-
-; West Fence for N Castle
-
-
-
-	; (use "sciaudio")
+	
 	talking =  0
 	arrows =  0
 	asked =  0
+	enteredRunning = 0
 )
-; snd
 
 (instance rm023 of Rm
 	(properties
@@ -37,19 +32,12 @@
 	(method (init)
 		(super init:)
 		(self setScript: RoomScript setRegions: 204)
-; setRegions(200)
 		(switch gPreviousRoomNumber
 			(else 
 				(gEgo posn: 10 134 loop: 0)
 			)
 		)
-; = snd aud (send snd:
-;                    command("playx")
-;                    fileName("music\\leah.mp3")
-;                    volume("70")
-;                    loopCount("0")
-;                    init()
-;                )
+
 		(SetUpEgo)
 		(gEgo init:)
 		(RunningCheck)
@@ -163,7 +151,6 @@
 			)
 		)
 		(if (Said 'kiss/woman,leah,her') (PrintOther 23 31))
-		; Print(23 31 #width 290  #at -1 12)
 		(if (Said 'climb,jump/fence') (PrintOther 23 45))
 		(if (Said 'take,ride/horse') (PrintOther 23 87))
 		(if
@@ -337,6 +324,7 @@
 					; Print(23 22 #width 290 #at -1 12 #title "She says:")
 					(if (Said '/king') (PrintLeah 23 23))
 					(if (Said '/cave') (PrintLeah 23 49))
+					(if (Said '/healing,potion') (PrintLeah 23 94))
 					(if (Said '/(life<new)') (PrintLeah 23 79))
 					(if (Said '/ogre') (PrintLeah 23 50) (PrintLeah 23 51))
 					(if (Said '/graveyard,sarcophagus,grave')
@@ -403,6 +391,9 @@
 				(= cycles 7)
 				(if (not g23Kissed)
 					(ProgramControl)
+					(if gEgoRunning
+						(= enteredRunning 1)	
+					)
 					(= gEgoRunning 0)
 					(RunningCheck)
 				)
@@ -512,19 +503,23 @@
 			)
 			(7
 				(= cycles 12)
-				(PrintLeah 23 32) ; #width 290 #at -1 12 #title "She says:")
+				(PrintLeah 23 32) 
 				(PrintLeah 23 33)
-			)                    ; #width 290 #at -1 12 #title "She says:")
+			)                   
 			(8
 				(= cycles 1)
-				(PrintLeah 23 34) ; #width 150 #at -1 12 #title "She says:")
+				(PrintLeah 23 34)
 				(PlayerControl)
 				(= gWndColor 0) ; clYELLOW
 				(= gWndBack 14) ; clDARKBLUE
 				(Print 23 80 #font 4 #title {Asking questions:} #at 140 -1 #width 120 #button {Ok} )
 				(= gWndColor 0) ; clBLACK
 				(= gWndBack 15)
-			)                     ; clWHITE
+				(if enteredRunning
+					(= gEgoRunning 1)
+					(RunningCheck)	
+				)
+			)                   
 			(9
 				(= talking 1)
 				(dialogScript changeState: 1)

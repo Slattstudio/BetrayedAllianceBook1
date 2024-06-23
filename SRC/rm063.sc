@@ -55,7 +55,7 @@
 	movingTwo =  0
 	
 	cutScene = 0 ; = 1 when giving acorn, = 2 when petting squirrel
-)                 ; Used to make sure the squirrel stops when ego stops during mimic
+)            
 
 (instance rm063 of Rm
 	(properties
@@ -255,15 +255,17 @@
 				(if (== (IsOwnedBy INV_ACORN 63) FALSE)
 					(PrintOther 63 12)
 				)
-			)                         ; #width 280 #at -1 20)
+			)              
 			(if (Said '/ground,panel') (PrintOther 63 1))
-			(if (Said '/arrow') (PrintOther 63 1))  
-			(if (Said '/mountain')
+			(if (Said '/arrow')
 				(PrintOther 63 28)
 				(if (not g63PuzSol)
 					(PrintOther 63 29)	
-				)
-			) ; #width 280 #at -1 8)
+				)	
+			)  
+			(if (Said '/mountain')
+				(PrintOther 63 2)
+			)
 			(if (Said '/stone,message,sign')
 				(= gWndColor 0)
 				(= gWndBack 7)
@@ -271,9 +273,9 @@
 				(= gWndColor 0)
 				(= gWndBack 15)
 			)
-			(if (Said '/tile') (PrintOther 63 13)) ; #width 280 #at -1 8)
+			(if (Said '/tile') (PrintOther 63 13))
 			(if (Said '/pillar') (PrintOther 63 26))
-			(if (Said '/door')
+			(if (Said '/door,wall')
 				(if g63PuzSol 
 					(PrintOther 63 27)
 				else
@@ -451,9 +453,11 @@
 					)
 				)
 			)
+			(gEgo observeControl: ctlWHITE)
 		else
 			(squirrel setMotion: NULL)
 			(squirrel cel: 0)
+			(gEgo ignoreControl: ctlWHITE)
 		)
 
 		(if (& (gEgo onControl:) ctlCYAN) (gRoom newRoom: 72))

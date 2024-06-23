@@ -44,7 +44,7 @@
 		)
 		(AddMenu
 			{ Speed_}
-			{Change...`^s:--!:Faster`+:Normal`=:Slower`-Music}
+			{Change...`^s:--!:Faster`+:Normal`=:Slower`-}
 		)
 		(if (DoSound sndSET_SOUND)
 			(AddMenu { %_} {Volume...`^v:Turn Off`#2=1})
@@ -237,6 +237,7 @@
 			)
 			(MENU_NOTES
 				(= gVertButton 1)
+				(= button 1)
 				(while (> button 0)
 					(= button
 						(Print
@@ -361,7 +362,7 @@
 						higher: {Louder}
 						lower: {Softer}
 						normal: 15
-						doit: (DoSound sndVOLUME newVolume)
+						doit: (DoSound sndVOLUME)
 					)
 				)
 				(DoSound sndVOLUME newVolume)
