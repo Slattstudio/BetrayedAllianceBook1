@@ -410,7 +410,7 @@
 				)
 			)
 		)
-		
+
 		(if (Said 'read,open/book')
 			(if (and (& (gEgo onControl:) ctlSILVER) (== (gEgo loop?) 2)) ; in front of blue book
 				(PrintOther 18 91)		
