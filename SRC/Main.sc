@@ -601,7 +601,7 @@
 		)
 		
 		; Add global said statements here
-		(if (Said 'drink/secret,breath')
+		(if (Said 'qa')
 			(if devTools
 				(= devTools 0)
 			else
