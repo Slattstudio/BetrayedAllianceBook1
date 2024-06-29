@@ -43,9 +43,6 @@
 )
 
 (local
-
-
-
 ; These are the global variables. You can access them from any script as long
 ; as it "use"es this script
 
@@ -54,7 +51,11 @@
 ; dIntFin = 0
 ;    dCasObj = 0
 ;    dDkRm = 1
+
 ; BETRAYED ALLIANCE VARIABLES
+
+; Enable/Disable devtools
+	devTools = 1
 ; + Player Character Stats +
 	[gName 15] ; Once the name is determined by the player it can be used in texts using %s
 	gAg =  15
@@ -533,41 +534,82 @@
 	(method (changeScore addScore)
 		(= gScore (+ gScore addScore))
 	)
-	
-	(method (handleEvent pEvent &tmp i)
-		; troflip debugging addition, For use in combination with the ALT key
-		;(if (== evKEYBOARD (pEvent type?))
-		;	(switch (pEvent message?)
-		;		($2f00 (Show 1))     ; alt-v -> Show visual screen
-		;		($2e00 (Show 4))     ; alt-c -> Show control screen
-		;		($1900 (Show 2))     ; alt-p -> Show priority screen
-		;		($1400
-		;			(gRoom newRoom: (GetNumber {Room Number?}))
-		;		)                                                            ; alt-t -> teleport to room
-		;		($1700
-		;			(gEgo get: (GetNumber {Which Item?}))
-		;		)                                                      ; alt-i -> get inventory
-		;		($1f00
-		;			(gCast eachElementDo: #showSelf)
-		;		)                                                  ; alt-s -> Show cast
-		;		($3200
-		;			(ShowFree)         ; alt-m -> Show memory usage
-		;			(FormatPrint
-		;				{Free Heap: %u Bytes\nLargest ptr: %u Bytes\nFreeHunk: %u KBytes\nLargest hunk: %u Bytes}
-		;				(MemoryInfo miFREEHEAP)
-		;				(MemoryInfo miLARGESTPTR)
-		;				(>> (MemoryInfo miFREEHUNK) 6)
-		;				(MemoryInfo miLARGESTHUNK)
-		;			)
-		;		)
-		;	)
-		;)             ; end formatprint ; end case $3200 ; end switch ; end if keyboard event
-		; and now back to the normal script, You may want to delete all this bit upon release!*/
+
+	(method (handleEvent pEvent inputNumber &tmp i)
+		; //////////////////////////////////////////////////
+		; Begin devtools functionality                    //
+		; //////////////////////////////////////////////////
+		(if devTools 
+			(if (== evKEYBOARD (pEvent type?))
+				(switch (pEvent message?)
+					($2f00 (Show 1))	; alt-v -> Show visual screen
+					($2e00 (Show 4))	; alt-c -> Show control screen
+					($1900 (Show 2))	; alt-p -> Show priority screen
+					($1300 	 			; alt-r -> Show room number
+						(FormatPrint {Room %u} gRoomNumber)
+					)
+					($1400				; alt-t -> teleport to room
+						(= inputNumber
+							(GetNumber {Room Number?})
+						)
+						(if (or (and (> inputNumber 17)	; between these numbers
+								 	 (< inputNumber 77))
+								; or between these numbers (or 135)
+								(== inputNumber 135)
+								(and (> inputNumber 98)
+								 	 (< inputNumber 112))
+							)
+							(gRoom newRoom: inputNumber)
+						else
+							(FormatPrint {Room %u is invalid} inputNumber)
+						)
+					)
+					($1700				; alt-i -> get inventory
+						(= inputNumber
+							(GetNumber {Item Number?})
+						)
+						(if (and (> inputNumber 0)	; between these numbers
+								 (< inputNumber 28))
+							(gEgo get: inputNumber)
+						else
+							(FormatPrint {Item %u is invalid} inputNumber)
+						)
+					)                                                      
+					($1f00				; alt-s -> Show cast
+						(gCast eachElementDo: #showSelf)
+					)
+					($3200				; alt-m -> Show memory usage
+						(ShowFree)
+						(FormatPrint
+							{Free Heap: %u Bytes\nLargest ptr: %u Bytes\nFreeHunk: %u KBytes\nLargest hunk: %u Bytes}
+							(MemoryInfo miFREEHEAP)
+							(MemoryInfo miLARGESTPTR)
+							(>> (MemoryInfo miFREEHUNK) 6)
+							(MemoryInfo miLARGESTHUNK)
+						)
+					)
+				)
+			)
+		)	
+		; //////////////////////////////////////////////////
+		; End devtools functionality                      //
+		; //////////////////////////////////////////////////
 		(super handleEvent: pEvent)
 		(if
 		(or (!= (pEvent type?) evSAID) (pEvent claimed?))
 			(return TRUE)
 		)
+		
+		; Add global said statements here
+		(if (Said 'drink/secret,breath')
+			(if devTools
+				(= devTools 0)
+			else
+				(= devTools 1)
+			)
+			(FormatPrint {devTools %u} devTools)
+		)
+
 		;(if (Said 'look/kit') (PrintOK))
 		(if (Said 'look>')
 			(cond
@@ -577,8 +619,7 @@
 					else
 						(PrintDHI)
 					)
-				)
-				
+				)			
 			)
 		)
 		
