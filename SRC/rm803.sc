@@ -66,7 +66,7 @@
 			4
 			dsCOORD
 			;85
-			71
+			65
 			173
 			dsCOLOUR
 			9          ; grey
@@ -74,12 +74,12 @@
 			clTRANSPARENT
 		)
 		(Display
-			{- v.1.3.3}
+			{- v.1.3.3.1}
 			dsFONT
 			4
 			dsCOORD
 			;117
-			103
+			97
 			173
 			dsCOLOUR
 			1          ; dark blue
