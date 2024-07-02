@@ -482,8 +482,7 @@
 			(Said
 				'open,(pick<up),take,pull/bar,handle,locker,cabinet,door'
 			)
-			(if (and (not (gEgo has: INV_METAL_BAR))
-				(not (gEgo has: INV_GLIDER)))
+			(if (not safeOut)
 				(if (<= (gEgo distanceTo: locker) 40)
 					(barScript changeState: 1)
 				else
