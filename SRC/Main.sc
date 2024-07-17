@@ -40,6 +40,7 @@
 	RunningCheck 16
 	IsOwnedBy 17
 	viewBooks 18
+	proc0_20 20
 )
 
 (local
@@ -53,6 +54,22 @@
 ;    dDkRm = 1
 
 ; BETRAYED ALLIANCE VARIABLES
+
+	global1
+	global100
+	global101
+	global102
+	global103
+	global104
+	global105
+	global108
+	global111
+	global112
+	global118
+	global119
+	global123
+	global146
+	global221
 
 ; Enable/Disable devtools
 	devTools = 1
@@ -932,6 +949,15 @@
 
 ;
 ; * THE PUBLIC PROCEDURES
+(procedure (proc0_20 param1)
+	(= [global111 (/ param1 16)]
+		(&
+			[global111 (/ param1 16)]
+			(~ (>> $8000 (mod param1 16)))
+		)
+	)
+)
+
 (procedure (SetUpEgo theLoop theView)
 	(PlayerControl)
 	(= gDisguised 0)

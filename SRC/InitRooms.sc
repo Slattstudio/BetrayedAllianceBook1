@@ -20,7 +20,9 @@
 )
 
 
-
+(local
+	local0
+)
 
 (instance InitRooms of Rm
 	(properties
@@ -61,14 +63,35 @@
 	
 	(method (doit)
 		(super doit:)
-		(gGame setSpeed: 3)
-		(= gTimeSeconds 0)
-		(= gTimeMinutes 0)
-		(= gTimeHours 0)
-		(= gEgoView 0)
-		(TheMenuBar draw:)
-		(SL enable:)
-		; (send gRoom:newRoom(9))
-		(gRoom newRoom: 803)
+		(if (== (++ global123) 1)
+		    (= local0 (+ 60 (GetTime)))
+		)
+		(if (< local0 (GetTime))
+		    (if global100
+		        (gGame setSpeed: 2)
+		    else
+		        (gGame setSpeed: 6)
+		    )
+		; . . .
+		    (if (> (DoSound sndCHECK_DRIVER) 3)
+		        (= global108 -1)
+		    else
+		        (= global108 1)
+		    )
+		    (= global112 0)
+		    (= global221 5)
+		    (= global103 0)
+		    (= global104 0)
+		    (= global105 0)
+		    (= global146 20)
+		    (= global102 718)
+		    (= global101 19)
+		    (= global118 (Format @global119 028 1))
+		    (proc0_20 4)
+		    (proc0_20 3)
+		    (TheMenuBar draw:)
+		    (SL enable:)
+		    (gRoom newRoom: 803) ; ring title screen
+		)
 	)
 )
