@@ -44,7 +44,7 @@
 	oHealth             ; Variable for the Opponent's life total
 	oHealthBarVar       ; Same as with pHealthBarVar, but for the opponent
 	oCrippled =  0      ; Variable allows only for opponent to be "crippled" once, after three shots to the legs
-	playerDeath =  0    ; Used to prevent doit method from changing a state indefinately when player dies
+	playerDeath =  0    ; Used to prevent doit method from changing a state indefinitely when player dies
 	opponentDeath =  0  ; ^^ same idea
 	; opponentAttack = 0  //
 	monsterPower        ; Variable whose value determines the damage opponent does, based from the gBattleNumber

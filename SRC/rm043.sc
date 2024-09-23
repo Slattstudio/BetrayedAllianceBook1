@@ -134,7 +134,7 @@
 						(< (pEvent y?) 51)
 					)
 					(PrintOther 43 0)
-				)                    ; "Over the hill is a tiny hut. The smoky aroma of cooking meat is noticable even from here." #at -1 28)
+				)                    ; "Over the hill is a tiny hut. The smoky aroma of cooking meat is noticeable even from here." #at -1 28)
 				(if
 					(and
 						(> (pEvent x?) 93)        ; hill

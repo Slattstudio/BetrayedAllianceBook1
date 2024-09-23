@@ -234,7 +234,7 @@
 				(Print 26 9 #width 280 #at -1 8)
 			)                                   ; What can I say, geology jokes have their faults.
 			(if (Said '[/!*]') (Print 26 10 #width 280 #at -1 8))
-			; this will handle just "look" by itself ; On the clearing you see a dead tree opening up to the cemetary and overhead there is a cave entrance. The faint sound a falling water drifts to your ears.
+			; this will handle just "look" by itself ; On the clearing you see a dead tree opening up to the cemetery and overhead there is a cave entrance. The faint sound a falling water drifts to your ears.
 		)                                        ; There's nothing interesting about it.
 		;(if (Said 'show/ladder') (LadderScript changeState: 1))
 		(if (Said 'listen')

@@ -166,7 +166,7 @@
 			)
 			(5
 				(Print 50 2 #width 280 #at -1 20)
-			)                                    ; Your makeshift glider drops you off right in from of what you think is a door with nine wierd panels on it.
+			)                                    ; Your makeshift glider drops you off right in front of what you think is a door with nine weird panels on it.
 			(6       ; going up and down the stairs
 				(ProgramControl)
 				(SetCursor 997 1)

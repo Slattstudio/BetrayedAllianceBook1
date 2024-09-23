@@ -66,7 +66,7 @@
 			)
 ; Wait, that's Mark! I hired him!
 			(if (Said '/prisoner') (Print 54 3) (Print 54 4))
-; No mattress for you, huh? Guess it does pay to devote your allegience to the King.
+; No mattress for you, huh? Guess it does pay to devote your allegiance to the King.
 ; At least when you get locked up you get something comfy.
 			(if (Said '/moon,window,sky,outside') (Print 54 5))
 ; Yep, there's a moon out there.

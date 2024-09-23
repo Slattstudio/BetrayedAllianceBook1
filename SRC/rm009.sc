@@ -67,7 +67,7 @@
 				(= gWndColor 5)
 				(= gWndBack 13)
 				(Print
-					{This update for Betrayed Alliance Book 1 is not complete. This is a limited release to patrons and backers.\n\nIf you have recieved this game in any other way, you will be prosecuted for breaking copyright.}
+					{This update for Betrayed Alliance Book 1 is not complete. This is a limited release to patrons and backers.\n\nIf you have received this game in any other way, you will be prosecuted for breaking copyright.}
 					#font
 					0
 					#title

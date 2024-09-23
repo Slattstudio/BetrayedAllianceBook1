@@ -149,7 +149,7 @@
 			)
 			(if (Said '/graveyard,grave,headstone')
 				(Print
-					{It's a grey, still, and unnerving place. There are many gravestones of prominant members of the Carmyle family.}
+					{It's a grey, still, and unnerving place. There are many gravestones of prominent members of the Carmyle family.}
 					#width
 					280
 					#at
